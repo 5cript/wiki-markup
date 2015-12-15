@@ -1,0 +1,4 @@
+obj/*
+bin/*
+*.depend
+wikimd_build_log.html
