@@ -2,7 +2,7 @@
 #define COMPONENTS_PARSER_PROPERTIES_HPP_INCLUDED
 
 #include "parser_core.hpp"
-#include "space.hpp"
+#include "basic.hpp"
 #include "unescaped_string.hpp"
 
 #include <utility>
@@ -20,6 +20,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
         properties_grammar() : properties_grammar::base_type(main, "properties")
         {
             using namespace common_usings;
+            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 
@@ -51,7 +52,6 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
         // Grammars
         unescaped_string_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD unescaped;
-        space_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD space;
     };
 
 } // Parser

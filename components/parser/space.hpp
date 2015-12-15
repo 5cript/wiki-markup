@@ -5,6 +5,7 @@
 
 namespace WikiMarkdown { namespace Components { namespace Parser
 {
+    /*
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct space_grammar : qi::grammar <Iterator>
     {
@@ -30,6 +31,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
         // Symbols
         qi::symbols<char const, char const> spaces;
     };
+    */
 
 } // Parser
 } // Components
