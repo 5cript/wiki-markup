@@ -1,5 +1,5 @@
-#ifndef COMPONENTS_HOLDERS_TABLE_CAPTION_HPP_INCLUDED
-#define COMPONENTS_HOLDERS_TABLE_CAPTION_HPP_INCLUDED
+#ifndef COMPONENTS_HOLDERS_TABLE_CELL_HPP_INCLUDED
+#define COMPONENTS_HOLDERS_TABLE_CELL_HPP_INCLUDED
 
 #include "adaption.hpp"
 
@@ -8,10 +8,11 @@
 
 namespace WikiMarkdown { namespace Components { namespace Holders {
 
-    struct TableCaptionData
+    struct TableCell
     {
-        std::string caption;
+        std::string data;
         std::map <std::string, std::string> attributes;
+        bool isHeaderCell; // faster than polymorphy
     };
 
 } // namespace Holders
@@ -20,10 +21,10 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkdown::Components::Holders::TableCaptionData,
-    (std::string, caption)
+    WikiMarkdown::Components::Holders::TableCell,
+    (std::string, data)
     (WikiMarkdown::Components::Holders::strmap_type, attributes)
+    (bool, isHeaderCell)
 )
 
-
-#endif // COMPONENTS_HOLDERS_TABLE_CAPTION_HPP_INCLUDED
+#endif // COMPONENTS_HOLDERS_TABLE_CELL_HPP_INCLUDED

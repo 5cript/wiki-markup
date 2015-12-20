@@ -3,3 +3,4 @@ bin/*
 *.depend
 wikimd_build_log.html
 *.layout
+*.save-failed

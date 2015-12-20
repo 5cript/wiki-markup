@@ -41,6 +41,16 @@ namespace WikiMarkdown { namespace Components { namespace Parser
         using qi::long_double;
         using qi::long_long;
         using qi::ulong_long;
+        using namespace qi::labels;
+
+        // phoenix
+        using phoenix::while_;
+        using phoenix::if_;
+        using phoenix::at_c;
+        using phoenix::push_back;
+		using phoenix::ref;
+		using phoenix::cref;
+
 
         // encoding dependent
         namespace ascii
@@ -55,13 +65,6 @@ namespace WikiMarkdown { namespace Components { namespace Parser
             using b_wide::char_;
             using b_wide::string;
         }
-
-        // phoenix stuff
-        using phoenix::at_c;
-        using phoenix::push_back;
-		using phoenix::ref;
-		using phoenix::cref;
-        using namespace qi::labels;
     }
 
     namespace qi_error

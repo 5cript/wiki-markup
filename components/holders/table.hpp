@@ -1,17 +1,20 @@
 #ifndef COMPONENTS_HOLDERS_TABLE_HPP_INCLUDED
 #define COMPONENTS_HOLDERS_TABLE_HPP_INCLUDED
 
-#include "table_caption.hpp"
+#include "adaption.hpp"
+#include "table_row.hpp"
 
 #include <string>
-#include <string>
+#include <map>
+#include <vector>
 
 namespace WikiMarkdown { namespace Components { namespace Holders {
 
-    struct TableData
+    struct Table
     {
-        TableCaptionData caption;
+        std::string caption;
         std::map <std::string, std::string> attributes;
+        std::vector <TableRow> rows;
     };
 
 } // namespace Holders
@@ -20,9 +23,10 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkdown::Components::Holders::TableData,
-    (WikiMarkdown::Components::Holders::TableCaptionData, caption)
+    WikiMarkdown::Components::Holders::Table,
+    (std::string, caption)
     (WikiMarkdown::Components::Holders::strmap_type, attributes)
+    (std::vector <WikiMarkdown::Components::Holders::TableRow>, rows)
 )
 
 #endif // COMPONENTS_HOLDERS_TABLE_HPP_INCLUDED

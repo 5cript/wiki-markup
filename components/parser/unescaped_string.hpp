@@ -29,13 +29,13 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
             unesc_str =
                     qi::lit("\"")
-                >> *(unesc_char | qi::alnum | "\\x" >> qi::hex)
-                >>  qi::lit("\"")
+                >  *((unesc_char | qi::char_) - qi::char_('"'))     [push_back(_val, qi::_1)]
+                >   qi::lit("\"")
             ;
 
             main =
                     unesc_str       [_val = qi::_1]
-                >>  eps             [phoenix::bind(&Internal::removeQuotes, phoenix::ref(_val))]
+                //>   eps             [phoenix::bind(&Internal::removeQuotes, phoenix::ref(_val))]
             ;
         }
 

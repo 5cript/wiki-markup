@@ -24,6 +24,10 @@ namespace WikiMarkdown { namespace Components { namespace Parser
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 
+			key.name("key");
+			value.name("value");
+			property.name("property");
+
             key %=
                 qi::char_("a-zA-Z_") >> *qi::char_("a-zA-Z_0-9")
             ;
@@ -32,12 +36,12 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 			property %=
                     key
-                >>  '='
-                >>  value
+                >   '='
+                >   value
 			;
 
             main %=
-                property >> *(space >> property)
+                property > *(+space > property)
             ;
 
             HANDLE_QI_ERROR(main, 1);
