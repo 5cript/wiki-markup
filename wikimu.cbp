@@ -38,7 +38,6 @@
 		<Unit filename="components/holders/table_caption.hpp" />
 		<Unit filename="components/holders/table_cell.hpp" />
 		<Unit filename="components/holders/table_row.hpp" />
-		<Unit filename="components/parser/basic.cpp" />
 		<Unit filename="components/parsers/basic.cpp" />
 		<Unit filename="components/parsers/basic.hpp" />
 		<Unit filename="components/parsers/fusion_includes.hpp" />
@@ -57,6 +56,11 @@
 		<Unit filename="components/table.hpp" />
 		<Unit filename="components/table_caption.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main.hpp" />
+		<Unit filename="parser/core.cpp" />
+		<Unit filename="parser/core.hpp" />
+		<Unit filename="parser/table.cpp" />
+		<Unit filename="parser/table.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

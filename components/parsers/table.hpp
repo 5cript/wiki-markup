@@ -1,5 +1,5 @@
-#ifndef TABLE_HPP_INCLUDED
-#define TABLE_HPP_INCLUDED
+#ifndef COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
+#define COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
 
 #include "../holders/table.hpp"
 #include "../holders/table_cell.hpp"
@@ -147,22 +147,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 )
             ;
 
-            /*
-            table_rows =
-                   -(
-                            linebreak
-                        >>  qi::lit("|-")
-                        >> -data_properties                     []
-                        >> *space
-                    )
-                >>  table_row                                   [phoenix::push_back(at_c <0> (_val), qi::_1)]
-                >> *(
-                            (linebreak >> qi::lit("|-") >> *space)
-                        >>  table_row                           [phoenix::push_back(at_c <0> (_val), qi::_1)]
-                    )
-            ;
-            */
-
             first_row %= table_row;
 
             table_rows =
@@ -219,4 +203,4 @@ namespace WikiMarkup { namespace Components { namespace Parser
 } // WikiMarkup
 
 
-#endif // TABLE_HPP_INCLUDED
+#endif // COMPONENTS_PARSERS_TABLE_HPP_INCLUDED

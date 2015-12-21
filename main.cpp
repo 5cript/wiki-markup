@@ -1,4 +1,7 @@
-#include "components/parser/parse.hpp"
+#include "main.hpp"
+
+#include "parser/core.hpp"
+#include "parser/table.hpp"
 
 #include <iostream>
 #include <string>
@@ -8,12 +11,20 @@
 
 int main()
 {
-    using namespace WikiMarkup::Components;
-    using namespace WikiMarkup::Components::Parser;
+    using namespace WikiMarkup::Parser;
 
-    Rules::nameRules();
+    init();
 
-    std::ifstream reader ("testfile.txt", std::ios_base::binary);
+    auto data = readStringFromFile ("testfile.txt");
+    auto res = parseTable(data);
+
+
+    return 0;
+}
+
+std::string readStringFromFile(std::string const& fileName)
+{
+    std::ifstream reader (fileName, std::ios_base::binary);
 
     std::string data;
     do {
@@ -22,14 +33,5 @@ int main()
         data.append(buffer, reader.gcount());
     } while (reader.gcount() == 4096);
 
-    using grammar = table_grammar <
-        qi_error::error_handler_cerr,
-		qi_error::warning_handler_cout,
-		std::decay<decltype(data)>::type::const_iterator
-    >;
-
-    std::ofstream writer ("output.txt", std::ios_base::binary);
-
-
-    return 0;
+    return data;
 }

@@ -1,6 +1,13 @@
-#ifndef TABLE_HPP_INCLUDED
-#define TABLE_HPP_INCLUDED
+#ifndef PARSER_TABLE_HPP_INCLUDED
+#define PARSER_TABLE_HPP_INCLUDED
 
+#include "../components/holders/table.hpp"
 
+namespace WikiMarkup { namespace Parser {
 
-#endif // TABLE_HPP_INCLUDED
+    Components::Holders::Table parseTable(std::string const& table);
+
+} // Parser
+} // WikiMarkup
+
+#endif // PARSER_TABLE_HPP_INCLUDED
