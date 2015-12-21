@@ -1,2 +1,2 @@
-# wikimd
-A very basic converter for wiki markdown into datastructures.
+# wikimu
+A very basic converter for wiki markup into datastructures.
