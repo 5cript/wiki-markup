@@ -1,0 +1,30 @@
+https://www.mediawiki.org/wiki/Help:Formatting/de
+- kursiv
+- fett
+- fett & kursiv
+- striked out
+- nowiki (kein Markup)
+- headers
+- line
+- * list
+- # list
+- ; list
+- : einrückung
+- mixed list
+
+https://www.mediawiki.org/wiki/Help:Formatting/de#HTML-Tags
+- <ins>
+- <u>
+- <s>
+- <del>
+- <code>
+- <tt>
+- <blockquote>
+- <!-- Kommentar -->
+- <pre>
+
+https://www.mediawiki.org/wiki/Help:Formatting/de#Symbole_einf.C3.BCgen
+- symbols
+
+https://www.mediawiki.org/wiki/Help:Images/de
+- Bilder
