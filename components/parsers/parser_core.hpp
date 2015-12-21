@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <string>
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
     namespace qi = boost::spirit::qi;
     namespace encoding = boost::spirit::ascii;
@@ -145,7 +145,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 #define GRAMMAR_TEMPLATE_SIGNATURE <typename ErrorHandler, typename WarningHandler, typename Iterator>
 #define GRAMMAR_TEMPLATE_SIGNATURE_FORWARD <ErrorHandler, WarningHandler, Iterator>

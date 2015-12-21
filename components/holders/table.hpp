@@ -9,7 +9,7 @@
 #include <map>
 #include <vector>
 
-namespace WikiMarkdown { namespace Components { namespace Holders {
+namespace WikiMarkup { namespace Components { namespace Holders {
 
     struct Table
     {
@@ -20,14 +20,14 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 
 } // namespace Holders
 } // namespace Components
-} // namespace WikiMarkdown
+} // namespace WikiMarkup
 
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkdown::Components::Holders::Table,
-    (WikiMarkdown::Components::Holders::TableCaption, caption)
-    (WikiMarkdown::Components::Holders::strmap_type, attributes)
-    (std::vector <WikiMarkdown::Components::Holders::TableRow>, rows)
+    WikiMarkup::Components::Holders::Table,
+    (WikiMarkup::Components::Holders::TableCaption, caption)
+    (WikiMarkup::Components::Holders::strmap_type, attributes)
+    (std::vector <WikiMarkup::Components::Holders::TableRow>, rows)
 )
 
 #endif // COMPONENTS_HOLDERS_TABLE_HPP_INCLUDED

@@ -4,12 +4,12 @@
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <map>
 
-namespace WikiMarkdown { namespace Components { namespace Holders {
+namespace WikiMarkup { namespace Components { namespace Holders {
 
     using strmap_type = std::map <std::string, std::string>;
 
 } // namespace Holders
 } // namespace Components
-} // namespace WikiMarkdown
+} // namespace WikiMarkup
 
 #endif // COMPONENTS_HOLDERS_ADAPTION_HPP_INCLUDED

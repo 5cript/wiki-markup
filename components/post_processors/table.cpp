@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cctype>
 
-namespace WikiMarkdown { namespace Components { namespace PostProcessors {
+namespace WikiMarkup { namespace Components { namespace PostProcessors {
 
     void postProcessTable(Holders::Table& table)
     {
@@ -21,4 +21,4 @@ namespace WikiMarkdown { namespace Components { namespace PostProcessors {
 
 } // namespace PostProcessors
 } // namespace Components
-} // namespace WikiMarkdown
+} // namespace WikiMarkup

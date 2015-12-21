@@ -1,6 +1,6 @@
 #include "basic.hpp"
 
-namespace WikiMarkdown { namespace Components { namespace Parser { namespace Rules
+namespace WikiMarkup { namespace Components { namespace Parser { namespace Rules
 {
     qi::rule <std::string::const_iterator> linebreak = qi::lit("\r\n") || qi::char_('\n') || qi::char_('\r');
     qi::rule <std::string::const_iterator> space = qi::char_(' ') || qi::char_('\t');
@@ -14,5 +14,5 @@ namespace WikiMarkdown { namespace Components { namespace Parser { namespace Rul
 } // Rules
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 

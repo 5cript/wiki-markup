@@ -7,7 +7,7 @@
 #include <type_traits>
 #include <string>
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
 
     template <typename GrammarT, typename CharType = char_type>
@@ -51,7 +51,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 
 #endif // COMPONENTS_PARSE_PARSE_HPP_INCLUDED

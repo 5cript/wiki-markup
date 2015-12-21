@@ -3,7 +3,7 @@
 
 #include "parser_core.hpp"
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
     /*
     template GRAMMAR_TEMPLATE_SIGNATURE
@@ -35,7 +35,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 
 #endif // COMPONENTS_PARSER_SPACE_HPP_INCLUDED

@@ -1,12 +1,12 @@
 #ifndef PROPERTY_HPP_INCLUDED
 #define PROPERTY_HPP_INCLUDED
 
-namespace WikiMarkdown { namespace Components {
+namespace WikiMarkup { namespace Components {
     class TableCaption
     {
 
     };
-} // WikiMarkdown
+} // WikiMarkup
 } // Components
 
 #endif // PROPERTY_HPP_INCLUDED

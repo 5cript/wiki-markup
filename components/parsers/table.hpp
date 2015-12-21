@@ -8,7 +8,7 @@
 #include "properties.hpp"
 #include "basic.hpp"
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
     using namespace Holders;
 
@@ -216,7 +216,7 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 
 #endif // TABLE_HPP_INCLUDED

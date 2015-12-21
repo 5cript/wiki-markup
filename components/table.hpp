@@ -1,12 +1,12 @@
 #ifndef COMPONENTS_TABLE_HPP_INCLUDED
 #define COMPONENTS_TABLE_HPP_INCLUDED
 
-namespace WikiMarkdown { namespace Components {
+namespace WikiMarkup { namespace Components {
     class Table
     {
 
     };
-} // WikiMarkdown
+} // WikiMarkup
 } // Components
 
 #endif // COMPONENTS_TABLE_HPP_INCLUDED

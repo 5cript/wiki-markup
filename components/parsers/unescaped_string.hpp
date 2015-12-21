@@ -3,7 +3,7 @@
 
 #include "parser_core.hpp"
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
 
     namespace Internal
@@ -45,6 +45,6 @@ namespace WikiMarkdown { namespace Components { namespace Parser
     };
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 #endif // UNESCAPED_STRING_HPP_INCLUDED

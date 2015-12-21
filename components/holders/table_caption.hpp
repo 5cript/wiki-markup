@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 
-namespace WikiMarkdown { namespace Components { namespace Holders {
+namespace WikiMarkup { namespace Components { namespace Holders {
 
     struct TableCaption
     {
@@ -16,13 +16,13 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 
 } // namespace Holders
 } // namespace Components
-} // namespace WikiMarkdown
+} // namespace WikiMarkup
 
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkdown::Components::Holders::TableCaption,
+    WikiMarkup::Components::Holders::TableCaption,
     (std::string, data)
-    (WikiMarkdown::Components::Holders::strmap_type, attributes)
+    (WikiMarkup::Components::Holders::strmap_type, attributes)
 )
 
 #endif // CONPONENTS_HOLDERS_TABLE_CAPTION_HPP_INCLUDED

@@ -9,7 +9,7 @@
 #include <map>
 #include <string>
 
-namespace WikiMarkdown { namespace Components { namespace Parser
+namespace WikiMarkup { namespace Components { namespace Parser
 {
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct properties_grammar : qi::grammar <Iterator, std::map<std::string, std::string>()>
@@ -60,6 +60,6 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 #endif // COMPONENTS_PARSER_PROPERTIES_HPP_INCLUDED

@@ -3,7 +3,7 @@
 
 #include "parser_core.hpp"
 
-namespace WikiMarkdown { namespace Components { namespace Parser { namespace Rules
+namespace WikiMarkup { namespace Components { namespace Parser { namespace Rules
 {
     // declaring the dirty and global reduces compile time stress
 
@@ -15,6 +15,6 @@ namespace WikiMarkdown { namespace Components { namespace Parser { namespace Rul
 } // Rules
 } // Parser
 } // Components
-} // WikiMarkdown
+} // WikiMarkup
 
 #endif // BASIC_HPP_INCLUDED

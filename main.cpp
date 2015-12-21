@@ -1,8 +1,4 @@
-#include "components/parser/properties.hpp"
 #include "components/parser/parse.hpp"
-#include "components/parser/table.hpp"
-
-#include "components/post_processors/table.hpp"
 
 #include <iostream>
 #include <string>
@@ -12,8 +8,8 @@
 
 int main()
 {
-    using namespace WikiMarkdown::Components;
-    using namespace WikiMarkdown::Components::Parser;
+    using namespace WikiMarkup::Components;
+    using namespace WikiMarkup::Components::Parser;
 
     Rules::nameRules();
 
@@ -33,39 +29,6 @@ int main()
     >;
 
     std::ofstream writer ("output.txt", std::ios_base::binary);
-
-    try {
-        auto result = parse <grammar> (data);
-        PostProcessors::postProcessTable(result);
-
-        writer << "<caption";
-        for (auto const& i : result.caption.attributes)
-            writer << " " << i.first << "=\"" << i.second << "\"";
-        writer << ">" << result.caption.data << "</caption>\n\n";
-
-        for (auto const& i : result.attributes)
-            writer << i.first << ": " << i.second << "\n";
-
-        writer << "\n";
-        for (auto const& i : result.rows) {
-            writer << "<row";
-            for (auto const& j : i.attributes) {
-                writer << " " << j.first << "=\"" << j.second << "\"";
-            }
-            writer << ">\n";
-            for (auto const& j : i.cells) {
-                writer << "<data";
-                for (auto const& k : j.attributes) {
-                    writer << " " << k.first << "=\"" << k.second << "\"";
-                }
-                writer << ">" << j.data << "</data>\n";
-
-            }
-            writer << "</row>\n";
-        }
-    } catch (std::exception const& exc) {
-        std::cerr << exc.what() << "\n";
-    }
 
 
     return 0;
