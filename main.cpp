@@ -32,37 +32,39 @@ int main()
 		std::decay<decltype(data)>::type::const_iterator
     >;
 
+    std::ofstream writer ("output.txt", std::ios_base::binary);
+
     try {
         auto result = parse <grammar> (data);
         PostProcessors::postProcessTable(result);
 
-        std::cout << "<caption";
+        writer << "<caption";
         for (auto const& i : result.caption.attributes)
-            std::cout << " " << i.first << "=\"" << i.second << "\"";
-        std::cout << ">" << result.caption.data << "</caption>\n\n";
+            writer << " " << i.first << "=\"" << i.second << "\"";
+        writer << ">" << result.caption.data << "</caption>\n\n";
 
         for (auto const& i : result.attributes)
-            std::cout << i.first << ": " << i.second << "\n";
+            writer << i.first << ": " << i.second << "\n";
 
-        std::cout << "\n";
+        writer << "\n";
         for (auto const& i : result.rows) {
-            std::cout << "<row";
+            writer << "<row";
             for (auto const& j : i.attributes) {
-                std::cout << " " << j.first << "=\"" << j.second << "\"";
+                writer << " " << j.first << "=\"" << j.second << "\"";
             }
-            std::cout << ">\n";
+            writer << ">\n";
             for (auto const& j : i.cells) {
-                std::cout << "<data";
+                writer << "<data";
                 for (auto const& k : j.attributes) {
-                    std::cout << " " << k.first << "=\"" << k.second << "\"";
+                    writer << " " << k.first << "=\"" << k.second << "\"";
                 }
-                std::cout << ">" << j.data << "</data>\n";
+                writer << ">" << j.data << "</data>\n";
 
             }
-            std::cout << "</row>\n";
+            writer << "</row>\n";
         }
     } catch (std::exception const& exc) {
-        std::cout << exc.what() << "\n";
+        std::cerr << exc.what() << "\n";
     }
 
 
