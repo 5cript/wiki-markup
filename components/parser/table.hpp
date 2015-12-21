@@ -36,98 +36,152 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 			just_pipe.name("just_pipe");
 			main.name("table");
 
-            table_start =
-                    qi::lit("{|")
-                >   *space
-                >   -(properties)
-                >   linebreak
+            just_pipe =
+                qi::char_('|') - qi::lit("|+") - qi::lit("|-") - qi::lit("|}")
             ;
 
-            just_pipe =
-                qi::char_('|')// - qi::lit("|+") - qi::lit("|-") - qi::lit("|}")
+            data_properties =
+                    properties                          [_val = qi::_1]
+                >> *space
+                >>  '|'
+                >> *space
+            ;
+
+            row_data %=
+               *(
+                    qi::char_ -
+                    (linebreak >> qi::lit("|+")) -
+                    (linebreak >> qi::lit("|-")) -
+                    (linebreak >> '|') -
+                    (linebreak >> '!') -
+                    (linebreak >> qi::lit("|}"))
+                )
+            ;
+
+            row_data_no_pp %=
+                *(
+                    qi::char_ -
+                    (linebreak >> qi::lit("|+")) -
+                    (linebreak >> qi::lit("|-")) -
+                    (linebreak >> '|') -
+                    (linebreak >> '!') -
+                    (linebreak >> qi::lit("|}")) -
+                    qi::lit("||")
+                )
+            ;
+
+            row_data_no_pp_ee %=
+                *(
+                    qi::char_ -
+                    (linebreak >> qi::lit("|+")) -
+                    (linebreak >> qi::lit("|-")) -
+                    (linebreak >> '|') -
+                    (linebreak >> '!') -
+                    (linebreak >> qi::lit("|}")) -
+                    qi::lit("||") -
+                    qi::lit("!!")
+                )
+            ;
+
+            table_start =
+                    qi::lit("{|")
+                >  *space
+                >  -(properties)
+                >  *space
+            ;
+
+            table_end =
+                    linebreak
+                >   qi::lit("|}")
+            ;
+
+            table_caption =
+                    linebreak
+                >>  qi::lit("|+")
+                >> *space
+                >> -data_properties                             [at_c <1> (_val) = qi::_1]
+                >>  row_data                                    [at_c <0> (_val) = qi::_1]
+                >> *space
             ;
 
             table_header_cell =
                    *space
-                >  -(
-                            properties                          [at_c <1> (_val) = qi::_1]
-                        >   '|'
-                    )
-                >  *(
-                        qi::char_ -
-                        linebreak -
-                        qi::lit("!!") -
-                        qi::lit("||")
-                    )                                           [push_back(at_c <0> (_val), qi::_1)]
+                >> -data_properties                             [at_c <1> (_val) = qi::_1]
+                >   row_data_no_pp_ee                           [at_c <0> (_val) = qi::_1]
                 >>  eps                                         [at_c <2> (_val) = true]
             ;
 
             table_cell =
                    *space
-                >  -(
-                            properties                          [at_c <1> (_val) = qi::_1]
-                        >   qi::char_('|')
-                    )
-                >  *(qi::char_ - linebreak - qi::lit("||"))     [push_back(at_c <0> (_val), qi::_1)]
+                >> -data_properties                             [at_c <1> (_val) = qi::_1]
+                >   row_data_no_pp                              [at_c <0> (_val) = qi::_1]
                 >>  eps                                         [at_c <2> (_val) = false]
             ;
 
             table_cells =
-                    just_pipe > table_cell
-                /*
+                linebreak >>
                 (
                     (
-                        just_pipe > table_cell             [push_back(_val, qi::_1)]
+                        just_pipe > table_cell                  [push_back(_val, qi::_1)]
                     )
                     |
                     (
                             qi::char_('!') > table_header_cell  [push_back(_val, qi::_1)]
-                        >  *(qi::lit("!!") > table_header_cell  [push_back(_val, qi::_1)])
+                        >> *(qi::lit("!!") > table_header_cell  [push_back(_val, qi::_1)])
                     )
                 )
-                >  *(qi::lit("||") > table_cell                 [push_back(_val, qi::_1)])
-                */
-                >   linebreak
-            ;
-
-            table_end =
-                qi::lit("|}")
-            ;
-
-            table_caption =
-                    qi::lit("|+")
-                    // it is not required to put text.
-                >   *(qi::char_ - linebreak)    [push_back(_val, qi::_1)]
-                >   linebreak
+                >> *(qi::lit("||") > table_cell                 [push_back(_val, qi::_1)])
             ;
 
             table_row =
-                    table_cells                 [qi::_a = qi::_1]
-                >>  eps
-                    [
-                        phoenix::while_(!phoenix::empty(qi::_a))
+                *(
+                        table_cells                             [qi::_a = qi::_1]
+                    >>  eps
                         [
-                            phoenix::push_back(at_c <0> (_val), phoenix::front(qi::_a)),
-                            phoenix::pop_front(qi::_a)
+                            phoenix::while_(!phoenix::empty(qi::_a))
+                            [
+                                phoenix::push_back(at_c <0> (_val), phoenix::front(qi::_a)),
+                                phoenix::pop_front(qi::_a)
+                            ]
                         ]
-                    ]
+                )
             ;
 
+            /*
             table_rows =
-                   -(qi::lit("|-") > linebreak)
-                >   table_row               [phoenix::push_back(_val, qi::_1)]
-                >  *(
-                            (qi::lit("|-") > linebreak)
-                        >   table_row       [phoenix::push_back(_val, qi::_1)]
+                   -(
+                            linebreak
+                        >>  qi::lit("|-")
+                        >> -data_properties                     []
+                        >> *space
                     )
+                >>  table_row                                   [phoenix::push_back(at_c <0> (_val), qi::_1)]
+                >> *(
+                            (linebreak >> qi::lit("|-") >> *space)
+                        >>  table_row                           [phoenix::push_back(at_c <0> (_val), qi::_1)]
+                    )
+            ;
+            */
+
+            first_row %= table_row;
+
+            table_rows =
+                   -first_row                                           [phoenix::push_back(_val, qi::_1)]
+                >> *(
+                            linebreak
+                        >>  qi::lit("|-")
+                        >> *space
+                        >> -properties                                  [at_c <1> (_a) = qi::_1]
+                        >> *space
+                        >>  table_row                                   [at_c <0> (_a) = at_c <0> (qi::_1)]
+                    )                                                   [phoenix::push_back(_val, _a)]
             ;
 
             main =
                     eps             [_val = Table()]
                 >>  table_start     [at_c <1> (_val) = qi::_1]
                 >  -table_caption   [at_c <0> (_val) = qi::_1]
-                //>  -table_rows      [at_c <2> (_val) = qi::_1]
-                >   table_cells
+                >  -table_rows      [at_c <2> (_val) = qi::_1]
                 >   table_end
             ;
 
@@ -138,15 +192,21 @@ namespace WikiMarkdown { namespace Components { namespace Parser
         // Rules
         qi::rule <Iterator, std::map <std::string, std::string> > table_start;
         qi::rule <Iterator> table_end;
-        qi::rule <Iterator, std::string()> table_caption;
+        qi::rule <Iterator, TableCaption()> table_caption;
         qi::rule <Iterator> just_pipe;
+        qi::rule <Iterator, std::map <std::string, std::string> > data_properties;
+
+        qi::rule <Iterator, std::string()> row_data;
+        qi::rule <Iterator, std::string()> row_data_no_pp;
+        qi::rule <Iterator, std::string()> row_data_no_pp_ee;
 
         qi::rule <Iterator, TableCell()> table_cell;
         qi::rule <Iterator, TableCell()> table_header_cell;
         qi::rule <Iterator, std::deque <TableCell>()> table_cells;
 
         qi::rule <Iterator, TableRow(), qi::locals <std::deque <TableCell>>> table_row;
-        qi::rule <Iterator, std::vector <TableRow>()> table_rows;
+        qi::rule <Iterator, TableRow()> first_row;
+        qi::rule <Iterator, std::vector <TableRow>(), qi::locals <TableRow>> table_rows;
 
         qi::rule <Iterator, grammar_result()> main;
 

@@ -36,12 +36,12 @@ namespace WikiMarkdown { namespace Components { namespace Parser
 
 			property %=
                     key
-                >   '='
-                >   value
+                >>  '='
+                >>  value
 			;
 
             main %=
-                property > *(+space > property)
+                property >> *(+space >> property)
             ;
 
             HANDLE_QI_ERROR(main, 1);

@@ -3,6 +3,7 @@
 
 #include "adaption.hpp"
 #include "table_row.hpp"
+#include "table_caption.hpp"
 
 #include <string>
 #include <map>
@@ -12,7 +13,7 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 
     struct Table
     {
-        std::string caption;
+        TableCaption caption;
         std::map <std::string, std::string> attributes;
         std::vector <TableRow> rows;
     };
@@ -24,7 +25,7 @@ namespace WikiMarkdown { namespace Components { namespace Holders {
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkdown::Components::Holders::Table,
-    (std::string, caption)
+    (WikiMarkdown::Components::Holders::TableCaption, caption)
     (WikiMarkdown::Components::Holders::strmap_type, attributes)
     (std::vector <WikiMarkdown::Components::Holders::TableRow>, rows)
 )

@@ -2,6 +2,7 @@
 #define COMPONENTS_HOLDERS_ADAPTION_HPP_INCLUDED
 
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
+#include <map>
 
 namespace WikiMarkdown { namespace Components { namespace Holders {
 

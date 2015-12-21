@@ -2,6 +2,8 @@
 #include "components/parser/parse.hpp"
 #include "components/parser/table.hpp"
 
+#include "components/post_processors/table.hpp"
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -10,6 +12,7 @@
 
 int main()
 {
+    using namespace WikiMarkdown::Components;
     using namespace WikiMarkdown::Components::Parser;
 
     Rules::nameRules();
@@ -31,10 +34,33 @@ int main()
 
     try {
         auto result = parse <grammar> (data);
+        PostProcessors::postProcessTable(result);
 
-        std::cout << result.caption << "\n";
+        std::cout << "<caption";
+        for (auto const& i : result.caption.attributes)
+            std::cout << " " << i.first << "=\"" << i.second << "\"";
+        std::cout << ">" << result.caption.data << "</caption>\n\n";
+
         for (auto const& i : result.attributes)
-            std::cout << "\t" << i.first << ": " << i.second << "\n";
+            std::cout << i.first << ": " << i.second << "\n";
+
+        std::cout << "\n";
+        for (auto const& i : result.rows) {
+            std::cout << "<row";
+            for (auto const& j : i.attributes) {
+                std::cout << " " << j.first << "=\"" << j.second << "\"";
+            }
+            std::cout << ">\n";
+            for (auto const& j : i.cells) {
+                std::cout << "<data";
+                for (auto const& k : j.attributes) {
+                    std::cout << " " << k.first << "=\"" << k.second << "\"";
+                }
+                std::cout << ">" << j.data << "</data>\n";
+
+            }
+            std::cout << "</row>\n";
+        }
     } catch (std::exception const& exc) {
         std::cout << exc.what() << "\n";
     }
