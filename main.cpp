@@ -6,11 +6,13 @@
 //#include "components/parsers/indents.hpp"
 //#include "components/parsers/format.hpp"
 //#include "components/parsers/comments.hpp"
+#include "components/parsers/list.hpp"
 
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <functional>
 
 // https://www.mediawiki.org/wiki/Markup_spec/EBNF
 
@@ -28,12 +30,39 @@ int main()
 
     using namespace WikiMarkup::Components::Parser;
 
-    TYPEDEF_GRAMMAR(comment_grammar);
+    TYPEDEF_GRAMMAR(list_grammar);
 
-    auto vec = parse <grammar> (data);
-    for (auto const& i : vec) {
-        std::cout << i.data << ":(" << std::boolalpha << i.isComment << ")\n";
-    }
+    auto result = parse <grammar> (data);
+
+    std::function <void(List const&, int)> printList;
+    printList = [&printList](List const& list, int depth) {
+        for (int i = 0; i != depth; ++i)
+            std::cout << '\t';
+        std::cout << "type: " << list.type << "\n";
+
+        for (int i = 0; i != depth; ++i)
+            std::cout << '\t';
+        std::cout << "data: " << list.data << "\n";
+
+        if (!list.child.empty()) {
+            for (int i = 0; i != depth; ++i)
+                std::cout << '\t';
+            std::cout << "child: " << "\n";
+            printList(list.child[0], depth + 1);
+        }
+
+        if (!list.subList.empty()) {
+            for (int i = 0; i != depth; ++i)
+                std::cout << '\t';
+            std::cout << "subList: " << "\n";
+            printList(list.subList[0], depth + 1);
+        }
+
+
+        std::cout << "------------------------\n";
+    };
+
+    printList(result, 0);
 
     return 0;
 }

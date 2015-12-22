@@ -1,5 +1,5 @@
 - TODO
-> KEIN QI
+q KEIN QI
 x DONE (QI)
 
 https://www.mediawiki.org/wiki/Help:Formatting/de
@@ -15,16 +15,17 @@ x headers
 x : einrückung
 - mixed list
 
+(use boost property tree xml)
 https://www.mediawiki.org/wiki/Help:Formatting/de#HTML-Tags
-- <ins>
-- <u>
-- <s>
-- <del>
-- <code>
-- <tt>
-- <blockquote>
-x <!-- Kommentar -->
-- <pre>
+q <ins>
+q <u>
+q <s>
+q <del>
+q <code>
+q <tt>
+q <blockquote>
+q <!-- Kommentar -->
+q <pre>
 
 https://www.mediawiki.org/wiki/Help:Formatting/de#Symbole_einf.C3.BCgen
 - symbols

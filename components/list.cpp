@@ -1,25 +1,22 @@
-#include "table.hpp"
+#include "list.hpp"
 
 #include "parsers/parse.hpp"
-#include "parsers/table.hpp"
-#include "post_processors/table.hpp"
+#include "parsers/list.hpp"
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
-    std::string Table::toMarkup()
+    std::string List::toMarkup()
     {
-        return "table";
+        return "list";
     }
 //-----------------------------------------------------------------------------------
-    void Table::fromMarkup(std::string const& mu)
+    void List::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
-        using namespace WikiMarkup::Components::PostProcessors;
 
-        TYPEDEF_GRAMMAR(table_grammar);
+        TYPEDEF_GRAMMAR(list_grammar);
 
         *this = parse <grammar> (mu);
-        postProcessTable(*this);
     }
 //####################################################################################
 } // namespace Components

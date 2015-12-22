@@ -33,14 +33,25 @@
 			<Add option="-fexceptions" />
 			<Add option="-std=c++14" />
 		</Compiler>
-		<Unit filename="components/holders/adaption.hpp" />
-		<Unit filename="components/holders/table.hpp" />
-		<Unit filename="components/holders/table_caption.hpp" />
-		<Unit filename="components/holders/table_cell.hpp" />
-		<Unit filename="components/holders/table_row.hpp" />
+		<Unit filename="components/adaption.hpp" />
+		<Unit filename="components/comments.hpp" />
+		<Unit filename="components/component.hpp" />
+		<Unit filename="components/format.hpp" />
+		<Unit filename="components/header.cpp" />
+		<Unit filename="components/header.hpp" />
+		<Unit filename="components/list.cpp" />
+		<Unit filename="components/list.hpp" />
+		<Unit filename="components/list/list_type.hpp" />
 		<Unit filename="components/parsers/basic.cpp" />
 		<Unit filename="components/parsers/basic.hpp" />
+		<Unit filename="components/parsers/comments.hpp" />
+		<Unit filename="components/parsers/deflist.hpp" />
+		<Unit filename="components/parsers/format.cpp" />
+		<Unit filename="components/parsers/format.hpp" />
 		<Unit filename="components/parsers/fusion_includes.hpp" />
+		<Unit filename="components/parsers/header.hpp" />
+		<Unit filename="components/parsers/indents.hpp" />
+		<Unit filename="components/parsers/list.hpp" />
 		<Unit filename="components/parsers/parse.hpp" />
 		<Unit filename="components/parsers/parser_core.hpp" />
 		<Unit filename="components/parsers/phoenix_includes.hpp" />
@@ -51,16 +62,14 @@
 		<Unit filename="components/parsers/unescaped_string.hpp" />
 		<Unit filename="components/post_processors/table.cpp" />
 		<Unit filename="components/post_processors/table.hpp" />
-		<Unit filename="components/property.hpp" />
 		<Unit filename="components/table.cpp" />
 		<Unit filename="components/table.hpp" />
-		<Unit filename="components/table_caption.hpp" />
+		<Unit filename="components/table/table_caption.hpp" />
+		<Unit filename="components/table/table_cell.hpp" />
+		<Unit filename="components/table/table_row.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.hpp" />
-		<Unit filename="parser/core.cpp" />
-		<Unit filename="parser/core.hpp" />
-		<Unit filename="parser/table.cpp" />
-		<Unit filename="parser/table.hpp" />
+		<Unit filename="page.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
