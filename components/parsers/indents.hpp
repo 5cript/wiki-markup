@@ -17,6 +17,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 
             main =
                    *qi::char_(':')                          [phoenix::push_back(_val, '\t')]
+                >> *space
                 >>  qi::char_                               [phoenix::push_back(_val, qi::_1)]
             ;
         }

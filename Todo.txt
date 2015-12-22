@@ -6,9 +6,9 @@ https://www.mediawiki.org/wiki/Help:Formatting/de
 x kursiv
 x fett
 x striked out
-> nowiki (kein Markup)
+- nowiki (kein Markup)
 x headers
-> line
+- line
 - * list
 - # list
 - ; list
@@ -23,7 +23,7 @@ https://www.mediawiki.org/wiki/Help:Formatting/de#HTML-Tags
 - <code>
 - <tt>
 - <blockquote>
-- <!-- Kommentar -->
+x <!-- Kommentar -->
 - <pre>
 
 https://www.mediawiki.org/wiki/Help:Formatting/de#Symbole_einf.C3.BCgen

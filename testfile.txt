@@ -1,1 +1,3 @@
-''kursiv'''kursiv_fat''<strike>'''strike</strike>''kursiv''
+def<!--commen
+t -->ab  c<!----as
+df

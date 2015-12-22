@@ -4,7 +4,8 @@
 
 #include "components/parsers/parse.hpp"
 //#include "components/parsers/indents.hpp"
-#include "components/parsers/format.hpp"
+//#include "components/parsers/format.hpp"
+//#include "components/parsers/comments.hpp"
 
 #include <iostream>
 #include <string>
@@ -27,11 +28,11 @@ int main()
 
     using namespace WikiMarkup::Components::Parser;
 
-    TYPEDEF_GRAMMAR(format_grammar);
+    TYPEDEF_GRAMMAR(comment_grammar);
 
     auto vec = parse <grammar> (data);
     for (auto const& i : vec) {
-        std::cout << i.data << ":(" << std::boolalpha << i.fat << ", " << i.italic << ", " << i.striked << ")\n";
+        std::cout << i.data << ":(" << std::boolalpha << i.isComment << ")\n";
     }
 
     return 0;
