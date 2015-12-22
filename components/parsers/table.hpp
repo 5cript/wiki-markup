@@ -1,8 +1,7 @@
 #ifndef COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
 #define COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
 
-#include "../holders/table.hpp"
-#include "../holders/table_cell.hpp"
+#include "table.hpp"
 
 #include "parser_core.hpp"
 #include "properties.hpp"
@@ -10,8 +9,6 @@
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
-    using namespace Holders;
-
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct table_grammar : qi::grammar <Iterator, Table()>
     {

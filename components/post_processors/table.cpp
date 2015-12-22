@@ -5,7 +5,7 @@
 
 namespace WikiMarkup { namespace Components { namespace PostProcessors {
 
-    void postProcessTable(Holders::Table& table)
+    void postProcessTable(Table& table)
     {
         table.rows.erase(std::remove_if(std::begin(table.rows), std::end(table.rows), [](auto const& row) {
             return row.cells.empty();

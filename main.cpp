@@ -1,7 +1,5 @@
 #include "main.hpp"
-
-#include "parser/core.hpp"
-#include "parser/table.hpp"
+#include "components/table.hpp"
 
 #include <iostream>
 #include <string>
@@ -11,12 +9,13 @@
 
 int main()
 {
-    using namespace WikiMarkup::Parser;
-
-    init();
+    using namespace WikiMarkup;
+    using namespace Components;
 
     auto data = readStringFromFile ("testfile.txt");
-    auto res = parseTable(data);
+    Table table;
+
+    table.fromMarkup(data);
 
 
     return 0;
