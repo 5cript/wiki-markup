@@ -19,7 +19,6 @@ namespace WikiMarkup { namespace Components {
         std::map <std::string, std::string> attributes;
         std::vector <TableRow> rows;
 
-        // TODO
         std::string toMarkup() override;
         void fromMarkup(std::string const& mu) override;
     };

@@ -4,7 +4,7 @@ https://www.mediawiki.org/wiki/Help:Formatting/de
 - fett & kursiv
 - striked out
 - nowiki (kein Markup)
-- headers
+x headers
 - line
 - * list
 - # list

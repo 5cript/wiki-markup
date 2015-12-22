@@ -10,8 +10,11 @@ namespace WikiMarkup { namespace Components {
 
     struct Header : public IComponent
     {
-        std::string text;
+        std::string data;
         int level; // H1, H2, H3, ... = 1, 2, 3, ...
+
+        std::string toMarkup() override;
+        void fromMarkup(std::string const& mu) override;
     };
 
 } // namespace Components
@@ -20,7 +23,7 @@ namespace WikiMarkup { namespace Components {
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::Header,
-    (std::string, text)
+    (std::string, data)
     (int, level)
 )
 

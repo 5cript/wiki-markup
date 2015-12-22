@@ -53,5 +53,12 @@ namespace WikiMarkup { namespace Components { namespace Parser
 } // Components
 } // WikiMarkup
 
+#define TYPEDEF_GRAMMAR(NAME) \
+using grammar = WikiMarkup::Components::Parser::NAME < \
+    qi_error::error_handler_cerr, \
+    qi_error::warning_handler_cout, \
+    std::decay<decltype(mu)>::type::const_iterator \
+>
+
 
 #endif // COMPONENTS_PARSE_PARSE_HPP_INCLUDED

@@ -1,5 +1,7 @@
 #include "main.hpp"
-#include "components/table.hpp"
+//#include "components/table.hpp"
+//#include "components/header.hpp"
+#include "components/parsers/indents.hpp"
 
 #include <iostream>
 #include <string>
@@ -13,9 +15,19 @@ int main()
     using namespace Components;
 
     auto data = readStringFromFile ("testfile.txt");
-    Table table;
 
+    /*
+    Table table;
     table.fromMarkup(data);
+    */
+
+    using namespace WikiMarkup::Components::Parser;
+    using namespace WikiMarkup::Components::PostProcessors;
+
+    TYPEDEF_GRAMMAR(indents_grammar);
+
+    auto str = parse <grammar> (data);
+    std::cout << str;
 
 
     return 0;

@@ -1,27 +1,34 @@
-#include "table.hpp"
+#include "header.hpp"
 
 #include "parsers/parse.hpp"
-#include "parsers/table.hpp"
-#include "post_processors/table.hpp"
-
-#include <type_traits>
+#include "parsers/header.hpp"
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
-    std::string Table::toMarkup()
+    std::string Header::toMarkup()
     {
-        return "table";
+        std::string result;
+
+        for (int i = level; i; --i)
+            result.push_back('=');
+
+        result.push_back(' ');
+        result += data;
+        result.push_back(' ');
+
+        for (int i = level; i; --i)
+            result.push_back('=');
+
+        return result;
     }
 //-----------------------------------------------------------------------------------
-    void Table::fromMarkup(std::string const& mu)
+    void Header::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
-        using namespace WikiMarkup::Components::PostProcessors;
 
-        TYPEDEF_GRAMMAR(table_grammar);
+        TYPEDEF_GRAMMAR(header_grammar);
 
         *this = parse <grammar> (mu);
-        postProcessTable(*this);
     }
 //####################################################################################
 } // namespace Components

@@ -1,12 +1,1 @@
-{| border="1" cellpadding="20" cellspacing="0"
-|+align="bottom" style="color:#e76700;"|''Essenssachen''
-|-
-|Süß
-|Apfel
-|-
-|Brot
-|Torte
-|-
-|Butter
-|Eis 
-|}
+===  Hello === World!  ===

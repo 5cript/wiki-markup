@@ -1,11 +1,11 @@
 #ifndef COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
 #define COMPONENTS_PARSERS_TABLE_HPP_INCLUDED
 
-#include "table.hpp"
+#include "../table.hpp"
 
 #include "parser_core.hpp"
-#include "properties.hpp"
 #include "basic.hpp"
+#include "properties.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
@@ -14,7 +14,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
     {
         using grammar_result = Table;
 
-        // Parser
         table_grammar() : table_grammar::base_type(main, "table")
         {
             using namespace common_usings;
@@ -31,7 +30,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
 			table_row.name("table_row");
 			table_rows.name("table_rows");
 			just_pipe.name("just_pipe");
-			main.name("table");
 
             just_pipe =
                 qi::char_('|') - qi::lit("|+") - qi::lit("|-") - qi::lit("|}")

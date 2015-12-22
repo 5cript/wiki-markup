@@ -176,7 +176,7 @@ const phoenix::function <WarningHandler> warning_handler
 // MAKRO END
 
 #define INSTALL_DEBUG_HANDLER								\
-const phoenix::function <graph_parser::qi_error::debug_streamer> dout
+const phoenix::function <qi_error::debug_streamer> dout
 // MAKRO END
 
 #endif // COMPONENTS_PARSER_PARSER_CORE_HPP_INCLUDED
