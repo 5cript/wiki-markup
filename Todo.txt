@@ -1,15 +1,18 @@
+- TODO
+> KEIN QI
+x DONE (QI)
+
 https://www.mediawiki.org/wiki/Help:Formatting/de
-- kursiv
-- fett
-- fett & kursiv
-- striked out
-- nowiki (kein Markup)
+x kursiv
+x fett
+x striked out
+> nowiki (kein Markup)
 x headers
-- line
+> line
 - * list
 - # list
 - ; list
-- : einrückung
+x : einrückung
 - mixed list
 
 https://www.mediawiki.org/wiki/Help:Formatting/de#HTML-Tags

@@ -1,1 +1,1 @@
-===  Hello === World!  ===
+''kursiv'''kursiv_fat''<strike>'''strike</strike>''kursiv''

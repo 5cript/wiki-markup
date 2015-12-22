@@ -1,11 +1,15 @@
 #include "main.hpp"
 //#include "components/table.hpp"
 //#include "components/header.hpp"
-#include "components/parsers/indents.hpp"
+
+#include "components/parsers/parse.hpp"
+//#include "components/parsers/indents.hpp"
+#include "components/parsers/format.hpp"
 
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 
 // https://www.mediawiki.org/wiki/Markup_spec/EBNF
 
@@ -22,13 +26,13 @@ int main()
     */
 
     using namespace WikiMarkup::Components::Parser;
-    using namespace WikiMarkup::Components::PostProcessors;
 
-    TYPEDEF_GRAMMAR(indents_grammar);
+    TYPEDEF_GRAMMAR(format_grammar);
 
-    auto str = parse <grammar> (data);
-    std::cout << str;
-
+    auto vec = parse <grammar> (data);
+    for (auto const& i : vec) {
+        std::cout << i.data << ":(" << std::boolalpha << i.fat << ", " << i.italic << ", " << i.striked << ")\n";
+    }
 
     return 0;
 }

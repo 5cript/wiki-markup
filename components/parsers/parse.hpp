@@ -57,7 +57,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 using grammar = WikiMarkup::Components::Parser::NAME < \
     qi_error::error_handler_cerr, \
     qi_error::warning_handler_cout, \
-    std::decay<decltype(mu)>::type::const_iterator \
+    std::string::const_iterator \
 >
 
 

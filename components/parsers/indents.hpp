@@ -14,16 +14,11 @@ namespace WikiMarkup { namespace Components { namespace Parser
         indents_grammar() : indents_grammar::base_type(main, "indents")
         {
             using namespace common_usings;
-            using namespace Rules;
-            INSTALL_ERROR_HANDLER;
-			INSTALL_WARNING_HANDLER;
 
             main =
-                *qi::char_;
+                   *qi::char_(':')                          [phoenix::push_back(_val, '\t')]
+                >>  qi::char_                               [phoenix::push_back(_val, qi::_1)]
             ;
-
-            HANDLE_QI_ERROR(main, 1);
-            HANDLE_QI_WARNING(main, 1);
         }
 
         // Rules
