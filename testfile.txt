@@ -1,16 +1,1 @@
-# one
-# two
-#* two point one
-#* two point two
-# three
-#; three item one
-#: three def one
-# four
-#: four def one
-#: this looks like a continuation
-#: and is often used
-#: instead <br />of <nowiki><br /></nowiki>
-# five
-## five sub 1
-### five sub 1 sub 1
-## five sub 2
+0000:0000:0000:0000::192.168.178.1

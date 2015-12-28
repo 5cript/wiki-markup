@@ -1,7 +1,10 @@
 #include "main.hpp"
 //#include "components/table.hpp"
 //#include "components/header.hpp"
-#include "components/list.hpp"
+//#include "components/list.hpp"
+
+#include "components/parsers/parse.hpp"
+#include "components/parsers/url.hpp"
 
 
 #include <iostream>
@@ -19,11 +22,15 @@ int main()
 
     auto data = readStringFromFile ("testfile.txt");
 
-    // using namespace WikiMarkup::Components::Parser;
+    using namespace WikiMarkup::Components::Parser;
 
-    List list;
-    list.fromMarkup(data);
+    TYPEDEF_GRAMMAR(ipv6_grammar);
 
+    auto result = parse <grammar> (data);
+
+    std::cout << result;
+
+    /*
     std::function <void(List const&, int)> printList;
     printList = [&](List const& curList, int depth) {
         for (auto const& i : curList.elements) {
@@ -41,6 +48,7 @@ int main()
     };
 
     printList(list, 0);
+    */
 
     return 0;
 }

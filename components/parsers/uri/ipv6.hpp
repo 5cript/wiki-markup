@@ -1,0 +1,236 @@
+#ifndef COMPONENTS_PARSERS_URI_IPV6_HPP_INCLUDED
+#define COMPONENTS_PARSERS_URI_IPV6_HPP_INCLUDED
+
+#include "../parser_core.hpp"
+#include "../basic.hpp"
+
+#include "ipv4.hpp"
+
+#include <array>
+#include <cstdint>
+#include <string>
+#include <iomanip>
+#include <sstream>
+
+namespace WikiMarkup { namespace Components { namespace Parser
+{
+    namespace Internal
+    {
+        std::string vecStrAccumulator(std::vector <std::string> const& vec) {
+            std::string res;
+            for (auto const& i : vec)
+                res += i;
+            return res;
+        }
+    }
+
+    template GRAMMAR_TEMPLATE_SIGNATURE
+    struct ipv6_grammar : qi::grammar <Iterator, std::string()>
+    {
+        using grammar_result = std::string;
+
+        ipv6_grammar() : ipv6_grammar::base_type(main, "ipv6")
+        {
+            using namespace common_usings;
+            using namespace Rules;
+
+            INSTALL_DEBUG_HANDLER;
+
+			using std::array;
+
+            h16 = repeat(1, 4)[qi::xdigit] - ipv4s;
+
+            ls32 =
+                    ipv4s   [_val = qi::_1, dout("ipv4")]
+                |   (h16 >> qi::char_(':') >> h16)  [_val = qi::_1, dout("hex")]
+            ;
+
+            h16_colon =
+                h16 >> qi::char_(':')
+            ;
+
+            colon_h16 =
+                qi::char_(':') >> h16
+            ;
+
+            /*
+            ipv6 =
+                                                                                      repeat(6)[h16 >> qi::char_(':')] >> ls32
+                |                                                    qi::lit("::") >> repeat(5)[h16 >> qi::char_(':')] >> ls32
+                |   -(                                       h16) >> qi::lit("::") >> repeat(4)[h16 >> qi::char_(':')] >> ls32
+                |   -(repeat(0, 1)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::") >> repeat(3)[h16 >> qi::char_(':')] >> ls32
+                |   -(repeat(0, 2)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::") >> repeat(2)[h16 >> qi::char_(':')] >> ls32
+                |   -(repeat(0, 3)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::") >>           h16 >> qi::char_(':')  >> ls32
+                |   -(repeat(0, 4)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::")                                     >> ls32
+                |   -(repeat(0, 5)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::") >>           h16
+                |   -(repeat(0, 6)[h16 >> qi::char_(':')] >> h16) >> qi::lit("::")
+            ;
+            */
+
+            ipv6 =
+                (
+                    (
+                            eps                             [_a = ""]
+                        >>  repeat(7) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(6) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(5) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -h16                             [_a += qi::_1]
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(4) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                    h16                     [_a += qi::_1]
+                                |   ls32                    [_a += qi::_1]
+                            )
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(3) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                (
+                                        h16                 [_a += qi::_1]
+                                    >>  qi::char_(':')      [_a += ":"]
+                                    >>  ls32                [_a += qi::_1]
+                                )
+                                |
+                                (
+                                    ls32                    [_a += qi::_1]
+                                )
+                                |
+                                (
+                                    h16                     [_a += qi::_1]
+                                )
+                            )
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(2) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                    h16                     [_a += qi::_1]
+                                >>  repeat(0, 1)
+                                    [
+                                            qi::char_(':')  [_a += ":"]
+                                        >>  h16             [_a += qi::_1]
+                                    ]
+                            )
+                        >> -(
+                                    qi::char_(':')          [_a += ":"]
+                                >>  ls32                    [_a += qi::_1]
+                            )
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  repeat(1) [h16_colon]
+                            [
+                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                            ]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                    h16                     [_a += qi::_1]
+                                >>  repeat(0, 2)
+                                    [
+                                            qi::char_(':')  [_a += ":"]
+                                        >>  h16             [_a += qi::_1]
+                                    ]
+                            )
+                        >> -(
+                                    qi::char_(':')          [_a += ":"]
+                                >>  ls32                    [_a += qi::_1]
+                            )
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  h16                             [_a += qi::_1]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                    h16                     [_a += qi::_1]
+                                >>  repeat(0, 3)
+                                    [
+                                            qi::char_(':')  [_a += ":"]
+                                        >>  h16             [_a += qi::_1]
+                                    ]
+                            )
+                        >> -(
+                                    qi::char_(':')          [_a += ":"]
+                                >>  ls32                    [_a += qi::_1]
+                            )
+                    )
+                |   (
+                            eps                             [_a = ""]
+                        >>  lit("::")                       [_a += "::"]
+                        >> -(
+                                    h16                     [_a += qi::_1]
+                                >>  repeat(0, 4)
+                                    [
+                                            qi::char_(':')  [_a += ":"]
+                                        >>  h16             [_a += qi::_1]
+                                    ]
+                            )
+                        >> -(
+                                    qi::char_(':')          [_a += ":"]
+                                >>  ls32                    [_a += qi::_1]
+                            )
+                    )
+                )
+                >> eps [_val = _a]
+            ;
+
+            main =
+                ipv6
+            ;
+        }
+
+        // Rules
+        boost::spirit::qi::rule<Iterator, std::string()> ls32; // see RFC
+        qi::rule <Iterator, std::string()> h16; // h16 = 2 byte hex => see RFC
+        qi::rule <Iterator, std::string()> h16_colon;
+        qi::rule <Iterator, std::string()> colon_h16;
+
+        qi::rule <Iterator, std::string(), qi::locals <std::string> > ipv6;
+
+        qi::rule <Iterator, grammar_result()> main;
+
+        // Grammars
+        ipv4_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv4s;
+    };
+} // Parser
+} // Components
+} // WikiMarkup
+
+#endif // COMPONENTS_PARSERS_URI_IPV6_HPP_INCLUDED

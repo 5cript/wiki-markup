@@ -1,19 +1,20 @@
 - TODO
 q KEIN QI
 x DONE (QI)
+^ no special support
 
 https://www.mediawiki.org/wiki/Help:Formatting/de
 x kursiv
 x fett
 x striked out
-- nowiki (kein Markup)
+q nowiki (kein Markup)
 x headers
-- line
-- * list
-- # list
-- ; list
+q line
+x * list
+x # list
+x ; list
 x : einrückung
-- mixed list
+x mixed list
 
 (use boost property tree xml)
 https://www.mediawiki.org/wiki/Help:Formatting/de#HTML-Tags
@@ -28,7 +29,8 @@ q <!-- Kommentar -->
 q <pre>
 
 https://www.mediawiki.org/wiki/Help:Formatting/de#Symbole_einf.C3.BCgen
-- symbols
+^ symbols
 
 https://www.mediawiki.org/wiki/Help:Images/de
 - Bilder
+- Links
