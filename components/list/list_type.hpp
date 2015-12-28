@@ -5,11 +5,15 @@ namespace WikiMarkup { namespace Components {
 
     enum ListType
     {
-        LT_NUMBERED     = 0b0001,
-        LT_BULLET       = 0b0010,
-        LT_LINE_ONLY    = 0b0100,
-        LT_INDENT       = 0b1000
+        LT_NUMBERED     = 0,
+        LT_BULLET       = 1,
+        LT_FAT          = 2,
+        LT_INDENT       = 3
     };
+
+    constexpr static const char* const ListChars = "#*;:";
+
+    ListType getTypeFromChar(char const c);
 
 } // namespace Components
 } // namespace WikiMarkup

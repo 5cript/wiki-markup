@@ -9,9 +9,9 @@
 namespace WikiMarkup { namespace Components { namespace Parser
 {
     template GRAMMAR_TEMPLATE_SIGNATURE
-    struct list_grammar : qi::grammar <Iterator, List(), qi::locals <std::string, List> >
+    struct list_grammar : qi::grammar <Iterator, PlainList(), qi::locals <char>>
     {
-        using grammar_result = List;
+        using grammar_result = PlainList;
 
         list_grammar() : list_grammar::base_type(main, "list")
         {
@@ -22,7 +22,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 			INSTALL_DEBUG_HANDLER;
 
 			line.name("line");
-			list.name("list");
+			listLine.name("listLine");
 
 			line =
                    *space
@@ -31,54 +31,21 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 >>  linebreak
 			;
 
-			list =
-                    eps
-                    [
-                        at_c <2> (_val) = at_c <2> (_r2)
-                    ]
-                >>  ((
-                            lit(_r1)    [dout("lit_r1")]
-                        >>  (
-                                (
-                                        qi::char_('#')              [at_c <2> (_val) = LT_NUMBERED, dout("numbered")]
-                                    |   qi::char_('*')              [at_c <2> (_val) = LT_BULLET, dout("bullet")]
-                                    |   qi::char_(':')              [at_c <2> (_val) = LT_INDENT, dout("indent")]
-                                )                                   [phoenix::push_back(_r1, qi::_1), _a = 0, dout("push")]
-                                |
-                                eps
-                                [
-                                    _a = 1, dout("no change")
-                                ]
-                            )
-                        >   line                                    [at_c <3> (_val) = qi::_1, dout("line")]
-                        >  -list(_r1, _val)
-                            [
-                                if_(_a == 0)
-                                [
-                                    phoenix::push_back(at_c <0> (_val), qi::_1)
-                                ].else_
-                                [
-                                    phoenix::push_back(at_c <1> (_val), qi::_1)
-                                ]
-
-                            ] // push back is HACK!
-                    )
-                    |
-                    (
-                            eps
-                            [
-                                phoenix::pop_back(_r1), dout("pop"),
-                                if_(phoenix::empty(_r1))
-                                [
-                                    _pass = false
-                                ]
-                            ]
-                        >>  list(_r1, _val)                         [phoenix::push_back(at_c <0> (_val), qi::_1), dout("out")] // push back is HACK!
-                    ))
+            // _r1 = top most list type
+			listLine =
+                    qi::char_(_r1)                  [phoenix::push_back(at_c <0> (_val), qi::_1)]
+                >> *(
+                            qi::char_('#')
+                        |   qi::char_('*')
+                        |   qi::char_(';')
+                        |   qi::char_(':')
+                    )                               [phoenix::push_back(at_c <0> (_val), qi::_1)]
+                >   line                            [at_c <1> (_val) = qi::_1]
 			;
 
-			main %=
-                list(_a, _b)
+			main =
+                   &(qi::char_('#') | qi::char_('*'))   [_a = qi::_1]
+               >   +listLine(_a)                        [phoenix::push_back(_val, qi::_1)]
 			;
 
             HANDLE_QI_ERROR(main, 1);
@@ -88,8 +55,8 @@ namespace WikiMarkup { namespace Components { namespace Parser
         // Rules
         qi::rule <Iterator, std::string()> line;
 
-        qi::rule <Iterator, List(std::string, List), qi::locals <int> > list;
-        qi::rule <Iterator, grammar_result(), qi::locals <std::string, List> > main;
+        qi::rule <Iterator, ListLine(char)> listLine;
+        qi::rule <Iterator, grammar_result(), qi::locals <char>> main;
     };
 } // Parser
 } // Components

@@ -3,7 +3,15 @@
 #include "parsers/parse.hpp"
 #include "parsers/list.hpp"
 
+#include "post_processors/list.hpp"
+
 namespace WikiMarkup { namespace Components {
+//####################################################################################
+    ListTextLine::ListTextLine(std::string const& data)
+        : data(data)
+    {
+
+    }
 //####################################################################################
     std::string List::toMarkup()
     {
@@ -16,7 +24,9 @@ namespace WikiMarkup { namespace Components {
 
         TYPEDEF_GRAMMAR(list_grammar);
 
-        *this = parse <grammar> (mu);
+        auto plainList = parse <grammar> (mu);
+
+        *this = PostProcessors::postProcessList(plainList);
     }
 //####################################################################################
 } // namespace Components

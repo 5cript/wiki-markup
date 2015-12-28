@@ -1,12 +1,8 @@
 #include "main.hpp"
 //#include "components/table.hpp"
 //#include "components/header.hpp"
+#include "components/list.hpp"
 
-#include "components/parsers/parse.hpp"
-//#include "components/parsers/indents.hpp"
-//#include "components/parsers/format.hpp"
-//#include "components/parsers/comments.hpp"
-#include "components/parsers/list.hpp"
 
 #include <iostream>
 #include <string>
@@ -23,46 +19,28 @@ int main()
 
     auto data = readStringFromFile ("testfile.txt");
 
-    /*
-    Table table;
-    table.fromMarkup(data);
-    */
+    // using namespace WikiMarkup::Components::Parser;
 
-    using namespace WikiMarkup::Components::Parser;
-
-    TYPEDEF_GRAMMAR(list_grammar);
-
-    auto result = parse <grammar> (data);
+    List list;
+    list.fromMarkup(data);
 
     std::function <void(List const&, int)> printList;
-    printList = [&printList](List const& list, int depth) {
-        for (int i = 0; i != depth; ++i)
-            std::cout << '\t';
-        std::cout << "type: " << list.type << "\n";
-
-        for (int i = 0; i != depth; ++i)
-            std::cout << '\t';
-        std::cout << "data: " << list.data << "\n";
-
-        if (!list.child.empty()) {
-            for (int i = 0; i != depth; ++i)
-                std::cout << '\t';
-            std::cout << "child: " << "\n";
-            printList(list.child[0], depth + 1);
+    printList = [&](List const& curList, int depth) {
+        for (auto const& i : curList.elements) {
+            ListTextLine* tex = dynamic_cast <ListTextLine*> (i.get());
+            if (tex) {
+                for (int i = 0; i != depth; ++i)
+                    std::cout << "  ";
+                std::cout << tex->data;
+            } else {
+                //std::cout << "list";
+                printList(*dynamic_cast <List*> (i.get()), depth + 1);
+            }
+            std::cout << "\n";
         }
-
-        if (!list.subList.empty()) {
-            for (int i = 0; i != depth; ++i)
-                std::cout << '\t';
-            std::cout << "subList: " << "\n";
-            printList(list.subList[0], depth + 1);
-        }
-
-
-        std::cout << "------------------------\n";
     };
 
-    printList(result, 0);
+    printList(list, 0);
 
     return 0;
 }

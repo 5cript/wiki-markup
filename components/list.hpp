@@ -8,27 +8,35 @@
 
 #include <string>
 #include <vector>
-#include <boost/variant/recursive_variant.hpp>
+#include <memory>
 
 namespace WikiMarkup { namespace Components {
 
-    struct List;
-
-    // using a dirty hack to get the recursive struct.
-    // is not actually an array, but more like a boost::optional,
-    // which is not suitable for
-    using ListNode = std::vector <
-        List
-    >;
+    struct ListLine
+    {
+        std::string prefix;
+        std::string data;
+    };
 
     // this format is well parsable, but not useful for actual use
-    struct List : public IComponent
-    {
-        ListNode child;
-        ListNode subList;
+    using PlainList = std::vector <ListLine>;
 
-        ListType type;
+    struct ListElement
+    {
+        virtual ~ListElement() = default;
+    };
+
+    struct ListTextLine : public ListElement
+    {
         std::string data;
+
+        ListTextLine(std::string const& data);
+    };
+
+    struct List : public IComponent, public ListElement
+    {
+        ListType type;
+        std::vector <std::unique_ptr <ListElement>> elements;
 
         std::string toMarkup() override;
         void fromMarkup(std::string const& mu) override;
@@ -39,10 +47,8 @@ namespace WikiMarkup { namespace Components {
 
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkup::Components::List,
-    (WikiMarkup::Components::ListNode, child)
-    (WikiMarkup::Components::ListNode, subList)
-    (WikiMarkup::Components::ListType, type)
+    WikiMarkup::Components::ListLine,
+    (std::string, prefix)
     (std::string, data)
 )
 
