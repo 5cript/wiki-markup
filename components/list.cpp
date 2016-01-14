@@ -26,7 +26,7 @@ namespace WikiMarkup { namespace Components {
 
         auto plainList = parse <grammar> (mu);
 
-        *this = PostProcessors::postProcessList(plainList);
+        //*this = PostProcessors::postProcessList(plainList);
     }
 //####################################################################################
 } // namespace Components

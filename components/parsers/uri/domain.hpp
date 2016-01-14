@@ -23,9 +23,13 @@ namespace WikiMarkup { namespace Components { namespace Parser
 			INSTALL_WARNING_HANDLER;
 
             main =
-                    ipv4s
-                |   (qi::char_("[") >> ipv6 >> qi::char_("]"))
-                |   domain_name
+                    ipv4s                                           [_val = qi::_1]
+                |   (
+                            qi::char_('[')                          [phoenix::push_back(_val, '[')]
+                        >>  ipv6s                                   [_val += qi::_1]
+                        >>  qi::char_(']')                          [phoenix::push_back(_val, ']')]
+                    )
+                |   domain_name                                     [_val = qi::_1]
             ;
 
             HANDLE_QI_ERROR(main, 1);
@@ -36,8 +40,8 @@ namespace WikiMarkup { namespace Components { namespace Parser
         qi::rule <Iterator, grammar_result()> main;
 
         // Grammars
-        ipv4_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv4s;
-        ipv6_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv6;
+        ipv4s_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv4s;
+        ipv6s_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv6s;
         domain_name_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD domain_name;
     };
 

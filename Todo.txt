@@ -32,5 +32,9 @@ https://www.mediawiki.org/wiki/Help:Formatting/de#Symbole_einf.C3.BCgen
 ^ symbols
 
 https://www.mediawiki.org/wiki/Help:Images/de
-- Bilder
-- Links
+x Bilder
+x Links
+
+Magics:
+	{{SERVERNAME}}
+	{{PAGENAMEE}}

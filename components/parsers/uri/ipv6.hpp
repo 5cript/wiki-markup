@@ -25,11 +25,11 @@ namespace WikiMarkup { namespace Components { namespace Parser
     }
 
     template GRAMMAR_TEMPLATE_SIGNATURE
-    struct ipv6_grammar : qi::grammar <Iterator, std::string()>
+    struct ipv6s_grammar : qi::grammar <Iterator, std::string()>
     {
         using grammar_result = std::string;
 
-        ipv6_grammar() : ipv6_grammar::base_type(main, "ipv6")
+        ipv6s_grammar() : ipv6s_grammar::base_type(main, "ipv6s")
         {
             using namespace common_usings;
             using namespace Rules;
@@ -41,8 +41,10 @@ namespace WikiMarkup { namespace Components { namespace Parser
             h16 = repeat(1, 4)[qi::xdigit] - ipv4s;
 
             ls32 =
-                    ipv4s   [_val = qi::_1, dout("ipv4")]
-                |   (h16 >> qi::char_(':') >> h16)  [_val = qi::_1, dout("hex")]
+                (
+                        ipv4s   [_val = qi::_1]
+                    |   (h16 >> qi::char_(':') >> h16)  [_val = qi::_1]
+                )
             ;
 
             h16_colon =
@@ -67,145 +69,72 @@ namespace WikiMarkup { namespace Components { namespace Parser
             ;
             */
 
+            beforeAbreviation =
+                    repeat(_r1) [h16_colon]
+                    [
+                        _val += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
+                    ]
+                >>  h16                             [_val += qi::_1]
+            ;
+
+            afterAbreviation =
+                (
+                        repeat(0, _r1)
+                        [
+                            h16_colon       [_val += qi::_1]
+                        ]
+                    >>  (
+                                ls32        [_val += qi::_1]
+                            |   h16         [_val += qi::_1]
+                        )
+                )
+                |
+                (
+                    h16                     [_val += qi::_1]
+                )
+            ;
+
+            abreviation =
+                    lit("::")               [_val = "::"]
+                >> -afterAbreviation(_r1)   [_val += qi::_1]
+            ;
+
             ipv6 =
                 (
                     (
-                            eps                             [_a = ""]
-                        >>  repeat(7) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
+                        beforeAbreviation(7)            [_a = qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(6) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
+                            beforeAbreviation(6)            [_a = qi::_1]
                         >>  lit("::")                       [_a += "::"]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(5) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]                        >>  h16                             [_a += qi::_1]
+                            beforeAbreviation(5)            [_a = qi::_1]
                         >>  lit("::")                       [_a += "::"]
                         >> -h16                             [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(4) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                    h16                     [_a += qi::_1]
-                                |   ls32                    [_a += qi::_1]
-                            )
+                            beforeAbreviation(4)            [_a = qi::_1]
+                        >>  abreviation(0)                  [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(3) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                (
-                                        h16                 [_a += qi::_1]
-                                    >>  qi::char_(':')      [_a += ":"]
-                                    >>  ls32                [_a += qi::_1]
-                                )
-                                |
-                                (
-                                    ls32                    [_a += qi::_1]
-                                )
-                                |
-                                (
-                                    h16                     [_a += qi::_1]
-                                )
-                            )
+                            beforeAbreviation(3)            [_a = qi::_1]
+                        >>  abreviation(1)                  [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(2) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                    h16                     [_a += qi::_1]
-                                >>  repeat(0, 1)
-                                    [
-                                            qi::char_(':')  [_a += ":"]
-                                        >>  h16             [_a += qi::_1]
-                                    ]
-                            )
-                        >> -(
-                                    qi::char_(':')          [_a += ":"]
-                                >>  ls32                    [_a += qi::_1]
-                            )
+                            beforeAbreviation(2)            [_a = qi::_1]
+                        >>  abreviation(2)                  [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  repeat(1) [h16_colon]
-                            [
-                                _a += phoenix::bind(&Internal::vecStrAccumulator, phoenix::cref(qi::_1))
-                            ]
-                        >>  h16                             [_a += qi::_1]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                    h16                     [_a += qi::_1]
-                                >>  repeat(0, 2)
-                                    [
-                                            qi::char_(':')  [_a += ":"]
-                                        >>  h16             [_a += qi::_1]
-                                    ]
-                            )
-                        >> -(
-                                    qi::char_(':')          [_a += ":"]
-                                >>  ls32                    [_a += qi::_1]
-                            )
+                            beforeAbreviation(1)            [_a = qi::_1]
+                        >>  abreviation(3)                  [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  h16                             [_a += qi::_1]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                    h16                     [_a += qi::_1]
-                                >>  repeat(0, 3)
-                                    [
-                                            qi::char_(':')  [_a += ":"]
-                                        >>  h16             [_a += qi::_1]
-                                    ]
-                            )
-                        >> -(
-                                    qi::char_(':')          [_a += ":"]
-                                >>  ls32                    [_a += qi::_1]
-                            )
+                            beforeAbreviation(0)            [_a = qi::_1]
+                        >>  abreviation(4)                  [_a += qi::_1]
                     )
                 |   (
-                            eps                             [_a = ""]
-                        >>  lit("::")                       [_a += "::"]
-                        >> -(
-                                    h16                     [_a += qi::_1]
-                                >>  repeat(0, 4)
-                                    [
-                                            qi::char_(':')  [_a += ":"]
-                                        >>  h16             [_a += qi::_1]
-                                    ]
-                            )
-                        >> -(
-                                    qi::char_(':')          [_a += ":"]
-                                >>  ls32                    [_a += qi::_1]
-                            )
+                        abreviation(5)                      [_a = qi::_1]
                     )
                 )
                 >> eps [_val = _a]
@@ -217,17 +146,21 @@ namespace WikiMarkup { namespace Components { namespace Parser
         }
 
         // Rules
-        boost::spirit::qi::rule<Iterator, std::string()> ls32; // see RFC
+        qi::rule <Iterator, std::string()> ls32; // see RFC
         qi::rule <Iterator, std::string()> h16; // h16 = 2 byte hex => see RFC
         qi::rule <Iterator, std::string()> h16_colon;
         qi::rule <Iterator, std::string()> colon_h16;
+
+        qi::rule <Iterator, std::string(int)> beforeAbreviation;
+        qi::rule <Iterator, std::string(int)> abreviation;
+        qi::rule <Iterator, std::string(int)> afterAbreviation;
 
         qi::rule <Iterator, std::string(), qi::locals <std::string> > ipv6;
 
         qi::rule <Iterator, grammar_result()> main;
 
         // Grammars
-        ipv4_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv4s;
+        ipv4s_grammar GRAMMAR_TEMPLATE_SIGNATURE_FORWARD ipv4s;
     };
 } // Parser
 } // Components

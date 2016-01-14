@@ -1,0 +1,9 @@
+Following things are not suported:
+-------------------------------------
+	Magics
+		{{SERVERNAME}}
+
+	[//en.wikipedia.org] Protocol-relative external links
+
+	Symbols
+		^

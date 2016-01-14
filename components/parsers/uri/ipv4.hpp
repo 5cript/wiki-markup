@@ -30,6 +30,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
             using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
+			INSTALL_DEBUG_HANDLER;
 
             section =
                     boost::spirit::qi::uint_parser<uint8_t, 10, 1, 3>() [_a = qi::_1]

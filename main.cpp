@@ -5,6 +5,7 @@
 
 #include "components/parsers/parse.hpp"
 #include "components/parsers/url.hpp"
+#include "components/parsers/link.hpp"
 
 
 #include <iostream>
@@ -24,31 +25,36 @@ int main()
 
     using namespace WikiMarkup::Components::Parser;
 
-    TYPEDEF_GRAMMAR(ipv6_grammar);
+    TYPEDEF_GRAMMAR(link_grammar);
 
-    auto result = parse <grammar> (data);
+    try {
+        auto result = parse <grammar> (data, true, true);
 
-    std::cout << result;
+        std::cout << "internal: " << result.internal << "\n";
+        std::cout << "colon: " << result.colon << "\n";
+        std::cout << "anchor: " << result.anchor << "\n";
+        std::cout << "prefix: " << result.prefix << "\n";
+        std::cout << "localPart: " << result.localPart << "\n";
+        std::cout << "attributes: \n";
+        for (auto const& i : result.attributes)
+            std::cout << "\t" << i << "\n";
+        std::cout << "redirect: " << result.redirect << "\n";
 
-    /*
-    std::function <void(List const&, int)> printList;
-    printList = [&](List const& curList, int depth) {
-        for (auto const& i : curList.elements) {
-            ListTextLine* tex = dynamic_cast <ListTextLine*> (i.get());
-            if (tex) {
-                for (int i = 0; i != depth; ++i)
-                    std::cout << "  ";
-                std::cout << tex->data;
-            } else {
-                //std::cout << "list";
-                printList(*dynamic_cast <List*> (i.get()), depth + 1);
-            }
-            std::cout << "\n";
-        }
-    };
 
-    printList(list, 0);
-    */
+        std::cout << "url.scheme: " << result.url.scheme << "\n";
+        std::cout << "url.authority.user: " << result.url.authority.user << "\n";
+        std::cout << "url.authority.password: " << result.url.authority.password << "\n";
+        std::cout << "url.authority.host: " << result.url.authority.host << "\n";
+        std::cout << "url.authority.port: " << result.url.authority.port << "\n";
+        std::cout << "url.path: ";
+        for (auto const& i : result.url.path)
+             std::cout << i << "/";
+        std::cout << "\n";
+        std::cout << "url.query: " << result.url.query << "\n";
+        std::cout << "url.fragment: " << result.url.fragment << "\n";
+    } catch (std::exception const& exc) {
+        std::cout << exc.what() << "\n";
+    }
 
     return 0;
 }
@@ -65,4 +71,16 @@ std::string readStringFromFile(std::string const& fileName)
     } while (reader.gcount() == 4096);
 
     return data;
+}
+
+std::vector <std::string> readLinesFromFile(std::string const& fileName)
+{
+    std::ifstream reader (fileName);
+
+    std::string line;
+    std::vector <std::string> lines;
+    while (std::getline(reader, line))
+        lines.push_back(line);
+
+    return lines;
 }
