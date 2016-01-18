@@ -1,6 +1,8 @@
 #ifndef COMPONENTS_COMPONENT_HPP_INCLUDED
 #define COMPONENTS_COMPONENT_HPP_INCLUDED
 
+#include "parsers/parsing_results.hpp"
+
 #include <string>
 
 namespace WikiMarkup { namespace Components {
@@ -10,7 +12,7 @@ namespace WikiMarkup { namespace Components {
     public:
         virtual ~IComponent() = default;
         virtual std::string toMarkup() = 0;
-        virtual void fromMarkup(std::string const&) = 0;
+        virtual ParsingResult fromMarkup(std::string const&) = 0;
     };
 
 } // namespace Components
