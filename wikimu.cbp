@@ -41,6 +41,8 @@
 		<Unit filename="components/format.hpp" />
 		<Unit filename="components/header.cpp" />
 		<Unit filename="components/header.hpp" />
+		<Unit filename="components/horizontal_line.cpp" />
+		<Unit filename="components/horizontal_line.hpp" />
 		<Unit filename="components/link.cpp" />
 		<Unit filename="components/link.hpp" />
 		<Unit filename="components/list.cpp" />
@@ -87,6 +89,7 @@
 		<Unit filename="components/url.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.hpp" />
+		<Unit filename="page.cpp" />
 		<Unit filename="page.hpp" />
 		<Unit filename="parser/helpers.hpp" />
 		<Unit filename="parser/page_parser.cpp" />
