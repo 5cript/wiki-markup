@@ -1,6 +1,8 @@
 #ifndef COMPONENTS_LIST_HPP_INCLUDED
 #define COMPONENTS_LIST_HPP_INCLUDED
 
+#include "../SimpleUtil/value_ptr/value_ptr.hpp"
+
 #include "list/list_type.hpp"
 
 #include "component.hpp"
@@ -36,7 +38,7 @@ namespace WikiMarkup { namespace Components {
     struct List : public IComponent, public ListElement
     {
         ListType type;
-        std::vector <std::unique_ptr <ListElement>> elements;
+        std::vector <sutil::value_ptr <ListElement>> elements;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;

@@ -33,6 +33,9 @@
 			<Add option="-fexceptions" />
 			<Add option="-std=c++14" />
 		</Compiler>
+		<Unit filename="SimpleUtil/value_ptr/cloneable.hpp" />
+		<Unit filename="SimpleUtil/value_ptr/cloner.hpp" />
+		<Unit filename="SimpleUtil/value_ptr/value_ptr.hpp" />
 		<Unit filename="components/adaption.hpp" />
 		<Unit filename="components/comments.cpp" />
 		<Unit filename="components/comments.hpp" />
