@@ -1,5 +1,8 @@
 #include "link.hpp"
 
+#include "parsers/parse.hpp"
+#include "parsers/link.hpp"
+
 namespace WikiMarkup { namespace Components {
 //####################################################################################
     std::string Link::toMarkup()
@@ -7,17 +10,15 @@ namespace WikiMarkup { namespace Components {
         return "link";
     }
 //-----------------------------------------------------------------------------------
-    void Link::fromMarkup(std::string const& mu)
+    ParsingResult Link::fromMarkup(std::string const& mu)
     {
-        /*
         using namespace WikiMarkup::Components::Parser;
 
-        TYPEDEF_GRAMMAR(list_grammar);
+        TYPEDEF_GRAMMAR(link_grammar);
 
-        auto plainList = parse <grammar> (mu);
-
-        *this = PostProcessors::postProcessList(plainList);
-        */
+        auto res = parse <grammar> (mu);
+        *this = res.second;
+        return res.first;
     }
 //####################################################################################
 } // namespace Components

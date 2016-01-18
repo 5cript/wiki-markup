@@ -2,8 +2,9 @@
 #define COMPONENTS_TABLE_HPP_INCLUDED
 
 #include "component.hpp"
-
 #include "adaption.hpp"
+#include "parsers/parsing_results.hpp"
+
 #include "table/table_row.hpp"
 #include "table/table_caption.hpp"
 
@@ -20,7 +21,7 @@ namespace WikiMarkup { namespace Components {
         std::vector <TableRow> rows;
 
         std::string toMarkup() override;
-        void fromMarkup(std::string const& mu) override;
+        ParsingResult fromMarkup(std::string const& mu) override;
     };
 
 } // namespace Components

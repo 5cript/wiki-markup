@@ -22,13 +22,15 @@ namespace WikiMarkup { namespace Components {
         return result;
     }
 //-----------------------------------------------------------------------------------
-    void Header::fromMarkup(std::string const& mu)
+    ParsingResult Header::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
 
         TYPEDEF_GRAMMAR(header_grammar);
 
-        *this = parse <grammar> (mu);
+        auto res = parse <grammar> (mu);
+        *this = res.second;
+        return res.first;
     }
 //####################################################################################
 } // namespace Components

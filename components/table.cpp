@@ -11,15 +11,19 @@ namespace WikiMarkup { namespace Components {
         return "table";
     }
 //-----------------------------------------------------------------------------------
-    void Table::fromMarkup(std::string const& mu)
+    ParsingResult Table::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
         using namespace WikiMarkup::Components::PostProcessors;
 
         TYPEDEF_GRAMMAR(table_grammar);
 
-        *this = parse <grammar> (mu);
-        postProcessTable(*this);
+        auto res = parse <grammar> (mu);
+        if (res.first != ParsingResult::FAIL) {
+            *this = res.second;
+            postProcessTable(*this);
+        }
+        return res.first;
     }
 //####################################################################################
 } // namespace Components

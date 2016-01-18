@@ -3,6 +3,7 @@
 
 #include "component.hpp"
 #include "adaption.hpp"
+#include "parsers/parsing_results.hpp"
 
 #include <string>
 
@@ -14,7 +15,7 @@ namespace WikiMarkup { namespace Components {
         int level; // H1, H2, H3, ... = 1, 2, 3, ...
 
         std::string toMarkup() override;
-        void fromMarkup(std::string const& mu) override;
+        ParsingResult fromMarkup(std::string const& mu) override;
     };
 
 } // namespace Components

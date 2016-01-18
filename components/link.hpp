@@ -1,8 +1,9 @@
-#ifndef LINK_HPP_INCLUDED
-#define LINK_HPP_INCLUDED
+#ifndef COMPONENTS_LINK_HPP_INCLUDED
+#define COMPONENTS_LINK_HPP_INCLUDED
 
 #include "component.hpp"
 #include "adaption.hpp"
+#include "parsers/parsing_results.hpp"
 
 #include "url.hpp"
 
@@ -25,7 +26,7 @@ namespace WikiMarkup { namespace Components {
         bool redirect;
 
         std::string toMarkup() override;
-        void fromMarkup(std::string const& mu) override;
+        ParsingResult fromMarkup(std::string const& mu) override;
     };
 
 } // Components
@@ -41,4 +42,4 @@ BOOST_FUSION_ADAPT_STRUCT(WikiMarkup::Components::Link,
                           url, // 6
                           redirect) // 7
 
-#endif // LINK_HPP_INCLUDED
+#endif // COMPONENTS_LINK_HPP_INCLUDED

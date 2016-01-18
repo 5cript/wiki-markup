@@ -39,7 +39,7 @@ namespace WikiMarkup { namespace Components {
         std::vector <std::unique_ptr <ListElement>> elements;
 
         std::string toMarkup() override;
-        void fromMarkup(std::string const& mu) override;
+        ParsingResult fromMarkup(std::string const& mu) override;
     };
 
 } // namespace Components

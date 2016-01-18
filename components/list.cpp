@@ -18,15 +18,17 @@ namespace WikiMarkup { namespace Components {
         return "list";
     }
 //-----------------------------------------------------------------------------------
-    void List::fromMarkup(std::string const& mu)
+    ParsingResult List::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
 
         TYPEDEF_GRAMMAR(list_grammar);
 
-        auto plainList = parse <grammar> (mu);
+        auto res = parse <grammar> (mu);
 
-        //*this = PostProcessors::postProcessList(plainList);
+        if (res.first != ParsingResult::FAIL)
+            *this = PostProcessors::postProcessList(res.second);
+        return res.first;
     }
 //####################################################################################
 } // namespace Components
