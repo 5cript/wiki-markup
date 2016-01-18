@@ -60,10 +60,14 @@ namespace WikiMarkup
         void setPosition(std::size_t position);
 
         /**
-         *  returns if the current position is the start of a line.
+         *  Returns true if the current position is the start of a line.
          */
         bool isStartOfLine() const;
 
+        /**
+         *  Returns true if position != end.
+         */
+        bool hasMoreToRead() const;
 
         /**
          *  Moves the position forwards.

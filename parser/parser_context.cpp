@@ -64,7 +64,7 @@ namespace WikiMarkup
 //-----------------------------------------------------------------------------------
     char ParserContext::get(bool peek) const
     {
-        if (position_ == page_.length())
+        if (!hasMoreToRead())
             return '\0';
 
         char c = page_[position_];
@@ -75,7 +75,7 @@ namespace WikiMarkup
 //-----------------------------------------------------------------------------------
     boost::optional <Token> ParserContext::getToken(bool peek) const
     {
-        if (position_ == page_.length())
+        if (!hasMoreToRead())
             return boost::none;
 
         for (auto const& i : tokens_) {
@@ -90,7 +90,7 @@ namespace WikiMarkup
 //-----------------------------------------------------------------------------------
     boost::optional <std::string> ParserContext::getLine(bool peek) const
     {
-        if (position_ == page_.length())
+        if (!hasMoreToRead())
             return boost::none;
 
         for (auto const& i : lines_) {
@@ -110,6 +110,11 @@ namespace WikiMarkup
             return position_ == l.start;
         });
         return iter != std::end(lines_);
+    }
+//-----------------------------------------------------------------------------------
+    bool ParserContext::hasMoreToRead() const
+    {
+        return position_ < page_.length();
     }
 //-----------------------------------------------------------------------------------
     std::size_t ParserContext::getPosition() const

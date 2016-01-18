@@ -16,6 +16,8 @@ namespace WikiMarkup
         void parse();
         void parseSection();
 
+        Page getPage();
+
     private:
         ParserContext ctx_;
         Page page_;
