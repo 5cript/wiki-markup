@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="wikimd" />
+		<Option title="wikimu" />
 		<Option pch_mode="2" />
 		<Option compiler="msys2_32" />
 		<Build>
@@ -34,8 +34,10 @@
 			<Add option="-std=c++14" />
 		</Compiler>
 		<Unit filename="components/adaption.hpp" />
+		<Unit filename="components/comments.cpp" />
 		<Unit filename="components/comments.hpp" />
 		<Unit filename="components/component.hpp" />
+		<Unit filename="components/components.hpp" />
 		<Unit filename="components/format.hpp" />
 		<Unit filename="components/header.cpp" />
 		<Unit filename="components/header.hpp" />
@@ -53,15 +55,18 @@
 		<Unit filename="components/parsers/fusion_includes.hpp" />
 		<Unit filename="components/parsers/header.hpp" />
 		<Unit filename="components/parsers/indents.hpp" />
+		<Unit filename="components/parsers/link.hpp" />
 		<Unit filename="components/parsers/list.hpp" />
 		<Unit filename="components/parsers/parse.hpp" />
 		<Unit filename="components/parsers/parser_core.hpp" />
+		<Unit filename="components/parsers/parsing_results.hpp" />
 		<Unit filename="components/parsers/phoenix_includes.hpp" />
 		<Unit filename="components/parsers/properties.hpp" />
 		<Unit filename="components/parsers/qi_includes.hpp" />
 		<Unit filename="components/parsers/space.hpp" />
 		<Unit filename="components/parsers/table.hpp" />
 		<Unit filename="components/parsers/unescaped_string.hpp" />
+		<Unit filename="components/parsers/uri/authority.hpp" />
 		<Unit filename="components/parsers/uri/domain.hpp" />
 		<Unit filename="components/parsers/uri/domain_name.hpp" />
 		<Unit filename="components/parsers/uri/ipv4.hpp" />
@@ -77,10 +82,21 @@
 		<Unit filename="components/table/table_caption.hpp" />
 		<Unit filename="components/table/table_cell.hpp" />
 		<Unit filename="components/table/table_row.hpp" />
+		<Unit filename="components/text.cpp" />
+		<Unit filename="components/text.hpp" />
 		<Unit filename="components/url.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.hpp" />
 		<Unit filename="page.hpp" />
+		<Unit filename="parser/helpers.hpp" />
+		<Unit filename="parser/page_parser.cpp" />
+		<Unit filename="parser/page_parser.hpp" />
+		<Unit filename="parser/parser_context.cpp" />
+		<Unit filename="parser/parser_context.hpp" />
+		<Unit filename="parser/token.cpp" />
+		<Unit filename="parser/token.hpp" />
+		<Unit filename="parser/token_classification.cpp" />
+		<Unit filename="parser/token_classification.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
