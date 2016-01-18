@@ -2,18 +2,21 @@
 #define COMPONENTS_PARSE_PARSE_HPP_INCLUDED
 
 #include "parser_core.hpp"
+#include "parsing_results.hpp"
 
 #include <stdexcept>
 #include <type_traits>
 #include <string>
+#include <utility>
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
 
     template <typename GrammarT, typename CharType = char_type>
-    typename GrammarT::grammar_result parse(std::basic_string <CharType> const& text,
-                                            bool doThrow = true,
-                                            bool allowPartial = true)
+        std::pair <ParsingResult, typename GrammarT::grammar_result>
+        parse(std::basic_string <CharType> const& text,
+              bool doThrow = false,
+              bool allowPartial = true)
     {
         using encoding::space;
 
@@ -32,7 +35,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
             if (doThrow)
                 throw std::runtime_error ("quick parsing failed");
             else
-                return {};
+                return std::make_pair(ParsingResult::FAIL, typename GrammarT::grammar_result{});
         }
         else if (iter != end)
         {
@@ -41,12 +44,11 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 if (doThrow)
                     throw std::runtime_error ("quick parsing failed (no exact match)");
                 else
-                    return {};
+                    return std::make_pair(ParsingResult::FAIL, typename GrammarT::grammar_result{});
             }
-            //else success
+            return std::make_pair(ParsingResult::PARTIAL, typename GrammarT::grammar_result{});
         }
-        // else success
-        return parsed;
+        return std::make_pair(ParsingResult::FULL_SUCCESS, typename GrammarT::grammar_result{});
     }
 
 } // Parser

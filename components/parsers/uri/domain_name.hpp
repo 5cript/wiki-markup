@@ -11,7 +11,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 {
     namespace Internal
     {
-        std::string dotConcatStrings(std::vector <std::string> const& strings) {
+        inline std::string dotConcatStrings(std::vector <std::string> const& strings) {
             if (strings.empty())
                 return "";
 

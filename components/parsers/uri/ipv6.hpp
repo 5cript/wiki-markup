@@ -16,7 +16,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 {
     namespace Internal
     {
-        std::string vecStrAccumulator(std::vector <std::string> const& vec) {
+        inline std::string vecStrAccumulator(std::vector <std::string> const& vec) {
             std::string res;
             for (auto const& i : vec)
                 res += i;

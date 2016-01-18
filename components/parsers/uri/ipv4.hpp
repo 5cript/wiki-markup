@@ -12,7 +12,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 {
     namespace Internal
     {
-        std::string intToStr(uint8_t v) {
+        inline std::string intToStr(uint8_t v) {
             std::stringstream sstr;
             sstr << (int)v;
             return sstr.str();

@@ -9,9 +9,9 @@
 namespace WikiMarkup { namespace Components { namespace Parser
 {
     template GRAMMAR_TEMPLATE_SIGNATURE
-    struct comment_grammar : qi::grammar <Iterator, std::vector <CommentText>(), qi::locals <CommentText>>
+    struct comment_grammar : qi::grammar <Iterator, CommentText(), qi::locals <CommentText>>
     {
-        using grammar_result = std::vector <CommentText>;
+        using grammar_result = CommentText;
 
         comment_grammar() : comment_grammar::base_type(main, "comments")
         {
@@ -21,7 +21,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 			INSTALL_WARNING_HANDLER;
 
 			comment.name("comment");
-			no_comment.name("no_comment");
+			//no_comment.name("no_comment");
 
 			comment %=
                     lit("<!--")
@@ -29,30 +29,10 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 >> -lit("-->")
 			;
 
-			no_comment %= +(qi::char_ - lit("<!--"));
+			// no_comment %= +(qi::char_ - lit("<!--"));
 
-            // comment or no comment, that is the question :D
 			main =
-               *(
-                    (
-                        (
-                            comment
-                            [
-                                at_c <1> (_a) = true,
-                                at_c <0> (_a) = qi::_1
-                            ]
-                        )
-                        |
-                        (
-                            no_comment
-                            [
-                                at_c <1> (_a) = false,
-                                at_c <0> (_a) = qi::_1
-                            ]
-                        )
-                    )
-                    >>  eps [phoenix::push_back(_val, _a)]
-                )
+                comment             [at_c <0> (_val) = qi::_1]
 			;
 
             HANDLE_QI_ERROR(main, 1);
@@ -61,7 +41,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
 
         // Rules
         qi::rule <Iterator, std::string()> comment;
-        qi::rule <Iterator, std::string()> no_comment;
+        // qi::rule <Iterator, std::string()> no_comment;
         qi::rule <Iterator, grammar_result(), qi::locals <CommentText>> main;
     };
 } // Parser
