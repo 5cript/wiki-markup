@@ -1,5 +1,5 @@
-#ifndef COMPONENTS_HEADER_HPP_INCLUDED
-#define COMPONENTS_HEADER_HPP_INCLUDED
+#ifndef HORIZONTAL_LINE_HPP_INCLUDED
+#define HORIZONTAL_LINE_HPP_INCLUDED
 
 #include "component.hpp"
 #include "adaption.hpp"
@@ -9,11 +9,8 @@
 
 namespace WikiMarkup { namespace Components {
 
-    struct Header : public IComponent
+    struct HorizontalLine : public IComponent
     {
-        std::string data;
-        int level; // H1, H2, H3, ... = 1, 2, 3, ...
-
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
         std::string getName() const override;
@@ -22,11 +19,11 @@ namespace WikiMarkup { namespace Components {
 } // namespace Components
 } // namespace WikiMarkup
 
+/*
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkup::Components::Header,
-    (std::string, data)
-    (int, level)
+    WikiMarkup::Components::HorizontalLine
 )
+*/
 
-#endif // COMPONENTS_HEADER_HPP_INCLUDED
+#endif // HORIZONTAL_LINE_HPP_INCLUDED

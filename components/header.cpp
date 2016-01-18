@@ -32,6 +32,11 @@ namespace WikiMarkup { namespace Components {
         *this = res.second;
         return res.first;
     }
+//-----------------------------------------------------------------------------------
+    std::string Header::getName() const
+    {
+        return "Header";
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

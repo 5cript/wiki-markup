@@ -4,11 +4,12 @@
 #include "parsers/comments.hpp"
 
 namespace WikiMarkup { namespace Components {
-
+//####################################################################################
     std::string CommentText::toMarkup()
     {
         return std::string("<!--") + data + "-->";
     }
+//-----------------------------------------------------------------------------------
     ParsingResult CommentText::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
@@ -19,6 +20,11 @@ namespace WikiMarkup { namespace Components {
         *this = res.second;
         return res.first;
     }
-
+//-----------------------------------------------------------------------------------
+    std::string CommentText::getName() const
+    {
+        return "CommentText";
+    }
+//####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

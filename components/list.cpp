@@ -30,6 +30,11 @@ namespace WikiMarkup { namespace Components {
             *this = PostProcessors::postProcessList(res.second);
         return res.first;
     }
+//-----------------------------------------------------------------------------------
+    std::string List::getName() const
+    {
+        return "List";
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

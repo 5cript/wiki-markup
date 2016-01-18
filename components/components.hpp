@@ -9,5 +9,6 @@
 #include "list.hpp"
 #include "table.hpp"
 #include "text.hpp"
+#include "horizontal_line.hpp"
 
 #endif // COMPONENTS_COMPONENTS_HPP_INCLUDED

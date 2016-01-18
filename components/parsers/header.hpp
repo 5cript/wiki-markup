@@ -32,7 +32,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
             main =
                     start                                   [_a = qi::_1]
                 >> *space
-                >  *(qi::char_ - (lit(_a) >> linebreak))    [phoenix::push_back(at_c <0> (_val), qi::_1)]
+                >  *(qi::char_ - lit(_a))                   [phoenix::push_back(at_c <0> (_val), qi::_1)]
                 >   end(_a)
                 >> *space
                 >>  eps                                     [at_c <1> (_val) = phoenix::size(qi::_a)]

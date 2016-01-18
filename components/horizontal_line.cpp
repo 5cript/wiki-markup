@@ -1,30 +1,26 @@
-#include "link.hpp"
-
-#include "parsers/parse.hpp"
-#include "parsers/link.hpp"
+#include "horizontal_line.hpp"
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
-    std::string Link::toMarkup()
+    std::string HorizontalLine::toMarkup()
     {
-        return "link";
+        return "----\n";
     }
 //-----------------------------------------------------------------------------------
-    ParsingResult Link::fromMarkup(std::string const& mu)
+    ParsingResult HorizontalLine::fromMarkup(std::string const& mu)
     {
-        using namespace WikiMarkup::Components::Parser;
-
-        TYPEDEF_GRAMMAR(link_grammar);
-
-        auto res = parse <grammar> (mu);
-        *this = res.second;
-        return res.first;
+        // using qi for this? you kiddin?
+        if (mu != "----")
+            return ParsingResult::FAIL;
+        else
+            return ParsingResult::FULL_SUCCESS;
     }
 //-----------------------------------------------------------------------------------
-    std::string Link::getName() const
+    std::string HorizontalLine::getName() const
     {
-        return "Link";
+        return "HorizontalLine";
     }
 //####################################################################################
+
 } // namespace Components
 } // namespace WikiMarkup

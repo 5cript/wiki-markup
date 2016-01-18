@@ -25,6 +25,11 @@ namespace WikiMarkup { namespace Components {
         }
         return res.first;
     }
+//-----------------------------------------------------------------------------------
+    std::string Table::getName() const
+    {
+        return "Table";
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup
