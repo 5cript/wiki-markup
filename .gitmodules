@@ -1,0 +1,3 @@
+[submodule "SimpleUtil"]
+	path = SimpleUtil
+	url = git@github.com:5cript/SimpleUtil.git
