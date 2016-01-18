@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <memory>
+#include <iosfwd>
 
 namespace WikiMarkup
 {
@@ -15,12 +16,14 @@ namespace WikiMarkup
         ~Page() = default;
 
         template <typename T>
-        void appendComponent(T const& comp) {
-            components_.emplace_back (new T(comp));
+        void appendComponent(T const&& comp) {
+            components_.emplace_back (new T(std::move(comp)));
         }
 
+        void dumpComponentNames(std::ostream& stream);
+
     private:
-        std::vector <std::unique_ptr <Components::IComponent>> components_;
+        std::vector <std::shared_ptr <Components::IComponent>> components_;
     };
 }
 

@@ -27,6 +27,9 @@ int main()
     PageParser parser (data);
     parser.parse();
 
+    Page p = parser.getPage();
+    p.dumpComponentNames(std::cout);
+
     return 0;
 }
 
