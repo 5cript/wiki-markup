@@ -1,1 +1,1 @@
-[[File:example.jpg|link=|caption]]
+=== SECTION ===
