@@ -41,7 +41,7 @@ namespace WikiMarkup
                 if (i + 1 != end && *(i + 1) == '\r')
                     ++i;
 
-                line.end = i - std::begin(page_);
+                line.end = i - std::begin(page_) + 1;
                 lines_.push_back(line);
                 line.data.clear();
                 line.start = line.end;
@@ -49,7 +49,7 @@ namespace WikiMarkup
                 if (i + 1 != end && *(i + 1) == '\n')
                     ++i;
 
-                line.end = i - std::begin(page_);
+                line.end = i - std::begin(page_) + 1;
                 lines_.push_back(line);
                 line.data.clear();
                 line.start = line.end;

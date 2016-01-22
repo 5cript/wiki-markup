@@ -14,9 +14,12 @@ namespace WikiMarkup
         PageParser(std::string const& page);
 
         void parse();
-        void parseSection();
 
         Page getPage();
+
+    private:
+        bool parseSection();
+        void parseSections();
 
     private:
         ParserContext ctx_;

@@ -21,84 +21,120 @@ namespace WikiMarkup
 //-----------------------------------------------------------------------------------
     void PageParser::parse()
     {
-        if (ctx_.isStartOfLine()) {
-            char c = ctx_.get(PEEK);
-
-            if (c == '=' || c == '-' || c == '*' || c == '#' ||
-                c == ';' || c == ' ')
-            {
-                parseSection();
-            }
-        }
+        parseSections();
     }
 //-----------------------------------------------------------------------------------
-    void PageParser::parseSection()
+    void PageParser::parseSections()
     {
+        std::string currentText;
+        bool continueParsing;
+
+        auto pushText = [&]() {
+            if (currentText.empty())
+                return;
+
+            Text tex;
+            tex.fromMarkup(currentText);
+            page_.appendComponent(std::move(tex));
+            currentText = "";
+        };
+
+        while (ctx_.hasMoreToRead())
+        {
+            continueParsing = true;
+
+            if (ctx_.isStartOfLine())
+            {
+                pushText();
+
+                char c = ctx_.get(PEEK);
+
+                if (c == '=' || c == '-' || c == '*' || c == '#' ||
+                    c == ';' || c == ' ')
+                {
+                    parseSection();
+                    continueParsing = false;
+                }
+            }
+
+            if (continueParsing)
+            {
+                currentText.push_back(ctx_.get());
+            }
+        }
+
+        pushText();
+    }
+//-----------------------------------------------------------------------------------
+    bool PageParser::parseSection()
+    {
+        auto wasSection = false;
         auto positionBackup = ctx_.getPosition();
         char c = ctx_.get(PEEK);
 
-        // section formatting
-        if (c == '=') {
-            Header head;
-            auto result = head.fromMarkup(ctx_.getLine().get());
+        auto partialIsFail = [this, &positionBackup]() -> bool {
+            return false;
+        };
 
-            if (result == ParsingResult::PARTIAL ||
-                result == ParsingResult::FAIL)
-            {
-                // not a header
-                ctx_.setPosition(positionBackup);
-            }
-            else
-            {
-                page_.appendComponent(std::move(head));
-            }
-        } else if (c == '-') {
-            HorizontalLine hLine;
-            auto result = hLine.fromMarkup(ctx_.getLine().get());
+        /*
+        auto partialIsSuccess = [this]() -> bool {
+            return true;
+        };
+        */
 
-            if (result == ParsingResult::PARTIAL ||
-                result == ParsingResult::FAIL)
-            {
-                // not a h-line
+        auto parseSingleSection = [&](std::string fromWhat, auto section, auto partialBehaviour) {
+            auto result = section.fromMarkup(fromWhat);
+
+            bool good = result != ParsingResult::FAIL &&
+            (result == ParsingResult::PARTIAL ? partialBehaviour() : true);
+
+            if (!good)
                 ctx_.setPosition(positionBackup);
+            else {
+                wasSection = true;
+                page_.appendComponent(std::move(section));
             }
-            else
-            {
-                page_.appendComponent(std::move(hLine));
-            }
-            // horizontal line
-        } else if (c == '*' || c == '#') {
+        };
+
+        auto accumulateLinesWhile = [&](auto lineCondition) {
             std::string lines = ctx_.getLine().get() + "\n";
             do {
                 auto line = ctx_.getLine(PEEK);
-                if (line && !line.get().empty() && line.get().front() == c) {
+                if (line && !line.get().empty() && lineCondition(line.get())) {
                     lines += line.get() + "\n";
-                    ctx_.getLine(); // move forward
+                    ctx_.getLine();
                 } else {
                     break;
                 }
             }
             while (true);
+            return lines;
+        };
 
-            List list;
-            auto result = list.fromMarkup(lines);
-
-            if (result == ParsingResult::PARTIAL ||
-                result == ParsingResult::FAIL)
-            {
-                // not a list
-                ctx_.setPosition(positionBackup);
-            }
-            else
-            {
-                page_.appendComponent(std::move(list));
-            }
+        if (c == '=') {
+            // Headers
+            parseSingleSection(ctx_.getLine().get(), Header{}, partialIsFail);
+        } else if (c == '-') {
+            // horizontal line
+            parseSingleSection(ctx_.getLine().get(), HorizontalLine{}, partialIsFail);
+        } else if (c == '*' || c == '#') {
             // bullet list || numbered list
+            std::string lines = accumulateLinesWhile([c](std::string const& line) {
+                return line.front() == c;
+            });
+
+            parseSingleSection(lines, List{}, partialIsFail);
         } else if (c == ';') {
             // definition list
-        } else if (c == ' ') {
+        } else if (std::isspace(c)) {
             // preformatted text (remove leading space)
+            std::string lines = accumulateLinesWhile([](std::string const& line) {
+                return std::isspace(line.front());
+            });
+
+            parseSingleSection(lines, PreformattedText{}, partialIsFail);
         }
+        return wasSection;
     }
 //-----------------------------------------------------------------------------------
     Page PageParser::getPage()
