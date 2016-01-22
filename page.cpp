@@ -16,5 +16,10 @@ namespace WikiMarkup
     {
         components_.clear();
     }
+//-----------------------------------------------------------------------------------
+    std::add_lvalue_reference_t <decltype(Page::components_)> Page::getComponents()
+    {
+        return components_;
+    }
 //####################################################################################
 }
