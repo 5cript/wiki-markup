@@ -22,6 +22,15 @@ namespace WikiMarkup
     void PageParser::parse()
     {
         parseSections();
+        parseTexts();
+    }
+//-----------------------------------------------------------------------------------
+    void PageParser::parseTexts()
+    {
+        Page tempPage = page_;
+        // page_.clear();
+
+
     }
 //-----------------------------------------------------------------------------------
     void PageParser::parseSections()
@@ -75,12 +84,6 @@ namespace WikiMarkup
         auto partialIsFail = [this, &positionBackup]() -> bool {
             return false;
         };
-
-        /*
-        auto partialIsSuccess = [this]() -> bool {
-            return true;
-        };
-        */
 
         auto parseSingleSection = [&](std::string fromWhat, auto section, auto partialBehaviour) {
             auto result = section.fromMarkup(fromWhat);

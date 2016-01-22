@@ -20,6 +20,7 @@ namespace WikiMarkup
     private:
         bool parseSection();
         void parseSections();
+        void parseTexts();
 
     private:
         ParserContext ctx_;

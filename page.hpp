@@ -2,6 +2,7 @@
 #define PAGE_HPP_INCLUDED
 
 #include "components/component.hpp"
+#include "SimpleUtil/value_ptr/value_ptr.hpp"
 
 #include <vector>
 #include <memory>
@@ -20,10 +21,12 @@ namespace WikiMarkup
             components_.emplace_back (new T(std::move(comp)));
         }
 
+        void clear();
+
         void dumpComponentNames(std::ostream& stream);
 
     private:
-        std::vector <std::shared_ptr <Components::IComponent>> components_;
+        std::vector <sutil::value_ptr <Components::IComponent>> components_;
     };
 }
 
