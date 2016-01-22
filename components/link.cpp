@@ -25,6 +25,11 @@ namespace WikiMarkup { namespace Components {
     {
         return "Link";
     }
+//-----------------------------------------------------------------------------------
+    Link* Link::clone() const
+    {
+        return new Link(*this);
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

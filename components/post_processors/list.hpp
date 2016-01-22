@@ -5,7 +5,7 @@
 
 namespace WikiMarkup { namespace Components { namespace PostProcessors {
 
-    List postProcessList(PlainList const& plainList);
+    PrimalList postProcessList(PlainList const& plainList);
 
 } // namespace PostProcessors
 } // namespace Components

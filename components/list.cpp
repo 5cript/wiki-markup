@@ -13,9 +13,14 @@ namespace WikiMarkup { namespace Components {
 
     }
 //-----------------------------------------------------------------------------------
-    ListElement* ListTextLine::clone() const
+    ListTextLine* ListTextLine::clone() const
     {
         return new ListTextLine(*this);
+    }
+//####################################################################################
+    PrimalList* PrimalList::clone() const
+    {
+        return new PrimalList(*this);
     }
 //####################################################################################
     std::string List::toMarkup()
@@ -32,7 +37,7 @@ namespace WikiMarkup { namespace Components {
         auto res = parse <grammar> (mu);
 
         if (res.first != ParsingResult::FAIL)
-            *this = PostProcessors::postProcessList(res.second);
+            this->list = PostProcessors::postProcessList(res.second);
         return res.first;
     }
 //-----------------------------------------------------------------------------------
@@ -41,7 +46,7 @@ namespace WikiMarkup { namespace Components {
         return "List";
     }
 //-----------------------------------------------------------------------------------
-    ListElement* List::clone() const
+    List* List::clone() const
     {
         return new List(*this);
     }

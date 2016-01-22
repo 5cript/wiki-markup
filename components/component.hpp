@@ -1,11 +1,13 @@
-#ifndef COMPONENTS_COMPONENT_HPP_INCLUDED
-#define COMPONENTS_COMPONENT_HPP_INCLUDED
+#pragma once
 
+#include "../../SimpleUtil/value_ptr/cloneable.hpp"
 #include "parsers/parsing_results.hpp"
 
 #include <string>
 
 namespace WikiMarkup { namespace Components {
+
+    using namespace sutil;
 
     class IComponent
     {
@@ -14,9 +16,8 @@ namespace WikiMarkup { namespace Components {
         virtual std::string toMarkup() = 0;
         virtual ParsingResult fromMarkup(std::string const&) = 0;
         virtual std::string getName() const = 0;
+        virtual IComponent* clone() const = 0;
     };
 
 } // namespace Components
 } // namespace WikiMarkup
-
-#endif // COMPONENTS_COMPONENT_HPP_INCLUDED

@@ -25,6 +25,11 @@ namespace WikiMarkup { namespace Components {
     {
         return "CommentText";
     }
+//-----------------------------------------------------------------------------------
+    CommentText* CommentText::clone() const
+    {
+        return new CommentText(*this);
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

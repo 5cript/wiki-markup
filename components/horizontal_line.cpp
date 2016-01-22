@@ -20,6 +20,11 @@ namespace WikiMarkup { namespace Components {
     {
         return "HorizontalLine";
     }
+//-----------------------------------------------------------------------------------
+    HorizontalLine* HorizontalLine::clone() const
+    {
+        return new HorizontalLine(*this);
+    }
 //####################################################################################
 
 } // namespace Components

@@ -57,6 +57,11 @@ namespace WikiMarkup { namespace Components {
         {
             return "Preformatted_Text";
         }
+//-----------------------------------------------------------------------------------
+        PreformattedText* PreformattedText::clone() const
+        {
+            return new PreformattedText(*this);
+        }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

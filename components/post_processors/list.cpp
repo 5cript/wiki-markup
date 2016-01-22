@@ -2,15 +2,15 @@
 
 namespace WikiMarkup { namespace Components { namespace PostProcessors {
 //####################################################################################
-    List postProcessList(PlainList::const_iterator i, PlainList::const_iterator end, unsigned int depth)
+    PrimalList postProcessList(PlainList::const_iterator i, PlainList::const_iterator end, unsigned int depth)
     {
-        List curList;
+        PrimalList curList;
         for (; i != end; ++i)
         {
             auto const& r = *i;
             if (r.prefix.size() - 1 > depth) {
                 // new sublist starts!
-                curList.elements.push_back(sutil::make_value <List> (postProcessList(i, end, depth + 1)));
+                curList.elements.push_back(sutil::make_value <PrimalList> (postProcessList(i, end, depth + 1)));
 
                 do {
                     ++i;
@@ -30,7 +30,7 @@ namespace WikiMarkup { namespace Components { namespace PostProcessors {
         return curList;
     }
 //-----------------------------------------------------------------------------------
-    List postProcessList(PlainList const& plainList)
+    PrimalList postProcessList(PlainList const& plainList)
     {
         return postProcessList(std::cbegin(plainList), std::cend(plainList), 0);
     }

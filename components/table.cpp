@@ -30,6 +30,11 @@ namespace WikiMarkup { namespace Components {
     {
         return "Table";
     }
+//-----------------------------------------------------------------------------------
+    Table* Table::clone() const
+    {
+        return new Table(*this);
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

@@ -35,19 +35,25 @@ namespace WikiMarkup { namespace Components {
 
         ListTextLine(std::string const& data);
 
-        ListElement* clone() const override;
+        ListTextLine* clone() const override;
     };
 
-    struct List : public IComponent, public ListElement
+    struct PrimalList : public ListElement
     {
         ListType type;
         std::vector <sutil::value_ptr <ListElement>> elements;
 
+        PrimalList* clone() const override;
+    };
+
+    struct List : public IComponent
+    {
+        PrimalList list;
+
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
         std::string getName() const override;
-
-        ListElement* clone() const override;
+        List* clone() const override;
     };
 
 } // namespace Components

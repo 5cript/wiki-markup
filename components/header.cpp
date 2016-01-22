@@ -37,6 +37,11 @@ namespace WikiMarkup { namespace Components {
     {
         return "Header";
     }
+//-----------------------------------------------------------------------------------
+    Header* Header::clone() const
+    {
+        return new Header(*this);
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

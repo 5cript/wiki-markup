@@ -28,6 +28,7 @@ namespace WikiMarkup { namespace Components {
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
         std::string getName() const override;
+        Link* clone() const override;
     };
 
 } // Components
