@@ -18,6 +18,8 @@ namespace WikiMarkup
     class ParserContext
     {
     public:
+        using position_type = std::size_t;
+
         /**
          *  Prepares the page and converts it into multiple different useful
          *  formats for parsing (lines, tokens, plain).
@@ -52,12 +54,12 @@ namespace WikiMarkup
         /**
          *  Returns the current position in the page text.
          */
-        std::size_t getPosition() const;
+        position_type getPosition() const;
 
         /**
          *  Sets the current parser position
          */
-        void setPosition(std::size_t position);
+        void setPosition(position_type position);
 
         /**
          *  Returns true if the current position is the start of a line.
@@ -89,13 +91,19 @@ namespace WikiMarkup
          */
         ParserContext operator--(int);
 
+        /**
+         *  Takes all the remaining characters in the context, after the position, and returns them.
+         *  @return Returns all after position.
+         */
+        std::string getSlice() const;
+
     private:
         void tokenize();
         void splitLines();
 
     private:
         std::string page_;
-        mutable std::size_t position_;
+        mutable position_type position_;
         std::vector <Line> lines_;
         std::vector <Token> tokens_;
     };

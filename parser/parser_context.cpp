@@ -117,14 +117,19 @@ namespace WikiMarkup
         return position_ < page_.length();
     }
 //-----------------------------------------------------------------------------------
-    std::size_t ParserContext::getPosition() const
+    ParserContext::position_type ParserContext::getPosition() const
     {
         return position_;
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::setPosition(std::size_t position)
+    void ParserContext::setPosition(position_type position)
     {
         position_ = position;
+    }
+//-----------------------------------------------------------------------------------
+    std::string ParserContext::getSlice() const
+    {
+        return page_.substr(position_, page_.length() - position_);
     }
 //-----------------------------------------------------------------------------------
     ParserContext& ParserContext::operator++()
