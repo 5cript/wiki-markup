@@ -5,3 +5,4 @@ wikimu_build_log.html
 *.layout
 *.save-failed
 output.txt
+config.json
