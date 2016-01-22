@@ -10,7 +10,7 @@ namespace WikiMarkup { namespace Components { namespace PostProcessors {
             auto const& r = *i;
             if (r.prefix.size() - 1 > depth) {
                 // new sublist starts!
-                curList.elements.push_back(sutil::value_ptr <List> (postProcessList(i, end, depth + 1)));
+                curList.elements.push_back(sutil::make_value <List> (postProcessList(i, end, depth + 1)));
 
                 do {
                     ++i;
@@ -25,7 +25,7 @@ namespace WikiMarkup { namespace Components { namespace PostProcessors {
 
             // i.prefix[depth] is always safe here
             curList.type = getTypeFromChar(r.prefix[depth]);
-            curList.elements.push_back(sutil::value_ptr <ListTextLine> (r.data));
+            curList.elements.push_back(sutil::make_value <ListTextLine> (r.data));
         }
         return curList;
     }

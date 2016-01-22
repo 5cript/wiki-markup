@@ -26,6 +26,7 @@ namespace WikiMarkup { namespace Components {
     struct ListElement
     {
         virtual ~ListElement() = default;
+        virtual ListElement* clone() const = 0;
     };
 
     struct ListTextLine : public ListElement
@@ -33,6 +34,8 @@ namespace WikiMarkup { namespace Components {
         std::string data;
 
         ListTextLine(std::string const& data);
+
+        ListElement* clone() const override;
     };
 
     struct List : public IComponent, public ListElement
@@ -43,6 +46,8 @@ namespace WikiMarkup { namespace Components {
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
         std::string getName() const override;
+
+        ListElement* clone() const override;
     };
 
 } // namespace Components

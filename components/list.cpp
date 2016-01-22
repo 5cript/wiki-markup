@@ -12,6 +12,11 @@ namespace WikiMarkup { namespace Components {
     {
 
     }
+//-----------------------------------------------------------------------------------
+    ListElement* ListTextLine::clone() const
+    {
+        return new ListTextLine(*this);
+    }
 //####################################################################################
     std::string List::toMarkup()
     {
@@ -34,6 +39,11 @@ namespace WikiMarkup { namespace Components {
     std::string List::getName() const
     {
         return "List";
+    }
+//-----------------------------------------------------------------------------------
+    ListElement* List::clone() const
+    {
+        return new List(*this);
     }
 //####################################################################################
 } // namespace Components
