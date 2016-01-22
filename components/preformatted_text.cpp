@@ -62,6 +62,15 @@ namespace WikiMarkup { namespace Components {
         {
             return new PreformattedText(*this);
         }
+//-----------------------------------------------------------------------------------
+        std::string PreformattedText::getRaw() const
+        {
+            std::string joined;
+            for (auto const& i : lines) {
+                joined += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings;
+            }
+            return joined;
+        }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

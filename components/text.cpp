@@ -22,6 +22,11 @@ namespace WikiMarkup { namespace Components {
     {
         return new Text(*this);
     }
+//-----------------------------------------------------------------------------------
+    std::string Text::getRaw() const
+    {
+        return data;
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup
