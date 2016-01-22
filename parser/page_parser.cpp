@@ -1,6 +1,8 @@
 #include "page_parser.hpp"
 
 #include "parser_context.hpp"
+#include "context_navigation.hpp"
+
 #include "../components/components.hpp"
 
 #include <iostream>
@@ -14,7 +16,7 @@ namespace WikiMarkup
     using namespace std::string_literals;
 //-----------------------------------------------------------------------------------
     PageParser::PageParser(std::string const& page)
-        : ctx_(page)
+        : data_(page)
     {
 
     }
@@ -30,11 +32,60 @@ namespace WikiMarkup
         Page tempPage = page_;
         // page_.clear();
 
+        auto const& components = tempPage.getComponents();
+        for (auto const& i : components)
+        {
+            auto* component = i.get();
+            std::string raw;
 
+            if (dynamic_cast <Text*> (component) != nullptr)
+                raw = dynamic_cast <Text*> (component)->getRaw();
+            else if (dynamic_cast <PreformattedText*> (component) != nullptr)
+                raw = dynamic_cast <PreformattedText*> (component)->getRaw();
+            else
+                continue;
+
+            ParserContext ctx(raw);
+
+            // now parse each of the texts for other components.
+            while(ctx.hasMoreToRead())
+            {
+                auto posBackup = ctx.getPosition();
+
+                auto maybeTable = tryParseTable(tempPage, ctx);
+                if (maybeTable)
+                    std::cout << "yay table\n";
+                else
+                    std::cout << "naw, no table\n";
+            }
+        }
+    }
+//-----------------------------------------------------------------------------------
+    boost::optional <Table> PageParser::tryParseTable(Page& page, ParserContext& ctx)
+    {
+        ContextNavigator navi(&ctx);
+        if(!navi.verifyCharSequence('{', '|'))
+            return boost::none;
+
+        // table start! :)
+        ParserContext seeker = ctx;
+        ContextNavigator seekerNav(&seeker);
+        seekerNav.findCharSequence('|', '}');
+
+        if (seekerNav.reachedEnd())
+            return boost::none; // not table :(
+
+        Table table;
+        auto result = table.fromMarkup(seeker.getSlice());
+        if (result == ParsingResult::FAIL)
+            return boost::none;
+        else
+            return boost::optional <Table> {table};
     }
 //-----------------------------------------------------------------------------------
     void PageParser::parseSections()
     {
+        ParserContext ctx(data_);
         std::string currentText;
         bool continueParsing;
 
@@ -48,38 +99,38 @@ namespace WikiMarkup
             currentText = "";
         };
 
-        while (ctx_.hasMoreToRead())
+        while (ctx.hasMoreToRead())
         {
             continueParsing = true;
 
-            if (ctx_.isStartOfLine())
+            if (ctx.isStartOfLine())
             {
-                pushText();
-
-                char c = ctx_.get(PEEK);
+                char c = ctx.get(PEEK);
 
                 if (c == '=' || c == '-' || c == '*' || c == '#' ||
                     c == ';' || c == ' ')
                 {
-                    parseSection();
+                    if (parseSection(ctx))
+                        pushText();
+
                     continueParsing = false;
                 }
             }
 
             if (continueParsing)
             {
-                currentText.push_back(ctx_.get());
+                currentText.push_back(ctx.get());
             }
         }
 
         pushText();
     }
 //-----------------------------------------------------------------------------------
-    bool PageParser::parseSection()
+    bool PageParser::parseSection(ParserContext& ctx)
     {
         auto wasSection = false;
-        auto positionBackup = ctx_.getPosition();
-        char c = ctx_.get(PEEK);
+        auto positionBackup = ctx.getPosition();
+        char c = ctx.get(PEEK);
 
         auto partialIsFail = [this, &positionBackup]() -> bool {
             return false;
@@ -92,7 +143,7 @@ namespace WikiMarkup
             (result == ParsingResult::PARTIAL ? partialBehaviour() : true);
 
             if (!good)
-                ctx_.setPosition(positionBackup);
+                ctx.setPosition(positionBackup);
             else {
                 wasSection = true;
                 page_.appendComponent(std::move(section));
@@ -100,12 +151,12 @@ namespace WikiMarkup
         };
 
         auto accumulateLinesWhile = [&](auto lineCondition) {
-            std::string lines = ctx_.getLine().get() + "\n";
+            std::string lines = ctx.getLine().get() + "\n";
             do {
-                auto line = ctx_.getLine(PEEK);
+                auto line = ctx.getLine(PEEK);
                 if (line && !line.get().empty() && lineCondition(line.get())) {
                     lines += line.get() + "\n";
-                    ctx_.getLine();
+                    ctx.getLine();
                 } else {
                     break;
                 }
@@ -116,10 +167,10 @@ namespace WikiMarkup
 
         if (c == '=') {
             // Headers
-            parseSingleSection(ctx_.getLine().get(), Header{}, partialIsFail);
+            parseSingleSection(ctx.getLine().get(), Header{}, partialIsFail);
         } else if (c == '-') {
             // horizontal line
-            parseSingleSection(ctx_.getLine().get(), HorizontalLine{}, partialIsFail);
+            parseSingleSection(ctx.getLine().get(), HorizontalLine{}, partialIsFail);
         } else if (c == '*' || c == '#') {
             // bullet list || numbered list
             std::string lines = accumulateLinesWhile([c](std::string const& line) {
