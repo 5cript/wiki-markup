@@ -10,5 +10,6 @@
 #include "table.hpp"
 #include "text.hpp"
 #include "horizontal_line.hpp"
+#include "preformatted_text.hpp"
 
 #endif // COMPONENTS_COMPONENTS_HPP_INCLUDED

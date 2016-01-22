@@ -48,7 +48,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
             }
             return std::make_pair(ParsingResult::PARTIAL, typename GrammarT::grammar_result{});
         }
-        return std::make_pair(ParsingResult::FULL_SUCCESS, typename GrammarT::grammar_result{});
+        return std::make_pair(ParsingResult::FULL_SUCCESS, parsed);
     }
 
 } // Parser
