@@ -7,6 +7,7 @@
 //#include "components/parsers/url.hpp"
 //#include "components/parsers/link.hpp"
 
+#include "configuration.hpp"
 #include "parser/page_parser.hpp"
 
 
