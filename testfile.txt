@@ -1,10 +1,2 @@
-== HEADER 1 ==
-  preformatted
-  text
-=== HEADER ===
-asdf
-#1
-#2
-#*3
-#*4
-#
+{|
+|}

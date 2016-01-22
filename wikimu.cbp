@@ -185,6 +185,8 @@
 		<Unit filename="main.hpp" />
 		<Unit filename="page.cpp" />
 		<Unit filename="page.hpp" />
+		<Unit filename="parser/context_navigation.cpp" />
+		<Unit filename="parser/context_navigation.hpp" />
 		<Unit filename="parser/helpers.hpp" />
 		<Unit filename="parser/page_parser.cpp" />
 		<Unit filename="parser/page_parser.hpp" />
