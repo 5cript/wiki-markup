@@ -47,7 +47,6 @@ template GRAMMAR_TEMPLATE_SIGNATURE
             internalLink =
                     internalLinkBegin           [at_c <0> (_val) = true]
                 >> *space
-                >> -qi::char_('#')              [at_c <3> (_val) = true]
                 >> -(
                             preColon            [at_c <4> (_val) = qi::_1]
                         >>  qi::char_(':')      [at_c <2> (_val) = true]
