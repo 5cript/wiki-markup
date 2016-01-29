@@ -14,6 +14,7 @@ namespace WikiMarkup { namespace Components {
     struct Link : public IComponent
     {
         bool internal;
+        bool implicit;
         bool colon; // contains colon :
         bool anchor; // contains #
 
@@ -36,12 +37,13 @@ namespace WikiMarkup { namespace Components {
 
 BOOST_FUSION_ADAPT_STRUCT(WikiMarkup::Components::Link,
                           internal, // 0
-                          colon, // 1
-                          anchor, // 2
-                          prefix, // 3
-                          localPart, // 4
-                          attributes, // 5
-                          url, // 6
-                          redirect) // 7
+                          implicit, // 1
+                          colon, // 2
+                          anchor, // 3
+                          prefix, // 4
+                          localPart, // 5
+                          attributes, // 6
+                          url, // 7
+                          redirect) // 8
 
 #endif // COMPONENTS_LINK_HPP_INCLUDED
