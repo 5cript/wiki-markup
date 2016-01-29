@@ -20,16 +20,39 @@ namespace WikiMarkup
         Page() = default;
         ~Page() = default;
 
+        /**
+         *  Adds a component to the page.
+         */
         template <typename T>
-        void appendComponent(T const&& comp) {
+        void appendComponent(T const&& comp)
+        {
             components_.emplace_back (new T(std::move(comp)));
         }
 
+        /**
+         *  Adds a component to the page.
+         */
+        void appendComponent(Components::IComponent const& component);
+
+        /**
+         *  Get all components of the page.
+         */
         std::add_lvalue_reference_t <decltype(components_)> getComponents();
 
+        /**
+         *  Wipe the page clear.
+         */
         void clear();
 
+        /**
+         *  Write all component type names into the stream.
+         */
         void dumpComponentNames(std::ostream& stream);
+
+        /**
+         *  Generates markup from the internal representation.
+         */
+        std::string toMarkup() const;
     };
 }
 
