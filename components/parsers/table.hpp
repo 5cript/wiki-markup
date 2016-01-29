@@ -42,6 +42,18 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 >> *space
             ;
 
+            caption_data %=
+               *(
+                    qi::char_ -
+                    (linebreak >> qi::lit("|+")) -
+                    (linebreak >> qi::lit("|-")) -
+                    (linebreak >> qi::lit("|}")) -
+                    (linebreak >> '|') -
+                    (linebreak >> '!') -
+                    (qi::lit("''") >> linebreak)
+                )
+            ;
+
             row_data %=
                *(
                     qi::char_ -
@@ -95,7 +107,9 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 >>  qi::lit("|+")
                 >> *space
                 >> -data_properties                             [at_c <1> (_val) = qi::_1]
-                >>  row_data                                    [at_c <0> (_val) = qi::_1]
+                >>  qi::lit("''")
+                >>  caption_data                                [at_c <0> (_val) = qi::_1]
+                >>  qi::lit("''")
                 >> *space
             ;
 
@@ -175,6 +189,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
         qi::rule <Iterator> just_pipe;
         qi::rule <Iterator, std::map <std::string, std::string> > data_properties;
 
+        qi::rule <Iterator, std::string()> caption_data;
         qi::rule <Iterator, std::string()> row_data;
         qi::rule <Iterator, std::string()> row_data_no_pp;
         qi::rule <Iterator, std::string()> row_data_no_pp_ee;
