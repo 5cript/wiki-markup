@@ -31,7 +31,6 @@
 		<Compiler>
 			<Add option="-pedantic-errors" />
 			<Add option="-pedantic" />
-			<Add option="-Wzero-as-null-pointer-constant" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
@@ -145,6 +144,8 @@
 		<Unit filename="components/list.hpp" />
 		<Unit filename="components/list/list_type.cpp" />
 		<Unit filename="components/list/list_type.hpp" />
+		<Unit filename="components/meta_info.cpp" />
+		<Unit filename="components/meta_info.hpp" />
 		<Unit filename="components/parsers/basic.cpp" />
 		<Unit filename="components/parsers/basic.hpp" />
 		<Unit filename="components/parsers/comments.hpp" />
@@ -171,6 +172,8 @@
 		<Unit filename="components/parsers/uri/ipv6.hpp" />
 		<Unit filename="components/parsers/uri/scheme.hpp" />
 		<Unit filename="components/parsers/url.hpp" />
+		<Unit filename="components/post_processors/link.cpp" />
+		<Unit filename="components/post_processors/link.hpp" />
 		<Unit filename="components/post_processors/list.cpp" />
 		<Unit filename="components/post_processors/list.hpp" />
 		<Unit filename="components/post_processors/table.cpp" />
@@ -184,6 +187,7 @@
 		<Unit filename="components/table/table_row.hpp" />
 		<Unit filename="components/text.cpp" />
 		<Unit filename="components/text.hpp" />
+		<Unit filename="components/url.cpp" />
 		<Unit filename="components/url.hpp" />
 		<Unit filename="configuration.cpp" />
 		<Unit filename="configuration.hpp" />
