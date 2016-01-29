@@ -5,9 +5,9 @@ namespace WikiMarkup { namespace Components {
 
     enum class ParsingResult
     {
-        FULL_SUCCESS,
-        PARTIAL,
-        FAIL
+        FAIL = -3,
+        FULL_SUCCESS = -2,
+        PARTIAL = -1
     };
 
 } // namespace Components
