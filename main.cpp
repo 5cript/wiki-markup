@@ -2,10 +2,11 @@
 //#include "components/table.hpp"
 //#include "components/header.hpp"
 //#include "components/list.hpp"
+#include "components/link.hpp"
 
 //#include "components/parsers/parse.hpp"
 //#include "components/parsers/url.hpp"
-//#include "components/parsers/link.hpp"
+#include "components/parsers/link.hpp"
 
 #include "configuration.hpp"
 #include "parser/page_parser.hpp"
@@ -22,6 +23,7 @@
 int main()
 {
     using namespace WikiMarkup;
+    using namespace Components;
 
     auto data = readStringFromFile ("testfile.txt");
 

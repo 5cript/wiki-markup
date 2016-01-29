@@ -1,3 +1,9 @@
-{|
+{| class="wikitable"
+|+ style="caption-side:bottom;"|''Caption''
+|- style="row-style" otherAttr="other"
+| Hello
+| Hello2
+|-
+! style="Bla" | HeaderCell
+| Hello3
 |}
-http://hello.org Text
