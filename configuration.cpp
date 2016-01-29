@@ -34,6 +34,11 @@ namespace WikiMarkup {
         JSON::try_stringify(filter, "", *this);
     }
 //####################################################################################
+    Configuration::~Configuration()
+    {
+        getWriteable();
+    }
+//-----------------------------------------------------------------------------------
     Configuration& Configuration::getInstance()
     {
         static Configuration config;
@@ -51,6 +56,11 @@ namespace WikiMarkup {
     }
 //-----------------------------------------------------------------------------------
     Configuration::Configuration()
+    {
+        reload();
+    }
+//-----------------------------------------------------------------------------------
+    void Configuration::reload()
     {
         std::ifstream reader(getFileName(), std::ios_base::binary);
         if (reader.good())
