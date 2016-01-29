@@ -2,19 +2,44 @@
 
 #include "parser_context.hpp"
 #include "context_navigation.hpp"
-
-#include "../components/components.hpp"
+#include "../configuration.hpp"
 
 #include <iostream>
 
-#define PEEK true // for readability
-
 namespace WikiMarkup
 {
-//####################################################################################
+//###################################################################################
     using namespace Components;
     using namespace std::string_literals;
+//###################################################################################
+    /**
+     *  Used internally. Extracted to reduce function length.
+     */
+    void pushTextToPage(std::string& accumText, Page& page)
+    {
+        if (accumText.empty())
+            return;
+
+        Text tex;
+        tex.fromMarkup(accumText);
+        page.appendComponent(std::move(tex));
+        accumText = "";
+    }
 //-----------------------------------------------------------------------------------
+    /**
+     *  Used internally. Extracted to reduce function length.
+     */
+    template <typename T>
+    bool finalizeSpecialComponent(boost::optional <T> const& component, std::string& accumText, Page& page)
+    {
+        if (!component)
+            return false;
+
+        pushTextToPage(accumText, page);
+        page.appendComponent(component.get());
+        return true;
+    }
+//###################################################################################
     PageParser::PageParser(std::string const& page)
         : data_(page)
     {
@@ -30,7 +55,7 @@ namespace WikiMarkup
     void PageParser::parseTexts()
     {
         Page tempPage = page_;
-        // page_.clear();
+        page_.clear();
 
         auto const& components = tempPage.getComponents();
         for (auto const& i : components)
@@ -42,45 +67,76 @@ namespace WikiMarkup
                 raw = dynamic_cast <Text*> (component)->getRaw();
             else if (dynamic_cast <PreformattedText*> (component) != nullptr)
                 raw = dynamic_cast <PreformattedText*> (component)->getRaw();
-            else
+            else {
+                page_.appendComponent(*i);
                 continue;
+            }
 
+            // A parser context for this text component.
             ParserContext ctx(raw);
+            std::string textAccum;
 
             // now parse each of the texts for other components.
             while(ctx.hasMoreToRead())
             {
-                auto posBackup = ctx.getPosition();
+                // Tables
+                auto table = tryParseTable(ctx);
+                if (finalizeSpecialComponent(table, textAccum, page_))
+                    continue;
 
-                auto maybeTable = tryParseTable(tempPage, ctx);
-                if (maybeTable)
-                    std::cout << "yay table\n";
-                else
-                    std::cout << "naw, no table\n";
+                // Links
+                auto link = tryParseLink(ctx);
+                if (finalizeSpecialComponent(link, textAccum, page_))
+                    continue;
+
+                // Otherwise (so it REALLY is text, huh?)
+                textAccum += ctx.get();
             }
+            pushTextToPage(textAccum, page_);
         }
     }
 //-----------------------------------------------------------------------------------
-    boost::optional <Table> PageParser::tryParseTable(Page& page, ParserContext& ctx)
+    boost::optional <Table> PageParser::tryParseTable(ParserContext& ctx) const
     {
         ContextNavigator navi(&ctx);
         if(!navi.verifyCharSequence('{', '|'))
             return boost::none;
 
-        // table start! :)
-        ParserContext seeker = ctx;
-        ContextNavigator seekerNav(&seeker);
-        seekerNav.findCharSequence('|', '}');
-
-        if (seekerNav.reachedEnd())
-            return boost::none; // not table :(
-
         Table table;
-        auto result = table.fromMarkup(seeker.getSlice());
+        auto result = table.fromMarkup(ctx.getSlice());
         if (result == ParsingResult::FAIL)
             return boost::none;
-        else
-            return boost::optional <Table> {table};
+
+        ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+        return boost::optional <Table> {table};
+    }
+//-----------------------------------------------------------------------------------
+    boost::optional <Components::Link> PageParser::tryParseLink(ParserContext& ctx) const
+    {
+        ContextNavigator navi(&ctx);
+        // check for implicit external:
+        auto config = Configuration::getInstance().getReadOnly();
+        bool foundImplicit = false;
+        for (auto const& i : config.urlProtocols)
+        {
+            if (navi.verifyCharSequence(i))
+            {
+                foundImplicit = true;
+                break;
+            }
+        }
+
+        // any type of link, that is not an implicit external link, must start with a [
+        if (!foundImplicit && ctx.get(PEEK) != '[' && !navi.verifyCharSequence("#REDIRECT"))
+            return boost::none;
+
+        Link link;
+        auto result = link.fromMarkup(ctx.getSlice());
+        if (result == ParsingResult::FAIL)
+            return boost::none;
+
+        ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+        return boost::optional <Link> {link};
     }
 //-----------------------------------------------------------------------------------
     void PageParser::parseSections()

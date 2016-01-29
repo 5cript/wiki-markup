@@ -2,8 +2,9 @@
 #define PARSER_PAGE_PARSER_HPP_INCLUDED
 
 #include "../components/components.hpp"
-#include "parser_context.hpp"
 #include "../page.hpp"
+
+#include "parser_context.hpp"
 
 #include <boost/optional.hpp>
 
@@ -25,7 +26,8 @@ namespace WikiMarkup
         void parseSections();
         void parseTexts();
 
-        boost::optional <Components::Table> tryParseTable(Page& page, ParserContext& ctx);
+        boost::optional <Components::Table> tryParseTable(ParserContext& ctx) const;
+        boost::optional <Components::Link> tryParseLink(ParserContext& ctx) const;
 
     private:
         Page page_;
