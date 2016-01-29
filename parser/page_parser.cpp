@@ -96,6 +96,9 @@ namespace WikiMarkup
             }
             pushTextToPage(textAccum, page_);
         }
+
+        tempPage.dumpComponentNames(std::cout) << "\n";
+        page_.dumpComponentNames(std::cout) << "\n";
     }
 //-----------------------------------------------------------------------------------
     boost::optional <Table> PageParser::tryParseTable(ParserContext& ctx) const
@@ -147,16 +150,6 @@ namespace WikiMarkup
         std::string currentText;
         bool continueParsing;
 
-        auto pushText = [&]() {
-            if (currentText.empty())
-                return;
-
-            Text tex;
-            tex.fromMarkup(currentText);
-            page_.appendComponent(std::move(tex));
-            currentText = "";
-        };
-
         while (ctx.hasMoreToRead())
         {
             continueParsing = true;
@@ -168,8 +161,8 @@ namespace WikiMarkup
                 if (c == '=' || c == '-' || c == '*' || c == '#' ||
                     c == ';' || c == ' ')
                 {
-                    if (parseSection(ctx))
-                        pushText();
+                    if (parseSection(ctx, currentText))
+                        currentText.clear();
 
                     continueParsing = false;
                 }
@@ -181,10 +174,12 @@ namespace WikiMarkup
             }
         }
 
-        pushText();
+        Text tex;
+        tex.fromMarkup(currentText);
+        page_.appendComponent(std::move(tex));
     }
 //-----------------------------------------------------------------------------------
-    bool PageParser::parseSection(ParserContext& ctx)
+    bool PageParser::parseSection(ParserContext& ctx, std::string const& prePush)
     {
         auto wasSection = false;
         auto positionBackup = ctx.getPosition();
@@ -192,6 +187,12 @@ namespace WikiMarkup
 
         auto partialIsFail = [this, &positionBackup]() -> bool {
             return false;
+        };
+
+        auto pushText = [&]() {
+            Text tex;
+            tex.fromMarkup(prePush);
+            page_.appendComponent(std::move(tex));
         };
 
         auto parseSingleSection = [&](std::string fromWhat, auto section, auto partialBehaviour) {
@@ -204,6 +205,7 @@ namespace WikiMarkup
                 ctx.setPosition(positionBackup);
             else {
                 wasSection = true;
+                pushText();
                 page_.appendComponent(std::move(section));
             }
         };

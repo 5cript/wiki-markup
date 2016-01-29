@@ -31,7 +31,7 @@ int main()
     parser.parse();
 
     Page p = parser.getPage();
-    p.dumpComponentNames(std::cout);
+    //p.dumpComponentNames(std::cout);
     std::cout << p.toMarkup();
 
     return 0;

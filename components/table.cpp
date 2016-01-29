@@ -42,8 +42,8 @@ namespace WikiMarkup { namespace Components {
                 sstr << "|''" << caption.data << "''";
             else
                 sstr << ' ' << caption.data;
+            sstr << lineEnd;
         }
-        sstr << lineEnd;
 
         // Rows
         for (auto const& i : rows)

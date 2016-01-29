@@ -47,7 +47,7 @@ namespace WikiMarkup
         /**
          *  Write all component type names into the stream.
          */
-        void dumpComponentNames(std::ostream& stream);
+        std::ostream& dumpComponentNames(std::ostream& stream);
 
         /**
          *  Generates markup from the internal representation.

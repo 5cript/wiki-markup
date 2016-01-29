@@ -5,11 +5,13 @@
 namespace WikiMarkup
 {
 //####################################################################################
-    void Page::dumpComponentNames(std::ostream& stream)
+    std::ostream& Page::dumpComponentNames(std::ostream& stream)
     {
         for (auto const& i : components_) {
-            stream << i->getName() << " ";
+            stream << i->getMetaInfo().name << " ";
         }
+
+        return stream;
     }
 //-----------------------------------------------------------------------------------
     void Page::clear()

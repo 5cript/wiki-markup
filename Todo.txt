@@ -1,5 +1,6 @@
 FIXME:
-	- nothing
+	- Swallowed white space after table
+	- Newlines after sections
 	
 Todo:
 

@@ -22,7 +22,7 @@ namespace WikiMarkup
         Page getPage();
 
     private:
-        bool parseSection(ParserContext& ctx);
+        bool parseSection(ParserContext& ctx, std::string const& prePush);
         void parseSections();
         void parseTexts();
 
