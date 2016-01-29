@@ -62,6 +62,7 @@ template GRAMMAR_TEMPLATE_SIGNATURE
             externalLink =
                     externalLinkBegin           [at_c <0> (_val) = false]
                 >>  url                         [at_c <7> (_val) = qi::_1]
+                >> !qi::char_('|')
                 >> -(
                             +space
                         >>  attribute           [phoenix::push_back(at_c <6> (_val), qi::_1)]

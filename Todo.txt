@@ -1,9 +1,7 @@
 FIXME:
-	- External links that contain a pipe are swallowed but broken! Must NOT parse
-
-
-
-
+	- nothing
+	
+Todo:
 
 - TODO
 q KEIN QI

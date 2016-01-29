@@ -5,6 +5,10 @@
 
 #include "post_processors/list.hpp"
 
+#include "../configuration.hpp"
+
+#include <sstream>
+
 namespace WikiMarkup { namespace Components {
 //####################################################################################
     ListTextLine::ListTextLine(std::string const& data)
@@ -25,7 +29,33 @@ namespace WikiMarkup { namespace Components {
 //####################################################################################
     std::string List::toMarkup()
     {
-        return "list";
+        std::stringstream sstr;
+
+        auto lineEnd = Configuration::getInstance().getReadOnly().lineEndings.toString();
+
+        std::function <void(std::string, PrimalList*)> subPrintList =
+        [&, this](std::string prefix, PrimalList* list)
+        {
+            for (auto const& i : list->elements)
+            {
+                PrimalList* primal = dynamic_cast <PrimalList*> (i.get());
+                if (primal != nullptr)
+                {
+                    subPrintList(prefix + ListChars[static_cast <std::size_t> (primal->type)], primal);
+                }
+                else
+                {
+                    auto* line = dynamic_cast <ListTextLine*> (i.get());
+                    sstr << prefix << ' ' << line->data << lineEnd;
+                }
+            }
+        };
+
+        std::string prefix;
+        prefix.push_back(ListChars[static_cast <std::size_t> (list.type)]);
+        subPrintList(prefix, &list);
+
+        return sstr.str();
     }
 //-----------------------------------------------------------------------------------
     ParsingResult List::fromMarkup(std::string const& mu)

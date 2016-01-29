@@ -88,9 +88,11 @@ namespace WikiMarkup
                 auto link = tryParseLink(ctx);
                 if (finalizeSpecialComponent(link, textAccum, page_))
                     continue;
+                else if (ctx.get(PEEK) == '[')
+                    textAccum.push_back(ctx.get()); // to ignore erroneous links. we want them as text.
 
                 // Otherwise (so it REALLY is text, huh?)
-                textAccum += ctx.get();
+                textAccum.push_back(ctx.get());
             }
             pushTextToPage(textAccum, page_);
         }

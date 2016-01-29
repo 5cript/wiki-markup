@@ -1,9 +1,16 @@
-{| class="wikitable"
-|+ style="caption-side:bottom;"|''Caption''
-|- style="row-style" otherAttr="other"
-| Hello
-| Hello2
-|-
-! style="Bla" | HeaderCell
-| Hello3
-|}
+# Eins
+# Zwei
+#* Zwei Punkt Eins
+#* Zwei Punkt Zwei
+# Drei
+#; Drei - Item Eins
+#: Drei - Def Eins
+# Vier
+#: Vier - Def Eins
+#: Dies sieht wie eine Fortsetzung aus
+#: und wird oft statt
+#: <br /><nowiki><br /></nowiki> benutzt
+# Fünf
+## Fünf - Sub 1
+### Fünf - Sub 1 - Sub 1
+## Fünf - Sub 2
