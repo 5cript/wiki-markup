@@ -24,6 +24,8 @@ namespace WikiMarkup { namespace Components {
         std::vector <std::string> path; // in segments
         std::string query;
         std::string fragment;
+
+        std::string toString() const;
     };
 
 } // namespace Components
