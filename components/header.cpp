@@ -33,9 +33,12 @@ namespace WikiMarkup { namespace Components {
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string Header::getName() const
+    MetaInfo Header::getMetaInfo() const
     {
-        return "Header";
+        return {
+            "Header",
+            true
+        };
     }
 //-----------------------------------------------------------------------------------
     Header* Header::clone() const

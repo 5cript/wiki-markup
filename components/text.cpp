@@ -13,9 +13,12 @@ namespace WikiMarkup { namespace Components {
         return ParsingResult::FULL_SUCCESS;
     }
 //-----------------------------------------------------------------------------------
-    std::string Text::getName() const
+    MetaInfo Text::getMetaInfo() const
     {
-        return "Text";
+        return {
+            "Text",
+            false
+        };
     }
 //-----------------------------------------------------------------------------------
     Text* Text::clone() const

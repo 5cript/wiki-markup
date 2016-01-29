@@ -16,9 +16,12 @@ namespace WikiMarkup { namespace Components {
             return ParsingResult::FULL_SUCCESS;
     }
 //-----------------------------------------------------------------------------------
-    std::string HorizontalLine::getName() const
+    MetaInfo HorizontalLine::getMetaInfo() const
     {
-        return "HorizontalLine";
+        return {
+            "HorizontalLine",
+            true
+        };
     }
 //-----------------------------------------------------------------------------------
     HorizontalLine* HorizontalLine::clone() const

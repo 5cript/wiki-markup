@@ -93,9 +93,12 @@ namespace WikiMarkup { namespace Components {
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string Table::getName() const
+    MetaInfo Table::getMetaInfo() const
     {
-        return "Table";
+        return {
+            "Table",
+            false
+        };
     }
 //-----------------------------------------------------------------------------------
     Table* Table::clone() const

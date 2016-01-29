@@ -53,9 +53,12 @@ namespace WikiMarkup { namespace Components {
             return ParsingResult::FULL_SUCCESS;
         }
 //-----------------------------------------------------------------------------------
-        std::string PreformattedText::getName() const
+        MetaInfo PreformattedText::getMetaInfo() const
         {
-            return "Preformatted_Text";
+            return {
+                "Preformatted_Text",
+                true
+            };
         }
 //-----------------------------------------------------------------------------------
         PreformattedText* PreformattedText::clone() const

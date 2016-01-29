@@ -71,9 +71,12 @@ namespace WikiMarkup { namespace Components {
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string List::getName() const
+    MetaInfo List::getMetaInfo() const
     {
-        return "List";
+        return {
+            "List",
+            true
+        };
     }
 //-----------------------------------------------------------------------------------
     List* List::clone() const

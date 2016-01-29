@@ -22,7 +22,7 @@ namespace WikiMarkup { namespace Components {
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
-        std::string getName() const override;
+        MetaInfo getMetaInfo() const override;
         PreformattedText* clone() const override;
         std::string getRaw() const;
     };

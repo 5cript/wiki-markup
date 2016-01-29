@@ -21,9 +21,12 @@ namespace WikiMarkup { namespace Components {
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string CommentText::getName() const
+    MetaInfo CommentText::getMetaInfo() const
     {
-        return "CommentText";
+        return {
+            "CommentText",
+            false
+        };
     }
 //-----------------------------------------------------------------------------------
     CommentText* CommentText::clone() const
