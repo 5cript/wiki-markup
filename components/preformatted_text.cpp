@@ -10,7 +10,7 @@ namespace WikiMarkup { namespace Components {
         {
             std::string result;
             for (auto const& i : lines) {
-                result += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings;
+                result += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
             }
             return result;
         }
@@ -67,7 +67,7 @@ namespace WikiMarkup { namespace Components {
         {
             std::string joined;
             for (auto const& i : lines) {
-                joined += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings;
+                joined += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
             }
             return joined;
         }
