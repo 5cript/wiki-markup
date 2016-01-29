@@ -3,6 +3,9 @@
 
 #include "parser_context.hpp"
 
+#include <utility>
+#include <type_traits>
+
 namespace WikiMarkup
 {
     class ContextNavigator
@@ -20,38 +23,33 @@ namespace WikiMarkup
         template <typename T, typename... List>
         bool findCharSequence(T head, List... tail)
         {
-            if (!ctx_->hasMoreToRead())
-                return false;
-
-            if (ctx_->get() == head)
-                return findCharSequence(tail...);
-            else
-                return findCharSequence(head, tail...);
-        }
-        bool findCharSequence()
-        {
-            return true;
+            return findCharSequenceImpl <std::tuple <T, List...>> (head, tail...);
         }
 
         /**
          *  Checks if a certain sequence of chars starts at the current context position.
-         *  This does not go forward if any of the chars does not match, as findCharSequence does.
+         *  This function does not change the context position.
          */
-        template <typename T, typename... List>
+        template <typename T, typename... List,
+                  typename = typename std::enable_if <std::is_same <T, char>::value>::type>
         bool verifyCharSequence(T head, List... tail)
         {
             if (!ctx_->hasMoreToRead())
                 return ctx_->getPosition();
 
             if (ctx_->get() == head)
-                return verifyCharSequence(tail...);
-            else
+                return verifyCharSequence(tail...); // first char matches, now continue with second.
+            else {
+                ctx_->setPosition(positionBackup_); // reset position, as if nothing happened.
                 return false;
+            }
         }
         bool verifyCharSequence()
         {
+            ctx_->setPosition(positionBackup_); // reset position, as if nothing happened.
             return true;
         }
+        bool verifyCharSequence(std::string const& str);
 
         /**
          *  This evaluates to true if any of the search functions ran through the whole context.
@@ -60,7 +58,31 @@ namespace WikiMarkup
         bool reachedEnd() const;
 
     private:
+        template <typename List, int Pos = 0>
+        bool findCharSequenceImpl(List const& list)
+        {
+            if (!ctx_->hasMoreToRead())
+                return false;
+
+            if (ctx_->get() == std::get <Pos> (list))
+                return findCharSequenceImpl <List, Pos+1> (list);
+            else
+                return findCharSequenceImpl(list);
+        }
+
+        bool findCharSequenceImpl()
+        {
+            positionBackup_ = ctx_->getPosition();
+            return true;
+        }
+
+    private:
         ParserContext* ctx_;
+
+        /** This is set to the context position on navigator construction.
+         *  And is always changed, when the navigator successfully moves the context position.
+         **/
+        ParserContext::position_type positionBackup_;
     };
 }
 
