@@ -4,7 +4,7 @@ namespace WikiMarkup { namespace Components {
 //####################################################################################
     std::string HorizontalLine::toMarkup()
     {
-        return "----\n";
+        return "----";
     }
 //-----------------------------------------------------------------------------------
     ParsingResult HorizontalLine::fromMarkup(std::string const& mu)
