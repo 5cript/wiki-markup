@@ -47,27 +47,38 @@ template GRAMMAR_TEMPLATE_SIGNATURE
             internalLink =
                     internalLinkBegin           [at_c <0> (_val) = true]
                 >> *space
-                >> -qi::char_('#')              [at_c <2> (_val) = true]
+                >> -qi::char_('#')              [at_c <3> (_val) = true]
                 >> -(
-                            preColon            [at_c <3> (_val) = qi::_1]
-                        >>  qi::char_(':')      [at_c <1> (_val) = true]
+                            preColon            [at_c <4> (_val) = qi::_1]
+                        >>  qi::char_(':')      [at_c <2> (_val) = true]
                     )
-                >>  postColon                   [at_c <4> (_val) = qi::_1]
+                >>  postColon                   [at_c <5> (_val) = qi::_1]
                 >> *( // attributes / pipe
                             qi::char_('|')
-                        >>  attribute           [phoenix::push_back(at_c <5> (_val), qi::_1)]
+                        >>  attribute           [phoenix::push_back(at_c <6> (_val), qi::_1)]
                     )
                 >>  internalLinkEnd
             ;
 
             externalLink =
                     externalLinkBegin           [at_c <0> (_val) = false]
-                >>  url                         [at_c <6> (_val) = qi::_1]
+                >>  url                         [at_c <7> (_val) = qi::_1]
                 >> -(
                             +space
-                        >>  attribute           [phoenix::push_back(at_c <5> (_val), qi::_1)]
+                        >>  attribute           [phoenix::push_back(at_c <6> (_val), qi::_1)]
                     )
                 >>  externalLinkEnd
+            ;
+
+            implicitLink =
+                    url                         [at_c <7> (_val) = qi::_1]
+                >>  eps
+                    [
+                        at_c <0> (_val) = false,
+                        at_c <1> (_val) = true,
+                        at_c <2> (_val) = false,
+                        at_c <3> (_val) = false
+                    ]
             ;
 
             main =
@@ -75,8 +86,11 @@ template GRAMMAR_TEMPLATE_SIGNATURE
                             qi::lit("#REDIRECT")    [_a = true]
                         >> *space
                     )
-                >>  (externalLink | internalLink)   [_val = qi::_1]
-                >>  eps                             [at_c <7> (_val) = _a]
+                >>  (
+                            externalLink
+                        |   internalLink
+                        |   implicitLink)           [_val = qi::_1]
+                >>  eps                             [at_c <8> (_val) = _a]
             ;
         };
 
@@ -91,6 +105,7 @@ template GRAMMAR_TEMPLATE_SIGNATURE
 
         qi::rule <Iterator, Link()> internalLink;
         qi::rule <Iterator, Link()> externalLink;
+        qi::rule <Iterator, Link()> implicitLink;
 
         qi::rule <Iterator, std::string()> preColon;
         qi::rule <Iterator, std::string()> postColon;
