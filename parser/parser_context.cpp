@@ -62,12 +62,12 @@ namespace WikiMarkup
         lines_.push_back(line);
     }
 //-----------------------------------------------------------------------------------
-    char ParserContext::get(bool peek) const
+    char ParserContext::get(bool peek) const noexcept
     {
         if (!hasMoreToRead())
             return '\0';
 
-        char c = page_[position_];
+        char c = page_[position_]; // cannot throw because its checked.
         if (!peek)
             ++position_;
         return c;
@@ -112,19 +112,28 @@ namespace WikiMarkup
         return iter != std::end(lines_);
     }
 //-----------------------------------------------------------------------------------
-    bool ParserContext::hasMoreToRead() const
+    bool ParserContext::hasMoreToRead() const noexcept
     {
         return position_ < page_.length();
     }
 //-----------------------------------------------------------------------------------
-    ParserContext::position_type ParserContext::getPosition() const
+    ParserContext::position_type ParserContext::getPosition() const noexcept
     {
         return position_;
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::setPosition(position_type position)
+    void ParserContext::setPosition(position_type position) noexcept
     {
         position_ = position;
+    }
+//-----------------------------------------------------------------------------------
+    void ParserContext::forwardPosition(position_type amount) noexcept
+    {
+        position_ += amount;
+
+        // set to end. A position that is past-the-end is not valid state.
+        if (!hasMoreToRead())
+            position_ = page_.length();
     }
 //-----------------------------------------------------------------------------------
     std::string ParserContext::getSlice() const
@@ -132,25 +141,25 @@ namespace WikiMarkup
         return page_.substr(position_, page_.length() - position_);
     }
 //-----------------------------------------------------------------------------------
-    ParserContext& ParserContext::operator++()
+    ParserContext& ParserContext::operator++() noexcept
     {
         ++position_;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext ParserContext::operator++(int)
+    ParserContext ParserContext::operator++(int) noexcept
     {
         position_++;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext& ParserContext::operator--()
+    ParserContext& ParserContext::operator--() noexcept
     {
         --position_;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext ParserContext::operator--(int)
+    ParserContext ParserContext::operator--(int) noexcept
     {
         position_--;
         return *this;

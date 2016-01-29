@@ -6,6 +6,10 @@
 
 #include "token.hpp"
 
+#ifndef PEEK
+#   define PEEK true
+#endif
+
 namespace WikiMarkup
 {
     struct Line
@@ -34,7 +38,7 @@ namespace WikiMarkup
          *
          *  @param peek Does not forward the position, if true.
          */
-        char get(bool peek = false) const;
+        char get(bool peek = false) const noexcept;
 
         /**
          *  Reads the current line up to the end (consumes CR, LF),
@@ -54,12 +58,18 @@ namespace WikiMarkup
         /**
          *  Returns the current position in the page text.
          */
-        position_type getPosition() const;
+        position_type getPosition() const noexcept;
 
         /**
          *  Sets the current parser position
          */
-        void setPosition(position_type position);
+        void setPosition(position_type position) noexcept;
+
+        /**
+         *  Shifts the position forward by 'amount' characters.
+         *  Sets position to end if position+amount > end.
+         */
+        void forwardPosition(position_type amount) noexcept;
 
         /**
          *  Returns true if the current position is the start of a line.
@@ -69,27 +79,27 @@ namespace WikiMarkup
         /**
          *  Returns true if position != end.
          */
-        bool hasMoreToRead() const;
+        bool hasMoreToRead() const noexcept;
 
         /**
          *  Moves the position forwards.
          */
-        ParserContext& operator++();
+        ParserContext& operator++() noexcept;
 
         /**
          *  Moves the position forwards.
          */
-        ParserContext operator++(int);
+        ParserContext operator++(int) noexcept;
 
         /**
          *  Moves the position forwards.
          */
-        ParserContext& operator--();
+        ParserContext& operator--() noexcept;
 
         /**
          *  Moves the position forwards.
          */
-        ParserContext operator--(int);
+        ParserContext operator--(int) noexcept;
 
         /**
          *  Takes all the remaining characters in the context, after the position, and returns them.
