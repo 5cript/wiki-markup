@@ -1,7 +1,7 @@
 #ifndef COMPONENTS_LIST_HPP_INCLUDED
 #define COMPONENTS_LIST_HPP_INCLUDED
 
-#include "../SimpleUtil/value_ptr/value_ptr.hpp"
+#include "SimpleUtil/value_ptr/value_ptr.hpp"
 
 #include "list/list_type.hpp"
 
