@@ -34,9 +34,89 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Compiler>
+			<Add option="-std=c++14" />
+			<Add option="-Wa,-mbig-obj" />
+			<Add directory="../../wiki-project" />
+		</Compiler>
+		<Unit filename="components/adaption.hpp" />
+		<Unit filename="components/comments.cpp" />
+		<Unit filename="components/comments.hpp" />
+		<Unit filename="components/component.hpp" />
+		<Unit filename="components/components.hpp" />
+		<Unit filename="components/format.hpp" />
+		<Unit filename="components/header.cpp" />
+		<Unit filename="components/header.hpp" />
+		<Unit filename="components/horizontal_line.cpp" />
+		<Unit filename="components/horizontal_line.hpp" />
+		<Unit filename="components/link.cpp" />
+		<Unit filename="components/link.hpp" />
+		<Unit filename="components/list.cpp" />
+		<Unit filename="components/list.hpp" />
+		<Unit filename="components/list/list_type.cpp" />
+		<Unit filename="components/list/list_type.hpp" />
+		<Unit filename="components/meta_info.cpp" />
+		<Unit filename="components/meta_info.hpp" />
+		<Unit filename="components/parsers/basic.cpp" />
+		<Unit filename="components/parsers/basic.hpp" />
+		<Unit filename="components/parsers/comments.hpp" />
+		<Unit filename="components/parsers/format.cpp" />
+		<Unit filename="components/parsers/format.hpp" />
+		<Unit filename="components/parsers/fusion_includes.hpp" />
+		<Unit filename="components/parsers/header.hpp" />
+		<Unit filename="components/parsers/indents.hpp" />
+		<Unit filename="components/parsers/link.hpp" />
+		<Unit filename="components/parsers/list.hpp" />
+		<Unit filename="components/parsers/parse.hpp" />
+		<Unit filename="components/parsers/parser_core.hpp" />
+		<Unit filename="components/parsers/parsing_results.hpp" />
+		<Unit filename="components/parsers/phoenix_includes.hpp" />
+		<Unit filename="components/parsers/properties.hpp" />
+		<Unit filename="components/parsers/qi_includes.hpp" />
+		<Unit filename="components/parsers/space.hpp" />
+		<Unit filename="components/parsers/table.hpp" />
+		<Unit filename="components/parsers/unescaped_string.hpp" />
+		<Unit filename="components/parsers/uri/authority.hpp" />
+		<Unit filename="components/parsers/uri/domain.hpp" />
+		<Unit filename="components/parsers/uri/domain_name.hpp" />
+		<Unit filename="components/parsers/uri/ipv4.hpp" />
+		<Unit filename="components/parsers/uri/ipv6.hpp" />
+		<Unit filename="components/parsers/uri/scheme.hpp" />
+		<Unit filename="components/parsers/url.hpp" />
+		<Unit filename="components/post_processors/link.cpp" />
+		<Unit filename="components/post_processors/link.hpp" />
+		<Unit filename="components/post_processors/list.cpp" />
+		<Unit filename="components/post_processors/list.hpp" />
+		<Unit filename="components/post_processors/table.cpp" />
+		<Unit filename="components/post_processors/table.hpp" />
+		<Unit filename="components/preformatted_text.cpp" />
+		<Unit filename="components/preformatted_text.hpp" />
+		<Unit filename="components/table.cpp" />
+		<Unit filename="components/table.hpp" />
+		<Unit filename="components/table/table_caption.hpp" />
+		<Unit filename="components/table/table_cell.hpp" />
+		<Unit filename="components/table/table_row.hpp" />
+		<Unit filename="components/text.cpp" />
+		<Unit filename="components/text.hpp" />
+		<Unit filename="components/url.cpp" />
+		<Unit filename="components/url.hpp" />
+		<Unit filename="configuration.cpp" />
+		<Unit filename="configuration.hpp" />
+		<Unit filename="page.cpp" />
+		<Unit filename="page.hpp" />
+		<Unit filename="parser/context_navigation.cpp" />
+		<Unit filename="parser/context_navigation.hpp" />
+		<Unit filename="parser/helpers.hpp" />
+		<Unit filename="parser/page_parser.cpp" />
+		<Unit filename="parser/page_parser.hpp" />
+		<Unit filename="parser/parser_context.cpp" />
+		<Unit filename="parser/parser_context.hpp" />
+		<Unit filename="parser/token.cpp" />
+		<Unit filename="parser/token.hpp" />
+		<Unit filename="parser/token_classification.cpp" />
+		<Unit filename="parser/token_classification.hpp" />
+		<Unit filename="util/meta/apply.hpp" />
+		<Unit filename="util/meta/pop_front.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
