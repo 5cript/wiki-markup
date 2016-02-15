@@ -1,6 +1,0 @@
-[submodule "SimpleUtil"]
-	path = SimpleUtil
-	url = git@github.com:5cript/SimpleUtil.git
-[submodule "SimpleJSON"]
-	path = SimpleJSON
-	url = git@github.com:5cript/SimpleJSON.git
