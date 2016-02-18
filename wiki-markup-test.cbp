@@ -4,19 +4,19 @@
 	<Project>
 		<Option title="wiki-markup-test" />
 		<Option pch_mode="2" />
-		<Option compiler="msys2" />
+		<Option compiler="msys2_32" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/wiki-markup" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="msys2" />
+				<Option compiler="msys2_32" />
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/wiki-markup" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-				<Option compiler="msys2" />
+				<Option compiler="msys2_32" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -30,10 +30,10 @@
 			<Add option="-pedantic" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 			<Add option="-std=c++14" />
+			<Add option="-fexceptions" />
 			<Add option="-Wa,-mbig-obj" />
-			<Add directory="../wiki-markup" />
+			<Add directory="../../wiki-project" />
 		</Compiler>
 		<Unit filename="../SimpleUtil/value_ptr/cloneable.hpp" />
 		<Unit filename="../SimpleUtil/value_ptr/cloner.hpp" />
