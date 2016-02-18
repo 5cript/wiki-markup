@@ -26,6 +26,10 @@ namespace WikiMarkup { namespace Components {
         Table* clone() const override;
     };
 
+    Table stripHeaders(Table const& table);
+    std::vector <TableCell> getHorizontalHeaders(Table const& table);
+    std::vector <TableCell> getVerticalHeaders(Table const& table, bool noOverlap = true);
+
 } // namespace Components
 } // namespace WikiMarkup
 

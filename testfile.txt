@@ -17,18 +17,24 @@
 
 ==== HEADER ====
 
-
-
 {|
+!H0
+!H1
+!H2
+|-
+!V1
 |Orange
 |Apfel
 |-
+!V2
 |Brot
 |Torte
 |-
+!V3
 |Butter
 |Eis 
 |}
+
 
 ==== HEADER 2 ====
 

@@ -106,5 +106,52 @@ namespace WikiMarkup { namespace Components {
         return new Table(*this);
     }
 //####################################################################################
+    Table stripHeaders(Table const& table)
+    {
+        Table stripped = table;
+        stripped.rows.clear();
+
+        int scanOffset = 0;
+        if (!table.rows.empty() && !table.rows.front().cells.empty() && table.rows.front().cells.front().isHeaderCell)
+            scanOffset = 1;
+
+        for (auto i = std::begin(table.rows) + scanOffset, end = std::end(table.rows); i < end; ++i)
+        {
+            int copyOffset = 0;
+            if (!i->cells.empty() && i->cells.front().isHeaderCell)
+                copyOffset = 1;
+
+            std::vector <TableCell> cells;
+            for (auto c = std::begin(i->cells) + copyOffset, endCells = std::end(i->cells); c < endCells; ++c)
+                cells.push_back(*c);
+
+            TableRow r = *i;
+            r.cells = cells;
+            stripped.rows.push_back(r);
+        }
+
+        return stripped;
+    }
+//-----------------------------------------------------------------------------------
+    std::vector <TableCell> getHorizontalHeaders(Table const& table)
+    {
+        if (!table.rows.empty())
+            return table.rows.front().cells;
+        return {};
+    }
+//-----------------------------------------------------------------------------------
+    std::vector <TableCell> getVerticalHeaders(Table const& table, bool noOverlap)
+    {
+        std::vector <TableCell> cells;
+
+        for (auto const& i : table.rows)
+            if (!i.cells.empty() && i.cells.front().isHeaderCell && !noOverlap)
+                cells.push_back(i.cells.front());
+            else if (!i.cells.empty() && i.cells.front().isHeaderCell && noOverlap)
+                noOverlap = false;
+
+        return cells;
+    }
+//-----------------------------------------------------------------------------------
 } // namespace Components
 } // namespace WikiMarkup

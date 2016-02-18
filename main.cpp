@@ -32,7 +32,31 @@ int main()
 
     Page p = parser.getPage();
     //p.dumpComponentNames(std::cout);
-    std::cout << p.toMarkup();
+    //std::cout << p.toMarkup();
+
+    auto& components = p.getComponents();
+
+    for (auto const& i : components)
+    {
+        if (i->getMetaInfo().name == "Table")
+        {
+            auto* table = dynamic_cast <Table*> (i.get());
+            auto stripped = stripHeaders(*table);
+            auto horiz = getHorizontalHeaders(*table);
+            auto verti = getVerticalHeaders(*table);
+
+            for (auto const& i : stripped.rows)
+            {
+                for (auto const& j : i.cells)
+                {
+                    std::cout << j.data << "; ";
+                }
+                std::cout << "\n";
+            }
+
+            break;
+        }
+    }
 
     return 0;
 }
