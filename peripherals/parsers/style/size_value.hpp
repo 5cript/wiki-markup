@@ -1,8 +1,8 @@
 #ifndef PERIPHERALS_PARSERS_STYLE_SIZE_VALUE_HPP_INCLUDED
 #define PERIPHERALS_PARSERS_STYLE_SIZE_VALUE_HPP_INCLUDED
 
-#include "../../size_value.hpp"
-#include "../../../parser/parser_core.hpp"
+#include "../../style/size_value.hpp"
+#include "../../../parser/qi_common/parser_core.hpp"
 
 namespace WikiMarkup { namespace Peripherals { namespace Style { namespace Parser
 {

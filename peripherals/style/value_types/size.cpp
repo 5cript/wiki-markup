@@ -1,10 +1,10 @@
-#include "size_value.hpp"
+#include "size.hpp"
 
 #include <map>
 #include <stdexcept>
 #include <cstdint>
 
-namespace WikiMarkup { namespace Peripherals  { namespace Style
+namespace WikiMarkup { namespace Peripherals  { namespace Style { namespace ValueTypes
 {
 //####################################################################################
     SizeUnit getUnitFromString(std::string const& unit)
@@ -61,6 +61,7 @@ namespace WikiMarkup { namespace Peripherals  { namespace Style
     }
 //####################################################################################
 
+} // namespace ValueTypes
 } // namespace Style
 } // namespace Peripherals
 } // namespace WikiMarkup

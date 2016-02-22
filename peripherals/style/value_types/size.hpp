@@ -1,14 +1,12 @@
 #ifndef PERIPHERALS_STYLE_SIZE_VALUE_HPP_INCLUDED
 #define PERIPHERALS_STYLE_SIZE_VALUE_HPP_INCLUDED
 
-#include "../adaption.hpp"
-
-#include "value.hpp"
+#include "../value.hpp"
 
 #include <string>
 #include <cstdint>
 
-namespace WikiMarkup { namespace Peripherals  { namespace Style
+namespace WikiMarkup { namespace Peripherals { namespace Style { namespace ValueTypes
 {
     // Source: http://www.w3schools.com/cssref/css_units.asp
     // WARNING: MODIFY SOURCE IF YOU DO CHANGES TO THIS! AND PARSER
@@ -47,14 +45,9 @@ namespace WikiMarkup { namespace Peripherals  { namespace Style
      */
     std::string unitToString(SizeUnit unit);
 
+} // namespace ValueTypes
 } // namespace Style
 } // namespace Peripherals
 } // namespace WikiMarkup
-
-BOOST_FUSION_ADAPT_STRUCT
-(
-    WikiMarkup::Peripherals::Style::SizeValue,
-    unit, value
-)
 
 #endif // PERIPHERALS_STYLE_SIZE_VALUE_HPP_INCLUDED
