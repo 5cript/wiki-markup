@@ -1,7 +1,7 @@
 #ifndef COMPONENTS_PARSING_RESULTS_HPP_INCLUDED
 #define COMPONENTS_PARSING_RESULTS_HPP_INCLUDED
 
-namespace WikiMarkup { namespace Components {
+namespace WikiMarkup {
 
     enum class ParsingResult
     {
@@ -10,7 +10,6 @@ namespace WikiMarkup { namespace Components {
         PARTIAL = -1
     };
 
-} // namespace Components
 } // namespace WikiMarkup
 
 #endif // COMPONENTS_PARSING_RESULTS_HPP_INCLUDED

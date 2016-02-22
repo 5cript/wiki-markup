@@ -9,7 +9,7 @@
 #include <string>
 #include <utility>
 
-namespace WikiMarkup { namespace Components { namespace Parser
+namespace WikiMarkup
 {
 
     template <typename GrammarT, typename CharType = char_type>
@@ -51,12 +51,10 @@ namespace WikiMarkup { namespace Components { namespace Parser
         return std::make_pair(static_cast <ParsingResult> (text.length()), parsed);
     }
 
-} // Parser
-} // Components
 } // WikiMarkup
 
 #define TYPEDEF_GRAMMAR(NAME) \
-using grammar = WikiMarkup::Components::Parser::NAME < \
+using grammar = NAME < \
     qi_error::error_handler_cerr, \
     qi_error::warning_handler_cout, \
     std::string::const_iterator \

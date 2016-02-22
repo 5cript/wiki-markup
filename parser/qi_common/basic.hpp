@@ -3,7 +3,7 @@
 
 #include "../../parser/qi_common/parser_core.hpp"
 
-namespace WikiMarkup { namespace Components { namespace Parser { namespace Rules
+namespace WikiMarkup { namespace Rules
 {
     // declaring the dirty and global reduces compile time stress
 
@@ -12,9 +12,7 @@ namespace WikiMarkup { namespace Components { namespace Parser { namespace Rules
 
     void nameRules();
 
-} // Rules
 } // Parser
-} // Components
 } // WikiMarkup
 
 #endif // BASIC_HPP_INCLUDED
