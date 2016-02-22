@@ -1,7 +1,7 @@
 #ifndef COMPONENTS_PARSE_PARSE_HPP_INCLUDED
 #define COMPONENTS_PARSE_PARSE_HPP_INCLUDED
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 #include "parsing_results.hpp"
 
 #include <stdexcept>

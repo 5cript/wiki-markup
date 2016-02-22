@@ -1,7 +1,7 @@
 #ifndef COMPONENTS_PARSER_PROPERTIES_HPP_INCLUDED
 #define COMPONENTS_PARSER_PROPERTIES_HPP_INCLUDED
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 #include "basic.hpp"
 #include "unescaped_string.hpp"
 

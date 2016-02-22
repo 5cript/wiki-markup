@@ -1,7 +1,7 @@
 #ifndef UNESCAPED_STRING_HPP_INCLUDED
 #define UNESCAPED_STRING_HPP_INCLUDED
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {

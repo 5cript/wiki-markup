@@ -3,7 +3,7 @@
 
 #include "../table.hpp"
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 #include "basic.hpp"
 #include "properties.hpp"
 

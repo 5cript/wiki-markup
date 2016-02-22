@@ -7,7 +7,7 @@
 #include "uri/scheme.hpp"
 #include "uri/authority.hpp"
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 #include "basic.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser

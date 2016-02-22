@@ -3,7 +3,7 @@
 
 #include "../comments.hpp"
 
-#include "parser_core.hpp"
+#include "../../parser/parser_core.hpp"
 #include "basic.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
