@@ -3,8 +3,8 @@
 
 #include "../table.hpp"
 
-#include "../../parser/parser_core.hpp"
-#include "basic.hpp"
+#include "../../parser/qi_common/parser_core.hpp"
+#include "../../parser/qi_common/basic.hpp"
 #include "properties.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser

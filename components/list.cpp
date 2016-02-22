@@ -1,6 +1,6 @@
 #include "list.hpp"
 
-#include "parsers/parse.hpp"
+#include "../parser/qi_common/parse.hpp"
 #include "parsers/list.hpp"
 
 #include "post_processors/list.hpp"

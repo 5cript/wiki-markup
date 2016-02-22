@@ -3,7 +3,7 @@
 
 #include "component.hpp"
 #include "adaption.hpp"
-#include "parsers/parsing_results.hpp"
+#include "../parser/qi_common/parsing_results.hpp"
 
 #include "table/table_row.hpp"
 #include "table/table_caption.hpp"

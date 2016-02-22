@@ -1,6 +1,6 @@
 #include "table.hpp"
 
-#include "parsers/parse.hpp"
+#include "../parser/qi_common/parse.hpp"
 #include "parsers/table.hpp"
 #include "post_processors/table.hpp"
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../SimpleUtil/value_ptr/cloneable.hpp"
-#include "parsers/parsing_results.hpp"
+#include "../parser/qi_common/parsing_results.hpp"
 
 #include "meta_info.hpp"
 

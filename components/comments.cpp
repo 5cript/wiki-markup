@@ -1,6 +1,6 @@
 #include "comments.hpp"
 
-#include "parsers/parse.hpp"
+#include "../parser/qi_common/parse.hpp"
 #include "parsers/comments.hpp"
 
 namespace WikiMarkup { namespace Components {

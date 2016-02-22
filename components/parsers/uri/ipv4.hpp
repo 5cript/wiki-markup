@@ -1,8 +1,8 @@
 #ifndef COMPONENTS_PARSERS_URI_IPV4_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_IPV4_HPP_INCLUDED
 
-#include "../parser_core.hpp"
-#include "../basic.hpp"
+#include "../../../parser/qi_common/parser_core.hpp"
+#include "../../../parser/qi_common/basic.hpp"
 
 #include <cstdint>
 #include <string>

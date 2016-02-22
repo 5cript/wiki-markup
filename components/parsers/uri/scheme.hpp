@@ -1,7 +1,7 @@
 #ifndef SCHEME_HPP_INCLUDED
 #define SCHEME_HPP_INCLUDED
 
-#include "../parser_core.hpp"
+#include "../../../parser/qi_common/parser_core.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser {
 
