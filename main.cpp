@@ -1,16 +1,9 @@
 #include "main.hpp"
-//#include "components/table.hpp"
-//#include "components/header.hpp"
-//#include "components/list.hpp"
-#include "components/link.hpp"
-
-//#include "components/parsers/parse.hpp"
-//#include "components/parsers/url.hpp"
-#include "components/parsers/link.hpp"
 
 #include "configuration.hpp"
-#include "parser/page_parser.hpp"
-
+#include "peripherals/parsers/style/color.hpp"
+#include "parser/qi_common/parse.hpp"
+#include "peripherals/style/attribute_definition.hpp"
 
 #include <iostream>
 #include <string>
@@ -23,10 +16,19 @@
 int main()
 {
     using namespace WikiMarkup;
-    using namespace Components;
+    using namespace Peripherals;
+    using namespace Style;
+    using namespace Parser;
 
     auto data = readStringFromFile ("testfile.txt");
 
+    TYPEDEF_GRAMMAR(color_grammar);
+    auto res = parse <grammar> (data);
+    auto color = res.second;
+
+    std::cout << "rgb(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", " << color.a << ")\n";
+
+    /*
     PageParser parser (data);
     parser.parse();
 
@@ -57,6 +59,7 @@ int main()
             break;
         }
     }
+    */
 
     return 0;
 }
