@@ -1,8 +1,8 @@
 #ifndef COMPONENTS_PARSERS_URI_IPV4_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_IPV4_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
-#include "../../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include <cstdint>
 #include <string>
@@ -10,6 +10,8 @@
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     namespace Internal
     {
         inline std::string intToStr(uint8_t v) {
@@ -27,7 +29,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         ipv4s_grammar() : ipv4s_grammar::base_type(main, "ipv4s")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 			INSTALL_DEBUG_HANDLER;
@@ -65,7 +66,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         ipv4_grammar() : ipv4_grammar::base_type(main, "ipv4")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 

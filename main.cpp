@@ -1,9 +1,8 @@
 #include "main.hpp"
 
 #include "configuration.hpp"
-#include "peripherals/parsers/style/color.hpp"
-#include "parser/qi_common/parse.hpp"
-#include "peripherals/style/attribute_definition.hpp"
+
+#include "twisted-spirit/core/parse.hpp"
 
 #include <iostream>
 #include <string>
@@ -16,17 +15,17 @@
 int main()
 {
     using namespace WikiMarkup;
-    using namespace Peripherals;
-    using namespace Style;
-    using namespace Parser;
+    using namespace TwistedSpirit;
 
     auto data = readStringFromFile ("testfile.txt");
 
+    /*
     TYPEDEF_GRAMMAR(color_grammar);
     auto res = parse <grammar> (data);
     auto color = res.second;
 
     std::cout << "rgb(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", " << color.a << ")\n";
+    */
 
     /*
     PageParser parser (data);

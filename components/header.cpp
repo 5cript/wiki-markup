@@ -1,9 +1,10 @@
 #include "header.hpp"
 
-#include "../parser/qi_common/parse.hpp"
+#include "twisted-spirit/core/parse.hpp"
 #include "parsers/header.hpp"
 
-namespace WikiMarkup { namespace Components {
+namespace WikiMarkup { namespace Components
+{
 //####################################################################################
     std::string Header::toMarkup()
     {

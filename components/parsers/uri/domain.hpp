@@ -1,8 +1,8 @@
 #ifndef COMPONENTS_PARSERS_URI_DOMAIN_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_DOMAIN_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
-#include "../../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include "ipv4.hpp"
 #include "ipv6.hpp"
@@ -10,6 +10,8 @@
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct domain_grammar : qi::grammar <Iterator, std::string()>
     {
@@ -18,7 +20,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         domain_grammar() : domain_grammar::base_type(main, "domain")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 

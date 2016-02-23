@@ -1,9 +1,11 @@
 #ifndef SCHEME_HPP_INCLUDED
 #define SCHEME_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
 
-namespace WikiMarkup { namespace Components { namespace Parser {
+namespace WikiMarkup { namespace Components { namespace Parser
+{
+    using namespace TwistedSpirit;
 
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct scheme_grammar : qi::grammar <Iterator, std::string()>
@@ -13,7 +15,6 @@ namespace WikiMarkup { namespace Components { namespace Parser {
         scheme_grammar() : scheme_grammar::base_type(main, "scheme")
         {
             using namespace common_usings;
-            using namespace Rules;
 
             main =
                     qi::alpha

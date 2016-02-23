@@ -1,11 +1,12 @@
 #include "link.hpp"
 
-#include "../parser/qi_common/parse.hpp"
+#include "twisted-spirit/core/parse.hpp"
 #include "parsers/link.hpp"
 
 #include "post_processors/link.hpp"
 
-namespace WikiMarkup { namespace Components {
+namespace WikiMarkup { namespace Components
+{
 //####################################################################################
     std::string Link::toMarkup()
     {
@@ -67,6 +68,7 @@ namespace WikiMarkup { namespace Components {
 //-----------------------------------------------------------------------------------
     ParsingResult Link::fromMarkup(std::string const& mu)
     {
+        using namespace TwistedSpirit;
         using namespace WikiMarkup::Components::Parser;
 
         TYPEDEF_GRAMMAR(link_grammar);

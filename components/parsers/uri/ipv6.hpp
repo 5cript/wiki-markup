@@ -1,8 +1,8 @@
 #ifndef COMPONENTS_PARSERS_URI_IPV6_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_IPV6_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
-#include "../../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include "ipv4.hpp"
 
@@ -14,6 +14,8 @@
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     namespace Internal
     {
         inline std::string vecStrAccumulator(std::vector <std::string> const& vec) {
@@ -32,8 +34,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         ipv6s_grammar() : ipv6s_grammar::base_type(main, "ipv6s")
         {
             using namespace common_usings;
-            using namespace Rules;
-
             INSTALL_DEBUG_HANDLER;
 
 			using std::array;

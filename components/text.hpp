@@ -3,9 +3,11 @@
 
 #include "component.hpp"
 #include "adaption.hpp"
-#include "../parser/qi_common/parsing_results.hpp"
+#include "twisted-spirit/core/parsing_results.hpp"
 
-namespace WikiMarkup { namespace Components {
+namespace WikiMarkup { namespace Components
+{
+    using namespace TwistedSpirit;
 
     struct Text : public IComponent
     {

@@ -1,11 +1,13 @@
 #ifndef INDENTS_HPP_INCLUDED
 #define INDENTS_HPP_INCLUDED
 
-#include "../../parser/qi_common/parser_core.hpp"
-#include "../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct indents_grammar : qi::grammar <Iterator, std::string()>
     {

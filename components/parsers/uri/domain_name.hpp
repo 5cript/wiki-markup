@@ -1,14 +1,16 @@
 #ifndef COMPONENTS_PARSERS_URI_DOMAIN_NAME_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_DOMAIN_NAME_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
-#include "../../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include <string>
 #include <vector>
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     namespace Internal
     {
         inline std::string dotConcatStrings(std::vector <std::string> const& strings) {
@@ -33,7 +35,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         domain_name_grammar() : domain_name_grammar::base_type(main, "domain_name")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 

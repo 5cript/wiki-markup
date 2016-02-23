@@ -3,11 +3,13 @@
 
 #include "../list.hpp"
 
-#include "../../parser/qi_common/parser_core.hpp"
-#include "../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct list_grammar : qi::grammar <Iterator, PlainList(), qi::locals <char>>
     {
@@ -16,7 +18,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         list_grammar() : list_grammar::base_type(main, "list")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 			INSTALL_DEBUG_HANDLER;

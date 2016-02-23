@@ -1,6 +1,6 @@
 #include "table.hpp"
 
-#include "../parser/qi_common/parse.hpp"
+#include "twisted-spirit/core/parse.hpp"
 #include "parsers/table.hpp"
 #include "post_processors/table.hpp"
 
@@ -82,6 +82,7 @@ namespace WikiMarkup { namespace Components {
     {
         using namespace WikiMarkup::Components::Parser;
         using namespace WikiMarkup::Components::PostProcessors;
+        using namespace TwistedSpirit;
 
         TYPEDEF_GRAMMAR(table_grammar);
 

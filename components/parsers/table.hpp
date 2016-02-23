@@ -3,12 +3,14 @@
 
 #include "../table.hpp"
 
-#include "../../parser/qi_common/parser_core.hpp"
-#include "../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 #include "properties.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct table_grammar : qi::grammar <Iterator, Table()>
     {
@@ -17,7 +19,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         table_grammar() : table_grammar::base_type(main, "table")
         {
             using namespace common_usings;
-            using namespace Rules;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
 

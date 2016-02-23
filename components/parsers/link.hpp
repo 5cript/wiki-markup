@@ -3,8 +3,8 @@
 
 #include "../link.hpp"
 
-#include "../../parser/qi_common/parser_core.hpp"
-#include "../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include "url.hpp"
 
@@ -13,8 +13,9 @@
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
 
-template GRAMMAR_TEMPLATE_SIGNATURE
+    template GRAMMAR_TEMPLATE_SIGNATURE
     struct link_grammar : qi::grammar <Iterator, Link(), qi::locals <bool>>
     {
         using grammar_result = Link;
@@ -22,8 +23,6 @@ template GRAMMAR_TEMPLATE_SIGNATURE
         link_grammar() : link_grammar::base_type(main, "authority")
         {
             using namespace common_usings;
-            using namespace Rules;
-
             INSTALL_DEBUG_HANDLER;
 
             internalLinkBegin = qi::lit("[[");

@@ -1,6 +1,6 @@
 #include "comments.hpp"
 
-#include "../parser/qi_common/parse.hpp"
+#include "twisted-spirit/core/parse.hpp"
 #include "parsers/comments.hpp"
 
 namespace WikiMarkup { namespace Components {
@@ -13,6 +13,7 @@ namespace WikiMarkup { namespace Components {
     ParsingResult CommentText::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
+        using namespace TwistedSpirit;
 
         TYPEDEF_GRAMMAR(comment_grammar);
 

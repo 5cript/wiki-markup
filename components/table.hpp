@@ -3,7 +3,7 @@
 
 #include "component.hpp"
 #include "adaption.hpp"
-#include "../parser/qi_common/parsing_results.hpp"
+#include "twisted-spirit/core/parsing_results.hpp"
 
 #include "table/table_row.hpp"
 #include "table/table_caption.hpp"
@@ -12,7 +12,9 @@
 #include <map>
 #include <vector>
 
-namespace WikiMarkup { namespace Components {
+namespace WikiMarkup { namespace Components
+{
+    using namespace TwistedSpirit;
 
     struct Table : public IComponent
     {

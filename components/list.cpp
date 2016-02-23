@@ -1,6 +1,6 @@
 #include "list.hpp"
 
-#include "../parser/qi_common/parse.hpp"
+#include "twisted-spirit/core/parse.hpp"
 #include "parsers/list.hpp"
 
 #include "post_processors/list.hpp"
@@ -61,6 +61,7 @@ namespace WikiMarkup { namespace Components {
     ParsingResult List::fromMarkup(std::string const& mu)
     {
         using namespace WikiMarkup::Components::Parser;
+        using namespace TwistedSpirit;
 
         TYPEDEF_GRAMMAR(list_grammar);
 

@@ -1,14 +1,16 @@
 #ifndef COMPONENTS_PARSERS_URI_AUTHORITY_HPP_INCLUDED
 #define COMPONENTS_PARSERS_URI_AUTHORITY_HPP_INCLUDED
 
-#include "../../../parser/qi_common/parser_core.hpp"
-#include "../../../parser/qi_common/basic.hpp"
+#include "twisted-spirit/core/parser_core.hpp"
+#include "twisted-spirit/rules/space.hpp"
 
 #include "domain.hpp"
 #include "../../url.hpp"
 
 namespace WikiMarkup { namespace Components { namespace Parser
 {
+    using namespace TwistedSpirit;
+
     template GRAMMAR_TEMPLATE_SIGNATURE
     struct authority_grammar : qi::grammar <Iterator, Authority()>
     {
@@ -17,7 +19,6 @@ namespace WikiMarkup { namespace Components { namespace Parser
         authority_grammar() : authority_grammar::base_type(main, "authority")
         {
             using namespace common_usings;
-            using namespace Rules;
 
             user %=
                *(qi::char_ - qi::char_(':'))
