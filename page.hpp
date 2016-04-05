@@ -37,7 +37,7 @@ namespace WikiMarkup
         /**
          *  Get all components of the page.
          */
-        std::add_lvalue_reference_t <decltype(components_)> getComponents();
+        std::add_lvalue_reference <decltype(components_)>::type getComponents();
 
         /**
          *  Wipe the page clear.
