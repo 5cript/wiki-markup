@@ -103,7 +103,6 @@
 		<Unit filename="parser/parser_context.cpp" />
 		<Unit filename="parser/parser_context.hpp" />
 		<Unit filename="parser/parser_core.hpp" />
-		<Unit filename="parser/qi_common/basic.cpp" />
 		<Unit filename="parser/qi_common/basic.hpp" />
 		<Unit filename="parser/qi_common/fusion_includes.hpp" />
 		<Unit filename="parser/qi_common/parse.hpp" />
@@ -119,12 +118,10 @@
 		<Unit filename="peripherals/adaption.hpp" />
 		<Unit filename="peripherals/parsers/style.hpp" />
 		<Unit filename="peripherals/parsers/style/size_value.hpp" />
-		<Unit filename="peripherals/post_processors/style.cpp" />
 		<Unit filename="peripherals/post_processors/style.hpp" />
 		<Unit filename="peripherals/style.hpp" />
 		<Unit filename="peripherals/style/attribute.hpp" />
 		<Unit filename="peripherals/style/color.hpp" />
-		<Unit filename="peripherals/style/size_value.cpp" />
 		<Unit filename="peripherals/style/size_value.hpp" />
 		<Unit filename="peripherals/style/string_value.hpp" />
 		<Unit filename="peripherals/style/value.hpp" />
