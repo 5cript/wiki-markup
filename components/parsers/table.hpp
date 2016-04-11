@@ -21,6 +21,7 @@ namespace WikiMarkup { namespace Components { namespace Parser
             using namespace common_usings;
             INSTALL_ERROR_HANDLER;
 			INSTALL_WARNING_HANDLER;
+			INSTALL_DEBUG_HANDLER;
 
 			table_start.name("table_start");
 			table_end.name("table_end");
@@ -50,8 +51,8 @@ namespace WikiMarkup { namespace Components { namespace Parser
                     (linebreak >> qi::lit("|-")) -
                     (linebreak >> qi::lit("|}")) -
                     (linebreak >> '|') -
-                    (linebreak >> '!') -
-                    (qi::lit("''") >> linebreak)
+                    (linebreak >> '!') //-
+                    //(qi::lit("''") >> linebreak)
                 )
             ;
 
@@ -93,14 +94,14 @@ namespace WikiMarkup { namespace Components { namespace Parser
 
             table_start =
                     qi::lit("{|")
-                >  *space
-                >  -(properties)
-                >  *space
+                >> *space
+                >> -(properties)
+                >> *space
             ;
 
             table_end =
                     linebreak
-                >   qi::lit("|}")
+                >>  qi::lit("|}")
             ;
 
             table_caption =
@@ -108,9 +109,9 @@ namespace WikiMarkup { namespace Components { namespace Parser
                 >>  qi::lit("|+")
                 >> *space
                 >> -data_properties                             [at_c <1> (_val) = qi::_1]
-                >>  qi::lit("''")
+                //>>  qi::lit("''")
                 >>  caption_data                                [at_c <0> (_val) = qi::_1]
-                >>  qi::lit("''")
+                //>>  qi::lit("''")
                 >> *space
             ;
 
@@ -174,9 +175,9 @@ namespace WikiMarkup { namespace Components { namespace Parser
             main =
                     eps             [_val = Table()]
                 >>  table_start     [at_c <1> (_val) = qi::_1]
-                >  -table_caption   [at_c <0> (_val) = qi::_1]
-                >  -table_rows      [at_c <2> (_val) = qi::_1]
-                >   table_end
+                >> -table_caption   [at_c <0> (_val) = qi::_1]
+                >> -table_rows      [at_c <2> (_val) = qi::_1]
+                >>  table_end
             ;
 
             HANDLE_QI_ERROR(main, 1);
