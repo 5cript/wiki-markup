@@ -240,7 +240,6 @@
 		<Unit filename="components/parsers/link.hpp" />
 		<Unit filename="components/parsers/list.hpp" />
 		<Unit filename="components/parsers/properties.hpp" />
-		<Unit filename="components/parsers/space.hpp" />
 		<Unit filename="components/parsers/table.hpp" />
 		<Unit filename="components/parsers/uri/authority.hpp" />
 		<Unit filename="components/parsers/uri/domain.hpp" />

@@ -3,6 +3,7 @@
 #include "configuration.hpp"
 
 #include "twisted-spirit/core/parse.hpp"
+#include "parser/page_parser.hpp"
 
 #include <iostream>
 #include <string>
@@ -18,6 +19,11 @@ int main()
     using namespace TwistedSpirit;
 
     auto data = readStringFromFile ("testfile.txt");
+
+    WikiMarkup::PageParser parser (data);
+    parser.parse();
+
+    auto page = parser.getPage();
 
     /*
     TYPEDEF_GRAMMAR(color_grammar);
