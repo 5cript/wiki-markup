@@ -7,7 +7,7 @@
 namespace WikiMarkup
 {
 //####################################################################################
-    ParserContext::ParserContext(std::string page)
+    DLL_EXPORT ParserContext::ParserContext(std::string page)
         : page_{std::move(page)}
         , position_{0}
         , lines_{}
@@ -17,7 +17,7 @@ namespace WikiMarkup
         splitLines();
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::tokenize()
+    DLL_EXPORT void ParserContext::tokenize()
     {
         // approximate. speeds up code.
         tokens_.reserve(page_.length() / 8);
@@ -32,7 +32,7 @@ namespace WikiMarkup
         }
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::splitLines()
+    DLL_EXPORT void ParserContext::splitLines()
     {
         Line line;
         line.start = 0;
@@ -62,7 +62,7 @@ namespace WikiMarkup
         lines_.push_back(line);
     }
 //-----------------------------------------------------------------------------------
-    char ParserContext::get(bool peek) const noexcept
+    DLL_EXPORT char ParserContext::get(bool peek) const noexcept
     {
         if (!hasMoreToRead())
             return '\0';
@@ -73,7 +73,7 @@ namespace WikiMarkup
         return c;
     }
 //-----------------------------------------------------------------------------------
-    boost::optional <Token> ParserContext::getToken(bool peek) const
+    DLL_EXPORT boost::optional <Token> ParserContext::getToken(bool peek) const
     {
         if (!hasMoreToRead())
             return boost::none;
@@ -88,7 +88,7 @@ namespace WikiMarkup
         return boost::none;
     }
 //-----------------------------------------------------------------------------------
-    boost::optional <std::string> ParserContext::getLine(bool peek) const
+    DLL_EXPORT boost::optional <std::string> ParserContext::getLine(bool peek) const
     {
         if (!hasMoreToRead())
             return boost::none;
@@ -104,7 +104,7 @@ namespace WikiMarkup
         return boost::none;
     }
 //-----------------------------------------------------------------------------------
-    bool ParserContext::isStartOfLine() const
+    DLL_EXPORT bool ParserContext::isStartOfLine() const
     {
         auto iter = std::find_if(std::begin(lines_), std::end(lines_), [this](Line const& l) {
             return position_ == l.start;
@@ -112,22 +112,22 @@ namespace WikiMarkup
         return iter != std::end(lines_);
     }
 //-----------------------------------------------------------------------------------
-    bool ParserContext::hasMoreToRead() const noexcept
+    DLL_EXPORT bool ParserContext::hasMoreToRead() const noexcept
     {
         return position_ < page_.length();
     }
 //-----------------------------------------------------------------------------------
-    ParserContext::position_type ParserContext::getPosition() const noexcept
+    DLL_EXPORT ParserContext::position_type ParserContext::getPosition() const noexcept
     {
         return position_;
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::setPosition(position_type position) noexcept
+    DLL_EXPORT void ParserContext::setPosition(position_type position) noexcept
     {
         position_ = position;
     }
 //-----------------------------------------------------------------------------------
-    void ParserContext::forwardPosition(position_type amount) noexcept
+    DLL_EXPORT void ParserContext::forwardPosition(position_type amount) noexcept
     {
         position_ += amount;
 
@@ -136,30 +136,30 @@ namespace WikiMarkup
             position_ = page_.length();
     }
 //-----------------------------------------------------------------------------------
-    std::string ParserContext::getSlice() const
+    DLL_EXPORT std::string ParserContext::getSlice() const
     {
         return page_.substr(position_, page_.length() - position_);
     }
 //-----------------------------------------------------------------------------------
-    ParserContext& ParserContext::operator++() noexcept
+    DLL_EXPORT ParserContext& ParserContext::operator++() noexcept
     {
         ++position_;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext ParserContext::operator++(int) noexcept
+    DLL_EXPORT ParserContext ParserContext::operator++(int) noexcept
     {
         position_++;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext& ParserContext::operator--() noexcept
+    DLL_EXPORT ParserContext& ParserContext::operator--() noexcept
     {
         --position_;
         return *this;
     }
 //-----------------------------------------------------------------------------------
-    ParserContext ParserContext::operator--(int) noexcept
+    DLL_EXPORT ParserContext ParserContext::operator--(int) noexcept
     {
         position_--;
         return *this;

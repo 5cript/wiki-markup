@@ -11,7 +11,7 @@
 				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
 				<Option type="2" />
-				<Option compiler="msys2" />
+				<Option compiler="msys2_32" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
@@ -102,29 +102,10 @@
 		<Unit filename="parser/page_parser.hpp" />
 		<Unit filename="parser/parser_context.cpp" />
 		<Unit filename="parser/parser_context.hpp" />
-		<Unit filename="parser/parser_core.hpp" />
-		<Unit filename="parser/qi_common/basic.hpp" />
-		<Unit filename="parser/qi_common/fusion_includes.hpp" />
-		<Unit filename="parser/qi_common/parse.hpp" />
-		<Unit filename="parser/qi_common/parser_core.hpp" />
-		<Unit filename="parser/qi_common/parsing_results.hpp" />
-		<Unit filename="parser/qi_common/phoenix_includes.hpp" />
-		<Unit filename="parser/qi_common/qi_includes.hpp" />
-		<Unit filename="parser/qi_common/unescaped_string.hpp" />
 		<Unit filename="parser/token.cpp" />
 		<Unit filename="parser/token.hpp" />
 		<Unit filename="parser/token_classification.cpp" />
 		<Unit filename="parser/token_classification.hpp" />
-		<Unit filename="peripherals/adaption.hpp" />
-		<Unit filename="peripherals/parsers/style.hpp" />
-		<Unit filename="peripherals/parsers/style/size_value.hpp" />
-		<Unit filename="peripherals/post_processors/style.hpp" />
-		<Unit filename="peripherals/style.hpp" />
-		<Unit filename="peripherals/style/attribute.hpp" />
-		<Unit filename="peripherals/style/color.hpp" />
-		<Unit filename="peripherals/style/size_value.hpp" />
-		<Unit filename="peripherals/style/string_value.hpp" />
-		<Unit filename="peripherals/style/value.hpp" />
 		<Unit filename="util/meta/apply.hpp" />
 		<Unit filename="util/meta/pop_front.hpp" />
 		<Extensions>

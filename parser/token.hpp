@@ -2,14 +2,15 @@
 #define PARSER_TOKEN_HPP_INCLUDED
 
 #include "token_classification.hpp"
+#include "../dll.hpp"
 
 #include <boost/optional.hpp>
 
 namespace WikiMarkup
 {
-    class Token
+    class DLL_EXPORT Token
     {
-        friend boost::optional <Token> extractToken(std::string::const_iterator begin,
+        DLL_EXPORT friend boost::optional <Token> extractToken(std::string::const_iterator begin,
                                                     std::string::const_iterator& position,
                                                     std::string::const_iterator end);
 
@@ -30,7 +31,7 @@ namespace WikiMarkup
         TokenType type_;
     };
 
-    boost::optional <Token> extractToken(std::string::const_iterator begin,
+    DLL_EXPORT boost::optional <Token> extractToken(std::string::const_iterator begin,
                                          std::string::const_iterator& position,
                                          std::string::const_iterator end);
 }

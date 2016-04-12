@@ -12,14 +12,14 @@
 
 namespace WikiMarkup
 {
-    struct Line
+    struct DLL_EXPORT Line
     {
         std::string data;
         std::size_t start;
         std::size_t end;
     };
 
-    class ParserContext
+    class DLL_EXPORT ParserContext
     {
     public:
         using position_type = std::size_t;

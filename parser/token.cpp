@@ -3,27 +3,27 @@
 namespace WikiMarkup
 {
 //####################################################################################
-    std::size_t Token::getStartPosition() const
+    std::size_t DLL_EXPORT Token::getStartPosition() const
     {
         return startPosition_;
     }
 //-----------------------------------------------------------------------------------
-    std::size_t Token::getEndPosition() const
+    std::size_t DLL_EXPORT Token::getEndPosition() const
     {
         return endPosition_;
     }
 //-----------------------------------------------------------------------------------
-    std::string Token::getData() const
+    std::string DLL_EXPORT Token::getData() const
     {
         return data_;
     }
 //-----------------------------------------------------------------------------------
-    TokenType Token::getType() const
+    TokenType DLL_EXPORT Token::getType() const
     {
         return type_;
     }
 //-----------------------------------------------------------------------------------
-    Token::Token()
+    DLL_EXPORT Token::Token()
         : startPosition_{}
         , endPosition_{}
         , data_{}
@@ -32,7 +32,7 @@ namespace WikiMarkup
 
     }
 //####################################################################################
-    boost::optional <Token> extractToken(std::string::const_iterator begin,
+    boost::optional <Token> DLL_EXPORT extractToken(std::string::const_iterator begin,
                                          std::string::const_iterator& position,
                                          std::string::const_iterator end)
     {

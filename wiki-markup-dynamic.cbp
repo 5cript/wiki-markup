@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="wiki-markup-dynamic" />
+		<Option pch_mode="2" />
+		<Option compiler="msys2_32" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/wiki-markup-dynamic" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="msys2_32" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-DBUILD_DLL" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/wiki-markup-dynamic" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="msys2_32" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-DBUILD_DLL" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory=".." />
+		</Compiler>
+		<Unit filename="../SimpleJSON/parse/jsd.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_array.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_atomic.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_check.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_container.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_convenience.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_core.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_fundamental.cpp" />
+		<Unit filename="../SimpleJSON/parse/jsd_fundamental.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_fusion_adapted_struct.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_generic_parser.cpp" />
+		<Unit filename="../SimpleJSON/parse/jsd_generic_parser.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_map.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_object.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_optional.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_options.cpp" />
+		<Unit filename="../SimpleJSON/parse/jsd_options.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_pair.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_renamed.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_set.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_string.cpp" />
+		<Unit filename="../SimpleJSON/parse/jsd_string.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_unique_ptr.h" />
+		<Unit filename="../SimpleJSON/parse/jsd_unordered_map.h" />
+		<Unit filename="../SimpleJSON/stringify/container_traits.h" />
+		<Unit filename="../SimpleJSON/stringify/integer_of_size.h" />
+		<Unit filename="../SimpleJSON/stringify/iterator_traits.h" />
+		<Unit filename="../SimpleJSON/stringify/jss.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_array.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_atomic.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_bidirectional.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_bitset.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_check.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_container.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_convenience.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_core.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_deque.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_error.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_error.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_extended.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_forward.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_forward_list.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_fundamental.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_fundamental.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_fusion_adapted_struct.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_fusion_vector.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_iterator.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_list.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_map.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_mutex.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_object.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_object.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_optional.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_options.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_options.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_pair.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_pointer.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_pointer.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_queue.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_random_access.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_renamed.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_set.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_shared_ptr.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_smart_ptr.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_stack.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_string.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_string.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_tuple.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_undefine.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_unique_ptr.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_unordered_map.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_valarray.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_vector.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_void.cpp" />
+		<Unit filename="../SimpleJSON/stringify/jss_void.h" />
+		<Unit filename="../SimpleJSON/stringify/jss_weak_ptr.h" />
+		<Unit filename="../SimpleJSON/stringify/map_commons.h" />
+		<Unit filename="../SimpleJSON/stringify/tmp_util/fundamental/eval_if.hpp" />
+		<Unit filename="../SimpleJSON/stringify/tmp_util/fundamental/identity.hpp" />
+		<Unit filename="../SimpleJSON/stringify/tmp_util/fundamental/integral.hpp" />
+		<Unit filename="../SimpleJSON/stringify/tmp_util/fundamental/is_same.hpp" />
+		<Unit filename="../SimpleJSON/stringify/tmp_util/fundamental/null_type.hpp" />
+		<Unit filename="../SimpleJSON/utility/base64.cpp" />
+		<Unit filename="../SimpleJSON/utility/base64.h" />
+		<Unit filename="../SimpleJSON/utility/beauty_stream.cpp" />
+		<Unit filename="../SimpleJSON/utility/beauty_stream.h" />
+		<Unit filename="../SimpleJSON/utility/meta_util.h" />
+		<Unit filename="../SimpleJSON/utility/rename.h" />
+		<Unit filename="../SimpleJSON/utility/xml_converter.cpp" />
+		<Unit filename="../SimpleJSON/utility/xml_converter.h" />
+		<Unit filename="../twisted-spirit/core/confix.hpp" />
+		<Unit filename="../twisted-spirit/core/fusion_includes.hpp" />
+		<Unit filename="../twisted-spirit/core/parse.hpp" />
+		<Unit filename="../twisted-spirit/core/parser_core.hpp" />
+		<Unit filename="../twisted-spirit/core/parsing_results.hpp" />
+		<Unit filename="../twisted-spirit/core/phoenix_includes.hpp" />
+		<Unit filename="../twisted-spirit/core/qi_includes.hpp" />
+		<Unit filename="../twisted-spirit/grammars/unescaped_string.hpp" />
+		<Unit filename="../twisted-spirit/rules/space.cpp" />
+		<Unit filename="../twisted-spirit/rules/space.hpp" />
+		<Unit filename="components/adaption.hpp" />
+		<Unit filename="components/comments.cpp" />
+		<Unit filename="components/comments.hpp" />
+		<Unit filename="components/component.hpp" />
+		<Unit filename="components/components.hpp" />
+		<Unit filename="components/format.hpp" />
+		<Unit filename="components/header.cpp" />
+		<Unit filename="components/header.hpp" />
+		<Unit filename="components/horizontal_line.cpp" />
+		<Unit filename="components/horizontal_line.hpp" />
+		<Unit filename="components/link.cpp" />
+		<Unit filename="components/link.hpp" />
+		<Unit filename="components/list.cpp" />
+		<Unit filename="components/list.hpp" />
+		<Unit filename="components/list/list_type.cpp" />
+		<Unit filename="components/list/list_type.hpp" />
+		<Unit filename="components/meta_info.cpp" />
+		<Unit filename="components/meta_info.hpp" />
+		<Unit filename="components/parsers/comments.hpp" />
+		<Unit filename="components/parsers/format.cpp" />
+		<Unit filename="components/parsers/format.hpp" />
+		<Unit filename="components/parsers/header.hpp" />
+		<Unit filename="components/parsers/indents.hpp" />
+		<Unit filename="components/parsers/link.hpp" />
+		<Unit filename="components/parsers/list.hpp" />
+		<Unit filename="components/parsers/properties.hpp" />
+		<Unit filename="components/parsers/table.hpp" />
+		<Unit filename="components/parsers/uri/authority.hpp" />
+		<Unit filename="components/parsers/uri/domain.hpp" />
+		<Unit filename="components/parsers/uri/domain_name.hpp" />
+		<Unit filename="components/parsers/uri/ipv4.hpp" />
+		<Unit filename="components/parsers/uri/ipv6.hpp" />
+		<Unit filename="components/parsers/uri/scheme.hpp" />
+		<Unit filename="components/parsers/url.hpp" />
+		<Unit filename="components/post_processors/link.cpp" />
+		<Unit filename="components/post_processors/link.hpp" />
+		<Unit filename="components/post_processors/list.cpp" />
+		<Unit filename="components/post_processors/list.hpp" />
+		<Unit filename="components/post_processors/table.cpp" />
+		<Unit filename="components/post_processors/table.hpp" />
+		<Unit filename="components/preformatted_text.cpp" />
+		<Unit filename="components/preformatted_text.hpp" />
+		<Unit filename="components/table.cpp" />
+		<Unit filename="components/table.hpp" />
+		<Unit filename="components/table/table_caption.hpp" />
+		<Unit filename="components/table/table_cell.hpp" />
+		<Unit filename="components/table/table_row.hpp" />
+		<Unit filename="components/text.cpp" />
+		<Unit filename="components/text.hpp" />
+		<Unit filename="components/url.cpp" />
+		<Unit filename="components/url.hpp" />
+		<Unit filename="configuration.cpp" />
+		<Unit filename="configuration.hpp" />
+		<Unit filename="dll.hpp" />
+		<Unit filename="dllmain.cpp" />
+		<Unit filename="main.hpp" />
+		<Unit filename="page.cpp" />
+		<Unit filename="page.hpp" />
+		<Unit filename="parser/context_navigation.cpp" />
+		<Unit filename="parser/context_navigation.hpp" />
+		<Unit filename="parser/helpers.hpp" />
+		<Unit filename="parser/page_parser.cpp" />
+		<Unit filename="parser/page_parser.hpp" />
+		<Unit filename="parser/parser_context.cpp" />
+		<Unit filename="parser/parser_context.hpp" />
+		<Unit filename="parser/token.cpp" />
+		<Unit filename="parser/token.hpp" />
+		<Unit filename="parser/token_classification.cpp" />
+		<Unit filename="parser/token_classification.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -3,19 +3,19 @@
 namespace WikiMarkup
 {
 //####################################################################################
-    ContextNavigator::ContextNavigator(ParserContext* context)
+    DLL_EXPORT ContextNavigator::ContextNavigator(ParserContext* context)
         : ctx_(context)
         , positionBackup_(ctx_->getPosition())
     {
 
     }
 //-----------------------------------------------------------------------------------
-    bool ContextNavigator::reachedEnd() const
+    DLL_EXPORT bool ContextNavigator::reachedEnd() const
     {
         return !ctx_->hasMoreToRead();
     }
 //-----------------------------------------------------------------------------------
-    bool ContextNavigator::verifyCharSequence(std::string const& str)
+    DLL_EXPORT bool ContextNavigator::verifyCharSequence(std::string const& str)
     {
         bool result = false;
         for (auto const& i : str)

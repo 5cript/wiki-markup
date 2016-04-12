@@ -3,6 +3,7 @@
 
 #include "../components/components.hpp"
 #include "../page.hpp"
+#include "../dll.hpp"
 
 #include "parser_context.hpp"
 
@@ -12,7 +13,7 @@
 
 namespace WikiMarkup
 {
-    class PageParser
+    class DLL_EXPORT PageParser
     {
     public:
         PageParser(std::string const& page);

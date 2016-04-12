@@ -8,7 +8,7 @@
 
 namespace WikiMarkup
 {
-    class ContextNavigator
+    class DLL_EXPORT ContextNavigator
     {
     public:
         /**
