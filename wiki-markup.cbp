@@ -93,6 +93,7 @@
 		<Unit filename="components/url.hpp" />
 		<Unit filename="configuration.cpp" />
 		<Unit filename="configuration.hpp" />
+		<Unit filename="dll.hpp" />
 		<Unit filename="page.cpp" />
 		<Unit filename="page.hpp" />
 		<Unit filename="parser/context_navigation.cpp" />
