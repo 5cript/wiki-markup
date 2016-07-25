@@ -19,7 +19,7 @@ namespace WikiMarkup { namespace Components
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
         MetaInfo getMetaInfo() const override;
-        Header* clone() const;
+        Header* clone() const override;
     };
 
 } // namespace Components

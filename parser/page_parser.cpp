@@ -10,7 +10,32 @@ namespace WikiMarkup
 {
 //###################################################################################
     using namespace Components;
-    using namespace std::string_literals;
+//###################################################################################
+    template <typename PageT>
+    void pushText(PageT& page, std::string const& prePush)
+    {
+        Text tex;
+        tex.fromMarkup(prePush);
+        page.appendComponent(std::move(tex));
+    };
+//-----------------------------------------------------------------------------------
+    template <typename ContextT, typename PositionT, typename SectionT, typename FuncT, typename PageT>
+    void parseSingleSection(std::string fromWhat, std::string const& prePush, ContextT& ctx,
+                            PositionT& positionBackup, PageT& page, bool& wasSection, SectionT section, FuncT partialBehaviour)
+    {
+        auto result = section.fromMarkup(fromWhat);
+
+        bool good = result != ParsingResult::FAIL &&
+        (result == ParsingResult::PARTIAL ? partialBehaviour() : true);
+
+        if (!good)
+            ctx.setPosition(positionBackup);
+        else {
+            wasSection = true;
+            pushText(page, prePush);
+            page.appendComponent(std::move(section));
+        }
+    }
 //###################################################################################
     /**
      *  Used internally. Extracted to reduce function length.
@@ -189,28 +214,7 @@ namespace WikiMarkup
             return false;
         };
 
-        auto pushText = [&]() {
-            Text tex;
-            tex.fromMarkup(prePush);
-            page_.appendComponent(std::move(tex));
-        };
-
-        auto parseSingleSection = [&](std::string fromWhat, auto section, auto partialBehaviour) {
-            auto result = section.fromMarkup(fromWhat);
-
-            bool good = result != ParsingResult::FAIL &&
-            (result == ParsingResult::PARTIAL ? partialBehaviour() : true);
-
-            if (!good)
-                ctx.setPosition(positionBackup);
-            else {
-                wasSection = true;
-                pushText();
-                page_.appendComponent(std::move(section));
-            }
-        };
-
-        auto accumulateLinesWhile = [&](auto lineCondition) {
+        auto accumulateLinesWhile = [&](std::function <bool(std::string const&)> lineCondition) {
             std::string lines = ctx.getLine().get() + "\n";
             do {
                 auto line = ctx.getLine(PEEK);
@@ -225,19 +229,22 @@ namespace WikiMarkup
             return lines;
         };
 
+        #define NO_CPP_14_LAMBDA_WORK_AROUND \
+            prePush, ctx, positionBackup, page_, wasSection
+
         if (c == '=') {
             // Headers
-            parseSingleSection(ctx.getLine().get(), Header{}, partialIsFail);
+            parseSingleSection(ctx.getLine().get(), NO_CPP_14_LAMBDA_WORK_AROUND, Header{}, partialIsFail);
         } else if (c == '-') {
             // horizontal line
-            parseSingleSection(ctx.getLine().get(), HorizontalLine{}, partialIsFail);
+            parseSingleSection(ctx.getLine().get(), NO_CPP_14_LAMBDA_WORK_AROUND, HorizontalLine{}, partialIsFail);
         } else if (c == '*' || c == '#') {
             // bullet list || numbered list
             std::string lines = accumulateLinesWhile([c](std::string const& line) {
                 return line.front() == c;
             });
 
-            parseSingleSection(lines, List{}, partialIsFail);
+            parseSingleSection(lines, NO_CPP_14_LAMBDA_WORK_AROUND, List{}, partialIsFail);
         } else if (c == ';') {
             // definition list
         } else if (std::isspace(c)) {
@@ -246,7 +253,7 @@ namespace WikiMarkup
                 return std::isspace(line.front());
             });
 
-            parseSingleSection(lines, PreformattedText{}, partialIsFail);
+            parseSingleSection(lines, NO_CPP_14_LAMBDA_WORK_AROUND, PreformattedText{}, partialIsFail);
         }
         return wasSection;
     }

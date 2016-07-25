@@ -7,7 +7,7 @@ namespace WikiMarkup { namespace Components { namespace PostProcessors {
 
     void postProcessTable(Table& table)
     {
-        table.rows.erase(std::remove_if(std::begin(table.rows), std::end(table.rows), [](auto const& row) {
+        table.rows.erase(std::remove_if(std::begin(table.rows), std::end(table.rows), [](decltype(table.rows)::value_type const& row) {
             return row.cells.empty();
         }), std::end(table.rows));
 

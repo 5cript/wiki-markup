@@ -23,8 +23,8 @@ namespace WikiMarkup
         tokens_.reserve(page_.length() / 8);
 
         std::string tokenData;
-        auto begin = std::cbegin(page_);
-        for (auto i = std::cbegin(page_), end = std::cend(page_); i < end;) {
+        auto begin = page_.cbegin();
+        for (auto i = page_.cbegin(), end = page_.cend(); i < end;) {
             boost::optional <Token> tok = extractToken(begin, i, end);
             if (!tok)
                 throw std::runtime_error("unexpected unclassifiable token type");

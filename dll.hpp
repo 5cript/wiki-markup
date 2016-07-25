@@ -8,7 +8,7 @@
 
 #ifdef BUILD_DLL
     #define DLL_EXPORT __declspec(dllexport)
-#elifdef DYNAMIC_MARKUP_LIBRARY
+#elif defined(DYNAMIC_MARKUP_LIBRARY)
     #define DLL_EXPORT __declspec(dllimport)
 #else
     #define DLL_EXPORT

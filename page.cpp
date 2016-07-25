@@ -24,7 +24,7 @@ namespace WikiMarkup
         components_.emplace_back(component.clone());
     }
 //-----------------------------------------------------------------------------------
-    std::add_lvalue_reference_t <decltype(Page::components_)> Page::getComponents()
+    std::add_lvalue_reference <decltype(Page::components_)>::type Page::getComponents()
     {
         return components_;
     }

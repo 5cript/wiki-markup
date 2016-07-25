@@ -32,7 +32,7 @@ namespace WikiMarkup { namespace Components { namespace PostProcessors {
 //-----------------------------------------------------------------------------------
     PrimalList postProcessList(PlainList const& plainList)
     {
-        return postProcessList(std::cbegin(plainList), std::cend(plainList), 0);
+        return postProcessList(plainList.cbegin(), plainList.cend(), 0);
     }
 //####################################################################################
 } // namespace PostProcessors
