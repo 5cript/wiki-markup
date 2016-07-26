@@ -30,14 +30,17 @@ namespace WikiMarkup { namespace Components { namespace Parser
 
 			end = lit(_r1);
 
-            main =
-                    start                                   [_a = qi::_1]
-                >> *space
-                >  *(qi::char_ - (lit(_a) >> qi::eoi))      [phoenix::push_back(at_c <0> (_val), qi::_1)]
-                >   end(_a)
-                >> *space
-                >>  eps                                     [at_c <1> (_val) = phoenix::size(qi::_a)]
-            ;
+			/*
+			main =
+					start                                   [_a = qi::_1]
+				>> *space
+				>  *(qi::char_ - (lit(_a) >> qi::eoi))      [phoenix::push_back(at_c <0> (_val), qi::_1)]
+				>   end(_a)
+				>> *space
+				>>  eps                                     [at_c <1> (_val) = phoenix::size(qi::_a)]
+			;
+			*/
+            main = start [_a = qi::_1];
 
             HANDLE_QI_ERROR(main, 1);
             HANDLE_QI_WARNING(main, 1);

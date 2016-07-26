@@ -3,6 +3,8 @@
 #include "twisted-spirit/core/parse.hpp"
 #include "parsers/comments.hpp"
 
+#include "../conversion.hpp"
+
 namespace WikiMarkup { namespace Components {
 //####################################################################################
     std::string CommentText::toMarkup()
@@ -20,6 +22,16 @@ namespace WikiMarkup { namespace Components {
         auto res = parse <grammar> (mu);
         *this = res.second;
         return res.first;
+    }
+//-----------------------------------------------------------------------------------
+    std::string CommentText::toJson()
+    {
+        return toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void CommentText::fromJson(std::string const& str)
+    {
+        fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo CommentText::getMetaInfo() const

@@ -4,6 +4,7 @@
 #include "parsers/link.hpp"
 
 #include "post_processors/link.hpp"
+#include "../conversion.hpp"
 
 namespace WikiMarkup { namespace Components
 {
@@ -77,6 +78,16 @@ namespace WikiMarkup { namespace Components
         *this = res.second;
         PostProcessors::postProcessLink(*this);
         return res.first;
+    }
+//-----------------------------------------------------------------------------------
+    std::string CommentText::toJson()
+    {
+        return toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void CommentText::fromJson(std::string const& str)
+    {
+        fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Link::getMetaInfo() const

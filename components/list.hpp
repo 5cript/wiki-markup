@@ -8,6 +8,8 @@
 #include "component.hpp"
 #include "adaption.hpp"
 
+#include "../json_introspection.hpp"
+
 #include <string>
 #include <vector>
 #include <memory>
@@ -30,6 +32,8 @@ namespace WikiMarkup { namespace Components {
     };
 
     struct ListTextLine : public ListElement
+                        , public JSON::Stringifiable <ListTextLine>
+                        , public JSON::Parsable <ListTextLine>
     {
         std::string data;
 
@@ -39,6 +43,8 @@ namespace WikiMarkup { namespace Components {
     };
 
     struct PrimalList : public ListElement
+                      , public JSON::Stringifiable <PrimalList>
+                      , public JSON::Parsable <PrimalList>
     {
         ListType type;
         std::vector <sutil::value_ptr <ListElement>> elements;
@@ -47,11 +53,17 @@ namespace WikiMarkup { namespace Components {
     };
 
     struct List : public IComponent
+                , public JSON::Stringifiable <List>
+                , public JSON::Parsable <List>
     {
         PrimalList list;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
+
+        std::string toJson() override;
+        void fromJson(std::string const& str) override;
+
         MetaInfo getMetaInfo() const override;
         List* clone() const override;
     };
@@ -63,6 +75,25 @@ BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::ListLine,
     (std::string, prefix)
+    (std::string, data)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+    WikiMarkup::Components::List,
+    (PrimalList, list)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+    WikiMarkup::Components::PrimalList,
+    (ListType, type)
+    (std::vector <sutil::value_ptr <ListElement>> elements)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+    WikiMarkup::Components::ListTextLine,
     (std::string, data)
 )
 

@@ -3,6 +3,8 @@
 #include "twisted-spirit/core/parse.hpp"
 #include "parsers/header.hpp"
 
+#include "../conversion.hpp"
+
 namespace WikiMarkup { namespace Components
 {
 //####################################################################################
@@ -32,6 +34,16 @@ namespace WikiMarkup { namespace Components
         auto res = parse <grammar> (mu);
         *this = res.second;
         return res.first;
+    }
+//-----------------------------------------------------------------------------------
+    std::string Header::toJson()
+    {
+        return toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void Header::fromJson(std::string const& str)
+    {
+        fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Header::getMetaInfo() const

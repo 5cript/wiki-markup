@@ -6,6 +6,7 @@
 #include "twisted-spirit/core/parsing_results.hpp"
 
 #include "url.hpp"
+#include "../json_introspection.hpp"
 
 #include <string>
 
@@ -13,7 +14,9 @@ namespace WikiMarkup { namespace Components
 {
     using namespace TwistedSpirit;
 
-    struct Link : public IComponent
+    struct Link : public IComponent,
+                  public JSON::Stringifiable <Link>,
+                  public JSON::Parsable <Link>
     {
         bool internal;
         bool implicit;
@@ -30,6 +33,10 @@ namespace WikiMarkup { namespace Components
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
+
+        std::string toJson() override;
+        void fromJson(std::string const& str) override;
+
         MetaInfo getMetaInfo() const override;
         Link* clone() const override;
     };
@@ -37,15 +44,18 @@ namespace WikiMarkup { namespace Components
 } // Components
 } // WikiMarkup
 
-BOOST_FUSION_ADAPT_STRUCT(WikiMarkup::Components::Link,
-                          internal, // 0
-                          implicit, // 1
-                          colon, // 2
-                          anchor, // 3
-                          prefix, // 4
-                          localPart, // 5
-                          attributes, // 6
-                          url, // 7
-                          redirect) // 8
+BOOST_FUSION_ADAPT_STRUCT
+(
+    WikiMarkup::Components::Link,
+    (bool,                      internal)   // 0
+    (bool,                      implicit)   // 1
+    (bool,                      colon)      // 2
+    (bool,                      anchor)     // 3
+    (std::string,               prefix)     // 4
+    (std:string,                localPart)  // 5
+    (std::vector <std::string>, attributes) // 6
+    (Url,                       url)        // 7
+    (bool,                      redirect)   // 8
+)
 
 #endif // COMPONENTS_LINK_HPP_INCLUDED

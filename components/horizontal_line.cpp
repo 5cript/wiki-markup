@@ -1,5 +1,7 @@
 #include "horizontal_line.hpp"
 
+#include "../conversion.hpp"
+
 namespace WikiMarkup { namespace Components {
 //####################################################################################
     std::string HorizontalLine::toMarkup()
@@ -14,6 +16,16 @@ namespace WikiMarkup { namespace Components {
             return ParsingResult::FAIL;
         else
             return ParsingResult::FULL_SUCCESS;
+    }
+//-----------------------------------------------------------------------------------
+    std::string HorizontalLine::toJson()
+    {
+        return toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void HorizontalLine::fromJson(std::string const& str)
+    {
+        fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo HorizontalLine::getMetaInfo() const

@@ -34,7 +34,7 @@ namespace WikiMarkup
          *  Program wide unified line endings. These are only used for producing markup, not for parsing.
          *  The parser accepts all possible line ending combinations as valid. (CRLF, CR, LF)
          **/
-        JSON::Base64Binary <char> lineEndings = "\n";
+		JSON::Base64Binary <char> lineEndings = "\n";
 
         /**
          *  A list of protocols to accept for implicit external links.
@@ -42,7 +42,7 @@ namespace WikiMarkup
          *
          *  Example: ["bitcoin:", "ftp://", "http://", "https://", "urn:"]
          */
-        std::vector <std::string> urlProtocols = {
+		std::vector <std::string> urlProtocols = {
             "bitcoin:",
             "ftp://",
             "ftps://",
@@ -128,8 +128,16 @@ namespace WikiMarkup
     };
 }
 
-BOOST_FUSION_ADAPT_STRUCT(WikiMarkup::Config, lineEndings, urlProtocols)
+BOOST_FUSION_ADAPT_STRUCT(
+	WikiMarkup::Config,
+	(JSON::Base64Binary <char>, lineEndings)
+	(std::vector <std::string>, urlProtocols)
+)
 
-BOOST_FUSION_ADAPT_STRUCT(WikiMarkup::ConfigWriteable, lineEndings, urlProtocols)
+BOOST_FUSION_ADAPT_STRUCT(
+	WikiMarkup::ConfigWriteable,
+	(JSON::Base64Binary <char>, lineEndings)
+	(std::vector <std::string>, urlProtocols)
+)
 
 #endif // CONFIGURATION_HPP_INCLUDED
