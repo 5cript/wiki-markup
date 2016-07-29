@@ -11,3 +11,16 @@
 ----
 
 ==== Header ====
+
+==== Header ====
+
+
+{| class="wikitable" style="color:black; background-color:#ffffcc;" cellpadding="10"
+|+ Hello Table 2
+|-
+!Head
+!Head2
+|-
+|Entry1
+|Entry2
+|}

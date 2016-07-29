@@ -23,6 +23,7 @@ int main()
     WikiMarkup::PageParser parser (data);
     parser.parse();
 
+    /*
     auto page = parser.getPage();
 
     std::stringstream sstr;
@@ -34,6 +35,7 @@ int main()
     page2.fromJson(sstr.str());
 
     page2.dumpComponentNames(std::cout);
+    */
 
     /*
     TYPEDEF_GRAMMAR(color_grammar);
