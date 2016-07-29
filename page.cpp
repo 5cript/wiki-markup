@@ -1,6 +1,12 @@
 #include "page.hpp"
 
+#include "component_factory.hpp"
+
 #include "SimpleJSON/utility/beauty_stream.hpp"
+#include "SimpleJSON/parse/jsd_generic_parser.hpp"
+#include "SimpleJSON/parse/jsd_string.hpp"
+#include "SimpleJSON/utility/array.hpp"
+#include "SimpleJSON/utility/object.hpp"
 
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/copy.hpp>
@@ -28,6 +34,11 @@ namespace WikiMarkup
     void Page::appendComponent(Components::IComponent const& component)
     {
         components_.emplace_back(component.clone());
+    }
+//-----------------------------------------------------------------------------------
+    void Page::appendComponent(Components::IComponent* component)
+    {
+        components_.emplace_back(component);
     }
 //-----------------------------------------------------------------------------------
     std::add_lvalue_reference <decltype(Page::components_)>::type Page::getComponents()
@@ -69,6 +80,30 @@ namespace WikiMarkup
         std::stringstream result;
 
         return json.str();
+    }
+//-----------------------------------------------------------------------------------
+    void Page::fromJson(std::string const& json)
+    {
+        clear();
+
+        auto tree = JSON::parse_json(json);
+        JSON::ArrayReader reader(tree);
+
+        JSON::ParsingOptions options;
+        options.strings_are_binary = true;
+        while (reader)
+        {
+            auto arrayNode = reader.getNext();
+            JSON::ObjectReader object(arrayNode, "", options);
+
+            auto type = object.get <std::string> ("name");
+            auto* component = createComponent(type, object);
+
+            if (component == nullptr)
+                throw std::runtime_error("json contains component, that has an unknown type: " + type);
+
+            appendComponent(component);
+        }
     }
 //####################################################################################
 }

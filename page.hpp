@@ -35,6 +35,11 @@ namespace WikiMarkup
         void appendComponent(Components::IComponent const& component);
 
         /**
+         *  Adds a component to the page.
+         */
+        void appendComponent(Components::IComponent* component);
+
+        /**
          *  Get all components of the page.
          */
         std::add_lvalue_reference <decltype(components_)>::type getComponents();
@@ -53,6 +58,11 @@ namespace WikiMarkup
          *  Generates a json string from the internal representation.
          */
         std::string toJson() const;
+
+        /**
+         *  Generates the components from JSON.
+         */
+        void fromJson(std::string const& json);
 
         /**
          *  Generates markup from the internal representation.
