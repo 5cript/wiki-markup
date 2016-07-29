@@ -18,54 +18,44 @@
 #endif
 
 #include "SimpleJSON/utility/polymorphy.hpp"
+#include "SimpleJSON/utility/object.hpp"
 
 #include <sstream>
 
 namespace WikiMarkup
 {
-    struct JsonComponent : public JSON::Stringifiable <JsonComponent>
-                         , public JSON::Parsable <JsonComponent>
-    {
-        std::string name;
-        std::string data;
-    };
-
     template <typename T>
     std::string toJson(T const& what, std::string const& name)
     {
-        std::stringstream sstr;
+        JSON::StringificationOptions options;
+        options.strings_are_binary = true;
+        JSON::ObjectBuilder builder(options);
 
-        JSON::stringify(sstr, "", what);
-        JsonComponent comp;
-        comp.name = name;
-        comp.data = sstr.str();
+        builder.add("name", name);
+        builder.add("data", what);
 
-        //sstr.clear();
-
-        std::stringstream result;
-
-        JSON::stringify(result, "", comp);
-
-        return result.str();
+        return builder.get();
     }
 
     template <typename T>
     void fromJson(T& whereTo, std::string const& json)
     {
-        JsonComponent comp;
-        auto tree = JSON::parse_json("{\"x\":" + json + "}");
-        JSON::parse(comp, "x", tree);
+        JSON::ParsingOptions options;
+        options.strings_are_binary = true;
 
-        auto tree2 = JSON::parse_json("{\"data\":" + comp.data + "}");
-        JSON::parse(whereTo, "data", tree2);
+        auto tree = JSON::parse_json(json);
+        JSON::ObjectReader reader(&tree, options);
 
-        if (comp.name != whereTo.getMetaInfo().name)
+        reader.get("", whereTo);
+
+        /*
+        auto name = reader.get <std::string> ("name");
+
+        if (name != whereTo.getMetaInfo().name)
             throw std::invalid_argument("name in json is not name of component");
+
+        reader.get("data", whereTo);
+        */
+
     }
 }
-
-BOOST_FUSION_ADAPT_STRUCT
-(
-    WikiMarkup::JsonComponent,
-    name, data
-)
