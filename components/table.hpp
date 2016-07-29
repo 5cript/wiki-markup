@@ -31,8 +31,10 @@ namespace WikiMarkup { namespace Components
 
         std::string toJson() const override;
         void fromJson(std::string const& str) override;
+        void fromJson(JSON::ObjectReader const& reader) override;
 
         MetaInfo getMetaInfo() const override;
+        static MetaInfo getMetaInfoS();
         Table* clone() const override;
     };
 

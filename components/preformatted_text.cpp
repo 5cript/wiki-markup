@@ -8,84 +8,94 @@
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
-        std::string PreformattedText::toMarkup()
-        {
-            std::string result;
-            for (auto const& i : lines) {
-                result += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
-            }
-            return result;
+    std::string PreformattedText::toMarkup()
+    {
+        std::string result;
+        for (auto const& i : lines) {
+            result += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
         }
+        return result;
+    }
 //-----------------------------------------------------------------------------------
-        ParsingResult PreformattedText::fromMarkup(std::string const& mu)
+    ParsingResult PreformattedText::fromMarkup(std::string const& mu)
+    {
+        auto singleLine = [](std::string const& line, PreformattedLine& prefLine) -> ParsingResult
         {
-            auto singleLine = [](std::string const& line, PreformattedLine& prefLine) -> ParsingResult
+            if (line.empty() || !std::isspace(line.front()))
             {
-                if (line.empty() || !std::isspace(line.front()))
-                {
-                    return ParsingResult::FAIL;
-                }
-
-                auto i = std::begin(line);
-                for (auto end = std::end(line); i != end; ++i)
-                {
-                    if (std::isspace(*i))
-                        prefLine.space.push_back(*i);
-                    else
-                        break;
-                }
-                prefLine.data = {i, std::end(line)};
-
-                return ParsingResult::FULL_SUCCESS;
-            };
-
-            std::stringstream sstr (mu);
-            sstr.seekg(0);
-
-            std::string line;
-            while (std::getline(sstr, line)) {
-                PreformattedLine pline;
-                auto result = singleLine(line, pline);
-                if (result != ParsingResult::FAIL)
-                    lines.push_back(pline);
-                else
-                    return ParsingResult::FAIL;
+                return ParsingResult::FAIL;
             }
+
+            auto i = std::begin(line);
+            for (auto end = std::end(line); i != end; ++i)
+            {
+                if (std::isspace(*i))
+                    prefLine.space.push_back(*i);
+                else
+                    break;
+            }
+            prefLine.data = {i, std::end(line)};
 
             return ParsingResult::FULL_SUCCESS;
+        };
+
+        std::stringstream sstr (mu);
+        sstr.seekg(0);
+
+        std::string line;
+        while (std::getline(sstr, line)) {
+            PreformattedLine pline;
+            auto result = singleLine(line, pline);
+            if (result != ParsingResult::FAIL)
+                lines.push_back(pline);
+            else
+                return ParsingResult::FAIL;
         }
+
+        return ParsingResult::FULL_SUCCESS;
+    }
 //-----------------------------------------------------------------------------------
-        std::string PreformattedText::toJson() const
-        {
-            return WikiMarkup::toJson(*this, getMetaInfo().name);
-        }
+    std::string PreformattedText::toJson() const
+    {
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
+    }
 //-----------------------------------------------------------------------------------
-        void PreformattedText::fromJson(std::string const& str)
-        {
-            WikiMarkup::fromJson(*this, str);
-        }
+    void PreformattedText::fromJson(std::string const& str)
+    {
+        WikiMarkup::fromJson(*this, str);
+    }
 //-----------------------------------------------------------------------------------
-        MetaInfo PreformattedText::getMetaInfo() const
-        {
-            return {
-                "Preformatted_Text",
-                true
-            };
-        }
+    void PreformattedText::fromJson(JSON::ObjectReader const& reader)
+    {
+        reader.get("data", *this);
+    }
 //-----------------------------------------------------------------------------------
-        PreformattedText* PreformattedText::clone() const
-        {
-            return new PreformattedText(*this);
-        }
+    MetaInfo PreformattedText::getMetaInfoS()
+    {
+        return {
+            "Preformatted_Text",
+            true
+        };
+    }
 //-----------------------------------------------------------------------------------
-        std::string PreformattedText::getRaw() const
-        {
-            std::string joined;
-            for (auto const& i : lines) {
-                joined += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
-            }
-            return joined;
+    MetaInfo PreformattedText::getMetaInfo() const
+    {
+        return PreformattedText::getMetaInfoS();
+    }
+//-----------------------------------------------------------------------------------
+    PreformattedText* PreformattedText::clone() const
+    {
+        return new PreformattedText(*this);
+    }
+//-----------------------------------------------------------------------------------
+    std::string PreformattedText::getRaw() const
+    {
+        std::string joined;
+        for (auto const& i : lines) {
+            joined += i.space + i.data + Configuration::getInstance().getReadOnly().lineEndings.toString();
         }
+        return joined;
+    }
 //####################################################################################
 } // namespace Components
 } // namespace WikiMarkup

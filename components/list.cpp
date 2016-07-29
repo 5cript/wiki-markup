@@ -84,7 +84,17 @@ namespace WikiMarkup { namespace Components {
         WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
+    void List::fromJson(JSON::ObjectReader const& reader)
+    {
+        reader.get("data", *this);
+    }
+//-----------------------------------------------------------------------------------
     MetaInfo List::getMetaInfo() const
+    {
+        return List::getMetaInfoS();
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo List::getMetaInfoS()
     {
         return {
             "List",

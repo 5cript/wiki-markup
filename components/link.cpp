@@ -91,12 +91,22 @@ namespace WikiMarkup { namespace Components
         WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
-    MetaInfo Link::getMetaInfo() const
+    void Link::fromJson(JSON::ObjectReader const& reader)
+    {
+        reader.get("data", *this);
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo Link::getMetaInfoS()
     {
         return {
             "Link",
             false
         };
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo Link::getMetaInfo() const
+    {
+        return Link::getMetaInfoS();
     }
 //-----------------------------------------------------------------------------------
     Link* Link::clone() const

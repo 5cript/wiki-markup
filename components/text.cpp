@@ -25,12 +25,22 @@ namespace WikiMarkup { namespace Components {
         WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
-    MetaInfo Text::getMetaInfo() const
+    void Text::fromJson(JSON::ObjectReader const& reader)
+    {
+        reader.get("data", *this);
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo Text::getMetaInfoS()
     {
         return {
             "Text",
             false
         };
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo Text::getMetaInfo() const
+    {
+        return getMetaInfoS();
     }
 //-----------------------------------------------------------------------------------
     Text* Text::clone() const

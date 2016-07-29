@@ -2,6 +2,7 @@
 
 #include "../../SimpleUtil/value_ptr/cloneable.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
+#include "SimpleJSON/utility/object.hpp"
 
 #include "meta_info.hpp"
 
@@ -21,6 +22,7 @@ namespace WikiMarkup { namespace Components {
 
         virtual std::string toJson() const = 0;
         virtual void fromJson(std::string const&) = 0;
+        virtual void fromJson(JSON::ObjectReader const& reader) = 0;
 
         virtual MetaInfo getMetaInfo() const = 0;
         virtual IComponent* clone() const = 0;

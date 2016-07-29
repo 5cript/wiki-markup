@@ -28,12 +28,22 @@ namespace WikiMarkup { namespace Components {
         WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
-    MetaInfo HorizontalLine::getMetaInfo() const
+    void HorizontalLine::fromJson(JSON::ObjectReader const& reader)
+    {
+        reader.get("data", *this);
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo HorizontalLine::getMetaInfoS()
     {
         return {
             "HorizontalLine",
             true
         };
+    }
+//-----------------------------------------------------------------------------------
+    MetaInfo HorizontalLine::getMetaInfo() const
+    {
+        return HorizontalLine::getMetaInfoS();
     }
 //-----------------------------------------------------------------------------------
     HorizontalLine* HorizontalLine::clone() const
