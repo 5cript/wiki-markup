@@ -6,3 +6,4 @@ bin/*
 *.save-failed
 output.txt
 config.json
+page_res.txt
