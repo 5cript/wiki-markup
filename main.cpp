@@ -25,8 +25,15 @@ int main()
 
     auto page = parser.getPage();
 
+    std::stringstream sstr;
     std::ofstream writer("page_res.txt", std::ios_base::binary);
-    writer << page.toJson();
+    sstr << page.toJson();
+    writer << sstr.str();
+
+    WikiMarkup::Page page2;
+    page2.fromJson(sstr.str());
+
+    page2.dumpComponentNames(std::cout);
 
     /*
     TYPEDEF_GRAMMAR(color_grammar);
