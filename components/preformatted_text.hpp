@@ -5,6 +5,8 @@
 #include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
 
+#include "../json_introspection.hpp"
+
 #include <string>
 #include <vector>
 
@@ -12,18 +14,25 @@ namespace WikiMarkup { namespace Components
 {
     using namespace TwistedSpirit;
 
-    struct PreformattedLine
+    struct PreformattedLine : public JSON::Stringifiable <PreformattedLine>
+                            , public JSON::Parsable <PreformattedLine>
     {
         std::string space;
         std::string data;
     };
 
     struct PreformattedText : public IComponent
+                            , public JSON::Stringifiable <PreformattedLine>
+                            , public JSON::Parsable <PreformattedLine>
     {
         std::vector <PreformattedLine> lines;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
+
+        std::string toJson() const override;
+        void fromJson(std::string const& str) override;
+
         MetaInfo getMetaInfo() const override;
         PreformattedText* clone() const override;
         std::string getRaw() const;

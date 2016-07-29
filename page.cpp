@@ -1,6 +1,12 @@
 #include "page.hpp"
 
+#include "SimpleJSON/utility/beauty_stream.hpp"
+
+#include <boost/iostreams/filtering_streambuf.hpp>
+#include <boost/iostreams/copy.hpp>
+
 #include <iostream>
+#include <sstream>
 
 namespace WikiMarkup
 {
@@ -37,6 +43,32 @@ namespace WikiMarkup
             result += i->toMarkup();
         }
         return result;
+    }
+//-----------------------------------------------------------------------------------
+    std::string Page::toJson() const
+    {
+        std::stringstream json;
+
+        namespace io = boost::iostreams;
+
+        bool first = true;
+        json << "[";
+        for (auto const& i : components_)
+        {
+            if (!first)
+                json << ",";
+            json << i->toJson();
+            first = false;
+        }
+        json << "]";
+
+        io::filtering_streambuf <io::output> buf;
+        buf.push(JSON::BeautifiedStreamWrapper());
+        buf.push(json);
+
+        std::stringstream result;
+
+        return json.str();
     }
 //####################################################################################
 }

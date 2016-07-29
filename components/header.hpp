@@ -23,7 +23,7 @@ namespace WikiMarkup { namespace Components
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() override;
+        std::string toJson() const override;
         void fromJson(std::string const& str) override;
 
         MetaInfo getMetaInfo() const override;

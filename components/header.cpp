@@ -31,19 +31,19 @@ namespace WikiMarkup { namespace Components
 
         TYPEDEF_GRAMMAR(header_grammar);
 
-        auto res = parse <grammar> (mu);
+        auto res = TwistedSpirit::parse <grammar> (mu);
         *this = res.second;
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string Header::toJson()
+    std::string Header::toJson() const
     {
-        return toJson(*this, getMetaInfo().name);
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
     }
 //-----------------------------------------------------------------------------------
     void Header::fromJson(std::string const& str)
     {
-        fromJson(*this, str);
+        WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Header::getMetaInfo() const

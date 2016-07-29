@@ -19,7 +19,7 @@ namespace WikiMarkup { namespace Components {
         virtual std::string toMarkup() = 0;
         virtual ParsingResult fromMarkup(std::string const&) = 0;
 
-        virtual std::string toJson() = 0;
+        virtual std::string toJson() const = 0;
         virtual void fromJson(std::string const&) = 0;
 
         virtual MetaInfo getMetaInfo() const = 0;

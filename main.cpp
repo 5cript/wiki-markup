@@ -25,6 +25,9 @@ int main()
 
     auto page = parser.getPage();
 
+    std::ofstream writer("page_res.txt", std::ios_base::binary);
+    writer << page.toJson();
+
     /*
     TYPEDEF_GRAMMAR(color_grammar);
     auto res = parse <grammar> (data);

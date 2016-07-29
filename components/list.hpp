@@ -9,6 +9,8 @@
 #include "adaption.hpp"
 
 #include "../json_introspection.hpp"
+#include "../json_value_ptr.hpp"
+#include "SimpleJSON/utility/polymorphy.hpp"
 
 #include <string>
 #include <vector>
@@ -37,7 +39,7 @@ namespace WikiMarkup { namespace Components {
     {
         std::string data;
 
-        ListTextLine(std::string const& data);
+        ListTextLine(std::string const& data = "");
 
         ListTextLine* clone() const override;
     };
@@ -61,7 +63,7 @@ namespace WikiMarkup { namespace Components {
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() override;
+        std::string toJson() const override;
         void fromJson(std::string const& str) override;
 
         MetaInfo getMetaInfo() const override;
@@ -81,14 +83,14 @@ BOOST_FUSION_ADAPT_STRUCT
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::List,
-    (PrimalList, list)
+    (WikiMarkup::Components::PrimalList, list)
 )
 
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::PrimalList,
-    (ListType, type)
-    (std::vector <sutil::value_ptr <ListElement>> elements)
+    (WikiMarkup::Components::ListType, type)
+    (std::vector <sutil::value_ptr <WikiMarkup::Components::ListElement>>, elements)
 )
 
 BOOST_FUSION_ADAPT_STRUCT
@@ -96,5 +98,7 @@ BOOST_FUSION_ADAPT_STRUCT
     WikiMarkup::Components::ListTextLine,
     (std::string, data)
 )
+
+JSON_DECLARE_POLYMORPHIC(WikiMarkup::Components::ListElement, (WikiMarkup::Components::ListTextLine)(WikiMarkup::Components::PrimalList))
 
 #endif // COMPONENTS_LIST_HPP_INCLUDED

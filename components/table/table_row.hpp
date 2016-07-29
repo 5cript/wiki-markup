@@ -2,13 +2,16 @@
 #define COMPONENTS_TABLE_ROW_HPP_INCLUDED
 
 #include "../adaption.hpp"
+#include "../../json_introspection.hpp"
+
 #include "table_cell.hpp"
 
 #include <vector>
 
 namespace WikiMarkup { namespace Components {
 
-    struct TableRow
+    struct TableRow : public JSON::Stringifiable <TableRow>
+                    , public JSON::Parsable <TableRow>
     {
         std::vector <TableCell> cells;
         std::map <std::string, std::string> attributes;

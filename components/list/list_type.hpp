@@ -1,9 +1,10 @@
-#ifndef LIST_TYPE_HPP_INCLUDED
-#define LIST_TYPE_HPP_INCLUDED
+#pragma once
+
+#include <iosfwd>
 
 namespace WikiMarkup { namespace Components {
 
-    enum ListType
+    enum class ListType : int
     {
         LT_NUMBERED     = 0,
         LT_BULLET       = 1,
@@ -11,11 +12,12 @@ namespace WikiMarkup { namespace Components {
         LT_INDENT       = 3
     };
 
+    std::ostream& operator<<(std::ostream& stream, ListType listType);
+    std::istream& operator>>(std::istream& stream, ListType& listType);
+
     constexpr static const char* const ListChars = "#*;:";
 
     ListType getTypeFromChar(char const c);
 
 } // namespace Components
 } // namespace WikiMarkup
-
-#endif // LIST_TYPE_HPP_INCLUDED

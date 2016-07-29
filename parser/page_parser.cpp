@@ -17,7 +17,7 @@ namespace WikiMarkup
         Text tex;
         tex.fromMarkup(prePush);
         page.appendComponent(std::move(tex));
-    };
+    }
 //-----------------------------------------------------------------------------------
     template <typename ContextT, typename PositionT, typename SectionT, typename FuncT, typename PageT>
     void parseSingleSection(std::string fromWhat, std::string const& prePush, ContextT& ctx,

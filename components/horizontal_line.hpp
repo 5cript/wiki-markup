@@ -20,7 +20,7 @@ namespace WikiMarkup { namespace Components
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() override;
+        std::string toJson() const override;
         void fromJson(std::string const& str) override;
 
         MetaInfo getMetaInfo() const override;
@@ -30,11 +30,9 @@ namespace WikiMarkup { namespace Components
 } // namespace Components
 } // namespace WikiMarkup
 
-/*
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::HorizontalLine
 )
-*/
 
 #endif // HORIZONTAL_LINE_HPP_INCLUDED

@@ -1,5 +1,5 @@
 #include "configuration.hpp"
-#include "SimpleJSON/utility/beauty_stream.h"
+#include "SimpleJSON/utility/beauty_stream.hpp"
 
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/filtering_stream.hpp>

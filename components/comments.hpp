@@ -8,16 +8,16 @@
 
 namespace WikiMarkup { namespace Components {
 
-    struct CommentText : public IComponent,
-                         public JSON::Parsable <CommentText>,
-                         public JSON::Stringifiable <CommentText>
+    struct CommentText : public IComponent
+                       , public JSON::Parsable <CommentText>
+                       , public JSON::Stringifiable <CommentText>
     {
         std::string data;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() override;
+        std::string toJson() const override;
         void fromJson(std::string const& str) override;
 
         MetaInfo getMetaInfo() const override;

@@ -34,7 +34,7 @@ namespace WikiMarkup { namespace Components
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() override;
+        std::string toJson() const override;
         void fromJson(std::string const& str) override;
 
         MetaInfo getMetaInfo() const override;
@@ -47,15 +47,15 @@ namespace WikiMarkup { namespace Components
 BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::Link,
-    (bool,                      internal)   // 0
-    (bool,                      implicit)   // 1
-    (bool,                      colon)      // 2
-    (bool,                      anchor)     // 3
-    (std::string,               prefix)     // 4
-    (std:string,                localPart)  // 5
-    (std::vector <std::string>, attributes) // 6
-    (Url,                       url)        // 7
-    (bool,                      redirect)   // 8
+    (bool,                          internal)   // 0
+    (bool,                          implicit)   // 1
+    (bool,                          colon)      // 2
+    (bool,                          anchor)     // 3
+    (std::string,                   prefix)     // 4
+    (std::string,                   localPart)  // 5
+    (std::vector <std::string>,     attributes) // 6
+    (WikiMarkup::Components::Url,   url)        // 7
+    (bool,                          redirect)   // 8
 )
 
 #endif // COMPONENTS_LINK_HPP_INCLUDED

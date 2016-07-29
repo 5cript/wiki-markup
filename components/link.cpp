@@ -4,6 +4,7 @@
 #include "parsers/link.hpp"
 
 #include "post_processors/link.hpp"
+
 #include "../conversion.hpp"
 
 namespace WikiMarkup { namespace Components
@@ -74,20 +75,20 @@ namespace WikiMarkup { namespace Components
 
         TYPEDEF_GRAMMAR(link_grammar);
 
-        auto res = parse <grammar> (mu);
+        auto res = TwistedSpirit::parse <grammar> (mu);
         *this = res.second;
         PostProcessors::postProcessLink(*this);
         return res.first;
     }
 //-----------------------------------------------------------------------------------
-    std::string CommentText::toJson()
+    std::string Link::toJson() const
     {
-        return toJson(*this, getMetaInfo().name);
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
     }
 //-----------------------------------------------------------------------------------
-    void CommentText::fromJson(std::string const& str)
+    void Link::fromJson(std::string const& str)
     {
-        fromJson(*this, str);
+        WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Link::getMetaInfo() const

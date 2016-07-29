@@ -5,16 +5,24 @@
 #include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
 
+#include "../json_introspection.hpp"
+
 namespace WikiMarkup { namespace Components
 {
     using namespace TwistedSpirit;
 
     struct Text : public IComponent
+                , public JSON::Stringifiable <Text>
+                , public JSON::Parsable <Text>
     {
         std::string data;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
+
+        std::string toJson() const override;
+        void fromJson(std::string const& str) override;
+
         MetaInfo getMetaInfo() const override;
         Text* clone() const override;
         std::string getRaw() const;

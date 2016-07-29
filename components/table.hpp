@@ -5,6 +5,8 @@
 #include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
 
+#include "../json_introspection.hpp"
+
 #include "table/table_row.hpp"
 #include "table/table_caption.hpp"
 
@@ -17,6 +19,8 @@ namespace WikiMarkup { namespace Components
     using namespace TwistedSpirit;
 
     struct Table : public IComponent
+                 , public JSON::Stringifiable <Table>
+                 , public JSON::Parsable <Table>
     {
         TableCaption caption;
         std::map <std::string, std::string> attributes;
@@ -24,6 +28,10 @@ namespace WikiMarkup { namespace Components
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
+
+        std::string toJson() const override;
+        void fromJson(std::string const& str) override;
+
         MetaInfo getMetaInfo() const override;
         Table* clone() const override;
     };

@@ -50,6 +50,11 @@ namespace WikiMarkup
         std::ostream& dumpComponentNames(std::ostream& stream);
 
         /**
+         *  Generates a json string from the internal representation.
+         */
+        std::string toJson() const;
+
+        /**
          *  Generates markup from the internal representation.
          */
         std::string toMarkup() const;

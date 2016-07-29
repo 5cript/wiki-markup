@@ -1,14 +1,15 @@
-#ifndef COMPONENTS_TABLE_CELL_HPP_INCLUDED
-#define COMPONENTS_TABLE_CELL_HPP_INCLUDED
+#pragma once
 
 #include "../adaption.hpp"
+#include "../../json_introspection.hpp"
 
 #include <string>
 #include <map>
 
 namespace WikiMarkup { namespace Components {
 
-    struct TableCell
+    struct TableCell : public JSON::Stringifiable <TableCell>
+                     , public JSON::Parsable <TableCell>
     {
         std::string data;
         std::map <std::string, std::string> attributes;
@@ -25,5 +26,3 @@ BOOST_FUSION_ADAPT_STRUCT
     (WikiMarkup::Components::strmap_type, attributes)
     (bool, isHeaderCell)
 )
-
-#endif // COMPONENTS_TABLE_CELL_HPP_INCLUDED

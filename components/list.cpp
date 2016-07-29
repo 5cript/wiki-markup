@@ -7,6 +7,8 @@
 
 #include "../configuration.hpp"
 
+#include "../conversion.hpp"
+
 #include <sstream>
 
 namespace WikiMarkup { namespace Components {
@@ -65,11 +67,21 @@ namespace WikiMarkup { namespace Components {
 
         TYPEDEF_GRAMMAR(list_grammar);
 
-        auto res = parse <grammar> (mu);
+        auto res = TwistedSpirit::parse <grammar> (mu);
 
         if (res.first != ParsingResult::FAIL)
             this->list = PostProcessors::postProcessList(res.second);
         return res.first;
+    }
+//-----------------------------------------------------------------------------------
+    std::string List::toJson() const
+    {
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void List::fromJson(std::string const& str)
+    {
+        WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo List::getMetaInfo() const

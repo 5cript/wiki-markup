@@ -6,6 +6,8 @@
 
 #include "../configuration.hpp"
 
+#include "../conversion.hpp"
+
 #include <sstream>
 
 namespace WikiMarkup { namespace Components {
@@ -86,12 +88,22 @@ namespace WikiMarkup { namespace Components {
 
         TYPEDEF_GRAMMAR(table_grammar);
 
-        auto res = parse <grammar> (mu);
+        auto res = TwistedSpirit::parse <grammar> (mu);
         if (res.first != ParsingResult::FAIL) {
             *this = res.second;
             postProcessTable(*this);
         }
         return res.first;
+    }
+//-----------------------------------------------------------------------------------
+    std::string Table::toJson() const
+    {
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
+    }
+//-----------------------------------------------------------------------------------
+    void Table::fromJson(std::string const& str)
+    {
+        WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Table::getMetaInfo() const

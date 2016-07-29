@@ -1,6 +1,6 @@
-#ifndef COMPONENTS_TABLE_CAPTION_HPP_INCLUDED
-#define COMPONENTS_TABLE_CAPTION_HPP_INCLUDED
+#pragma once
 
+#include "../../json_introspection.hpp"
 #include "../adaption.hpp"
 
 #include <string>
@@ -8,7 +8,8 @@
 
 namespace WikiMarkup { namespace Components {
 
-    struct TableCaption
+    struct TableCaption : public JSON::Stringifiable <TableCaption>
+                        , public JSON::Parsable <TableCaption>
     {
         std::string data;
         std::map <std::string, std::string> attributes;
@@ -23,5 +24,3 @@ BOOST_FUSION_ADAPT_STRUCT
     (std::string, data)
     (WikiMarkup::Components::strmap_type, attributes)
 )
-
-#endif // COMPONENTS_TABLE_CAPTION_HPP_INCLUDED

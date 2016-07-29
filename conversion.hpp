@@ -1,17 +1,30 @@
 #pragma once
 
 #ifndef Q_MOC_RUN // A Qt workaround, for those of you who use Qt
-#   include "SimpleJSON/parse/jsd.h"
-#   include "SimpleJSON/parse/jsd_convenience.h"
-#   include "SimpleJSON/stringify/jss.h"
-#   include "SimpleJSON/stringify/jss_fusion_adapted_struct.h"
+#   include "SimpleJSON/parse/jsd_convenience.hpp"
+#   include "SimpleJSON/stringify/jss_fusion_adapted_struct.hpp"
+#   include "SimpleJSON/parse/jsd_fusion_adapted_struct.hpp"
+#
+#   include "SimpleJSON/parse/jsd_string.hpp"
+#   include "SimpleJSON/stringify/jss_string.hpp"
+#   include "SimpleJSON/parse/jsd_container.hpp"
+#   include "SimpleJSON/stringify/jss_vector.hpp"
+#   include "SimpleJSON/parse/jsd_string.hpp"
+#   include "SimpleJSON/stringify/jss_string.hpp"
+#   include "SimpleJSON/parse/jsd_fundamental.hpp"
+#   include "SimpleJSON/stringify/jss_fundamental.hpp"
+#   include "SimpleJSON/parse/jsd_map.hpp"
+#   include "SimpleJSON/stringify/jss_map.hpp"
 #endif
+
+#include "SimpleJSON/utility/polymorphy.hpp"
 
 #include <sstream>
 
 namespace WikiMarkup
 {
-    struct JsonComponent
+    struct JsonComponent : public JSON::Stringifiable <JsonComponent>
+                         , public JSON::Parsable <JsonComponent>
     {
         std::string name;
         std::string data;
@@ -22,16 +35,18 @@ namespace WikiMarkup
     {
         std::stringstream sstr;
 
-        JSON::try_stringify(sstr, "", what);
-        JsonComponent <T> comp;
+        JSON::stringify(sstr, "", what);
+        JsonComponent comp;
         comp.name = name;
         comp.data = sstr.str();
 
-        sstr.clear();
+        //sstr.clear();
 
-        JSON::try_stringify(sstr, "", comp);
+        std::stringstream result;
 
-        return sstr.str();
+        JSON::stringify(result, "", comp);
+
+        return result.str();
     }
 
     template <typename T>
@@ -39,10 +54,10 @@ namespace WikiMarkup
     {
         JsonComponent comp;
         auto tree = JSON::parse_json("{\"x\":" + json + "}");
-        JSON::try_parse(comp, "x", tree);
+        JSON::parse(comp, "x", tree);
 
         auto tree2 = JSON::parse_json("{\"data\":" + comp.data + "}");
-        JSON::try_parse(whereTo, "data", tree2);
+        JSON::parse(whereTo, "data", tree2);
 
         if (comp.name != whereTo.getMetaInfo().name)
             throw std::invalid_argument("name in json is not name of component");

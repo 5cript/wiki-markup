@@ -18,14 +18,14 @@ namespace WikiMarkup { namespace Components {
             return ParsingResult::FULL_SUCCESS;
     }
 //-----------------------------------------------------------------------------------
-    std::string HorizontalLine::toJson()
+    std::string HorizontalLine::toJson() const
     {
-        return toJson(*this, getMetaInfo().name);
+        return WikiMarkup::toJson(*this, getMetaInfo().name);
     }
 //-----------------------------------------------------------------------------------
     void HorizontalLine::fromJson(std::string const& str)
     {
-        fromJson(*this, str);
+        WikiMarkup::fromJson(*this, str);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo HorizontalLine::getMetaInfo() const
