@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SimpleUtil/value_ptr/value_ptr.hpp"
 #include "SimpleJSON/stringify/jss_smart_ptr.hpp"
 #include "SimpleJSON/parse/jsd_smart_ptr.hpp"
 

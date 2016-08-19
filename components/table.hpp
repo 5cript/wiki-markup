@@ -1,14 +1,9 @@
-#ifndef COMPONENTS_TABLE_HPP_INCLUDED
-#define COMPONENTS_TABLE_HPP_INCLUDED
+#pragma once
+
+#include "exportable_components/exportable_table.hpp"
 
 #include "component.hpp"
-#include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
-
-#include "../json_introspection.hpp"
-
-#include "table/table_row.hpp"
-#include "table/table_caption.hpp"
 
 #include <string>
 #include <map>
@@ -19,19 +14,12 @@ namespace WikiMarkup { namespace Components
     using namespace TwistedSpirit;
 
     struct Table : public IComponent
-                 , public JSON::Stringifiable <Table>
-                 , public JSON::Parsable <Table>
+                 , public ExportableTable
     {
-        TableCaption caption;
-        std::map <std::string, std::string> attributes;
-        std::vector <TableRow> rows;
-
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() const override;
-        void fromJson(std::string const& str) override;
-        void fromJson(JSON::ObjectReader const& reader) override;
+        WMC_EXPORTABLE_DELEGATION_HEADER;
 
         MetaInfo getMetaInfo() const override;
         static MetaInfo getMetaInfoS();
@@ -52,5 +40,3 @@ BOOST_FUSION_ADAPT_STRUCT
     (WikiMarkup::Components::strmap_type, attributes)
     (std::vector <WikiMarkup::Components::TableRow>, rows)
 )
-
-#endif // COMPONENTS_TABLE_HPP_INCLUDED

@@ -1,9 +1,9 @@
 #include "text.hpp"
 
-#include "../conversion.hpp"
-
 namespace WikiMarkup { namespace Components {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(Text)
+//-----------------------------------------------------------------------------------
     std::string Text::toMarkup()
     {
         return data;
@@ -13,21 +13,6 @@ namespace WikiMarkup { namespace Components {
     {
         data = mu;
         return ParsingResult::FULL_SUCCESS;
-    }
-//-----------------------------------------------------------------------------------
-    std::string Text::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void Text::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void Text::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Text::getMetaInfoS()

@@ -1,8 +1,8 @@
-#ifndef COMPONENTS_HEADER_HPP_INCLUDED
-#define COMPONENTS_HEADER_HPP_INCLUDED
+#pragma once
+
+#include "exportable_components/exportable_header.hpp"
 
 #include "component.hpp"
-#include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
 
 #include "../json_introspection.hpp"
@@ -14,18 +14,12 @@ namespace WikiMarkup { namespace Components
     using namespace TwistedSpirit;
 
     struct Header : public IComponent
-                  , public JSON::Stringifiable <Header>
-                  , public JSON::Parsable <Header>
+                  , public ExportableHeader
     {
-        std::string data;
-        int level; // H1, H2, H3, ... = 1, 2, 3, ...
-
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() const override;
-        void fromJson(std::string const& str) override;
-        void fromJson(JSON::ObjectReader const& reader) override;
+        WMC_EXPORTABLE_DELEGATION_HEADER;
 
         MetaInfo getMetaInfo() const override;
         static MetaInfo getMetaInfoS();
@@ -41,5 +35,3 @@ BOOST_FUSION_ADAPT_STRUCT
     (std::string, data)
     (int, level)
 )
-
-#endif // COMPONENTS_HEADER_HPP_INCLUDED

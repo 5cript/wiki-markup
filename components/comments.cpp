@@ -3,10 +3,10 @@
 #include "twisted-spirit/core/parse.hpp"
 #include "parsers/comments.hpp"
 
-#include "../conversion.hpp"
-
 namespace WikiMarkup { namespace Components {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(CommentText)
+//-----------------------------------------------------------------------------------
     std::string CommentText::toMarkup()
     {
         return std::string("<!--") + data + "-->";
@@ -22,21 +22,6 @@ namespace WikiMarkup { namespace Components {
         auto res = TwistedSpirit::parse <grammar> (mu);
         *this = res.second;
         return res.first;
-    }
-//-----------------------------------------------------------------------------------
-    std::string CommentText::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void CommentText::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void CommentText::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo CommentText::getMetaInfo() const

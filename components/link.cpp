@@ -10,6 +10,8 @@
 namespace WikiMarkup { namespace Components
 {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(Link)
+//-----------------------------------------------------------------------------------
     std::string Link::toMarkup()
     {
         std::stringstream sstr;
@@ -79,21 +81,6 @@ namespace WikiMarkup { namespace Components
         *this = res.second;
         PostProcessors::postProcessLink(*this);
         return res.first;
-    }
-//-----------------------------------------------------------------------------------
-    std::string Link::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void Link::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void Link::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Link::getMetaInfoS()

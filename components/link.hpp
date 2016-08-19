@@ -5,8 +5,7 @@
 #include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
 
-#include "url.hpp"
-#include "../json_introspection.hpp"
+#include "exportable_components/exportable_link.hpp"
 
 #include <string>
 
@@ -14,29 +13,14 @@ namespace WikiMarkup { namespace Components
 {
     using namespace TwistedSpirit;
 
-    struct Link : public IComponent,
-                  public JSON::Stringifiable <Link>,
-                  public JSON::Parsable <Link>
+    struct Link : public IComponent
+                , public ExportableLink
     {
-        bool internal;
-        bool implicit;
-        bool colon; // contains colon :
-        bool anchor; // contains #
-
-        std::string prefix;
-        std::string localPart;
-        std::vector <std::string> attributes;
-
-        Url url;
-
-        bool redirect;
 
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() const override;
-        void fromJson(std::string const& str) override;
-        void fromJson(JSON::ObjectReader const& reader) override;
+        WMC_EXPORTABLE_DELEGATION_HEADER;
 
         MetaInfo getMetaInfo() const override;
         static MetaInfo getMetaInfoS();

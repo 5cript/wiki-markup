@@ -12,6 +12,8 @@
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(Table)
+//-----------------------------------------------------------------------------------
     std::string Table::toMarkup()
     {
         std::stringstream sstr;
@@ -94,21 +96,6 @@ namespace WikiMarkup { namespace Components {
             postProcessTable(*this);
         }
         return res.first;
-    }
-//-----------------------------------------------------------------------------------
-    std::string Table::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void Table::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void Table::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Table::getMetaInfo() const

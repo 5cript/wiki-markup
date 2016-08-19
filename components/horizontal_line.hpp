@@ -1,11 +1,9 @@
-#ifndef HORIZONTAL_LINE_HPP_INCLUDED
-#define HORIZONTAL_LINE_HPP_INCLUDED
+#pragma once
+
+#include "exportable_components/exportable_horizontal_line.hpp"
 
 #include "component.hpp"
-#include "adaption.hpp"
 #include "twisted-spirit/core/parsing_results.hpp"
-
-#include "../json_introspection.hpp"
 
 #include <string>
 
@@ -14,15 +12,12 @@ namespace WikiMarkup { namespace Components
     using namespace TwistedSpirit;
 
     struct HorizontalLine : public IComponent
-                          , public JSON::Stringifiable <HorizontalLine>
-                          , public JSON::Parsable <HorizontalLine>
+                          , public ExportableHorizontalLine
     {
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
-        std::string toJson() const override;
-        void fromJson(std::string const& str) override;
-        void fromJson(JSON::ObjectReader const& reader) override;
+        WMC_EXPORTABLE_DELEGATION_HEADER;
 
         MetaInfo getMetaInfo() const override;
         static MetaInfo getMetaInfoS();
@@ -36,5 +31,3 @@ BOOST_FUSION_ADAPT_STRUCT
 (
     WikiMarkup::Components::HorizontalLine
 )
-
-#endif // HORIZONTAL_LINE_HPP_INCLUDED

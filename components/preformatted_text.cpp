@@ -1,13 +1,13 @@
 #include "preformatted_text.hpp"
 #include "../configuration.hpp"
 
-#include "../conversion.hpp"
-
 #include <cctype>
 #include <sstream>
 
 namespace WikiMarkup { namespace Components {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(PreformattedText)
+//-----------------------------------------------------------------------------------
     std::string PreformattedText::toMarkup()
     {
         std::string result;
@@ -53,21 +53,6 @@ namespace WikiMarkup { namespace Components {
         }
 
         return ParsingResult::FULL_SUCCESS;
-    }
-//-----------------------------------------------------------------------------------
-    std::string PreformattedText::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void PreformattedText::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void PreformattedText::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo PreformattedText::getMetaInfoS()

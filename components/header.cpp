@@ -3,11 +3,11 @@
 #include "twisted-spirit/core/parse.hpp"
 #include "parsers/header.hpp"
 
-#include "../conversion.hpp"
-
 namespace WikiMarkup { namespace Components
 {
 //####################################################################################
+    WMC_EXPORTABLE_DELEGATION_SOURCE(Header)
+//-----------------------------------------------------------------------------------
     std::string Header::toMarkup()
     {
         std::string result;
@@ -34,21 +34,6 @@ namespace WikiMarkup { namespace Components
         auto res = TwistedSpirit::parse <grammar> (mu);
         *this = res.second;
         return res.first;
-    }
-//-----------------------------------------------------------------------------------
-    std::string Header::toJson() const
-    {
-        return WikiMarkup::toJson(*this, getMetaInfo().name);
-    }
-//-----------------------------------------------------------------------------------
-    void Header::fromJson(std::string const& str)
-    {
-        WikiMarkup::fromJson(*this, str);
-    }
-//-----------------------------------------------------------------------------------
-    void Header::fromJson(JSON::ObjectReader const& reader)
-    {
-        reader.get("data", *this);
     }
 //-----------------------------------------------------------------------------------
     MetaInfo Header::getMetaInfo() const
