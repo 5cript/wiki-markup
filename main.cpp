@@ -18,10 +18,14 @@ int main()
     using namespace WikiMarkup;
     using namespace TwistedSpirit;
 
+    std::cout << "Test\n";
+
     auto data = readStringFromFile ("testfile.txt");
 
     WikiMarkup::PageParser parser (data);
     parser.parse();
+
+    std::cout << parser.getPage().toJson() << "\n";
 
     /*
     auto page = parser.getPage();

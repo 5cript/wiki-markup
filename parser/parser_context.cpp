@@ -104,6 +104,11 @@ namespace WikiMarkup
         return boost::none;
     }
 //-----------------------------------------------------------------------------------
+    DLL_EXPORT void ParserContext::setCursorToEnd()
+    {
+        position_ = page_.length();
+    }
+//-----------------------------------------------------------------------------------
     DLL_EXPORT bool ParserContext::isStartOfLine() const
     {
         auto iter = std::find_if(std::begin(lines_), std::end(lines_), [this](Line const& l) {

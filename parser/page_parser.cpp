@@ -137,7 +137,11 @@ namespace WikiMarkup
         if (result == ParsingResult::FAIL)
             return boost::none;
 
-        ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+        if (result == ParsingResult::FULL_SUCCESS)
+            ctx.setCursorToEnd();
+        else
+            ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+
         return boost::optional <Table> {table};
     }
 //-----------------------------------------------------------------------------------

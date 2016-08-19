@@ -107,6 +107,11 @@ namespace WikiMarkup
          */
         std::string getSlice() const;
 
+        /**
+         *  setPosition(end of input);
+         */
+        void setCursorToEnd();
+
     private:
         void tokenize();
         void splitLines();
