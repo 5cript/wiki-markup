@@ -3,7 +3,7 @@
 
 #include "../components/components.hpp"
 #include "../page.hpp"
-#include "../dll.hpp"
+#include "../dll.h"
 
 #include "parser_context.hpp"
 

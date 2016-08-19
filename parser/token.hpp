@@ -2,7 +2,7 @@
 #define PARSER_TOKEN_HPP_INCLUDED
 
 #include "token_classification.hpp"
-#include "../dll.hpp"
+#include "../dll.h"
 
 #include <boost/optional.hpp>
 
