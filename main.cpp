@@ -25,6 +25,8 @@ int main()
     WikiMarkup::PageParser parser (data);
     parser.parse();
 
+    std::cout << parser.getPage().getComponents().size() << "\n";
+
     std::cout << parser.getPage().toJson() << "\n";
 
     /*

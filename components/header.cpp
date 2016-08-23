@@ -33,6 +33,7 @@ namespace WikiMarkup { namespace Components
 
         auto res = TwistedSpirit::parse <grammar> (mu);
         *this = res.second;
+        std::cout << mu << "_"<< this->data << "_" << this->level << "\n";
         return res.first;
     }
 //-----------------------------------------------------------------------------------
