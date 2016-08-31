@@ -299,8 +299,10 @@
 		<Unit filename="configuration.hpp" />
 		<Unit filename="conversion.cpp" />
 		<Unit filename="conversion.hpp" />
+		<Unit filename="dll.h" />
 		<Unit filename="dll.hpp" />
 		<Unit filename="dllmain.cpp" />
+		<Unit filename="dllmain.h" />
 		<Unit filename="json_introspection.hpp" />
 		<Unit filename="json_value_ptr.hpp" />
 		<Unit filename="main.cpp" />

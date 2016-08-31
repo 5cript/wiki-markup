@@ -14,7 +14,7 @@ char* allocateCString(std::string const& str)
     return cstr;
 }
 //---------------------------------------------------------------------------------------------------------------------
-extern "C" DLL_EXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+extern "C" DLL_EXPORT BOOL APIENTRY DllMain(HINSTANCE /* hinstDLL */, DWORD /* fdwReason */, LPVOID /* lpvReserved */)
 {
     return TRUE; // succesful
 }
