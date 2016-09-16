@@ -7,3 +7,4 @@ bin/*
 output.txt
 config.json
 page_res.txt
+__history/

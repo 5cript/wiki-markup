@@ -5,6 +5,8 @@
 #   include "SimpleJSON/stringify/jss_fusion_adapted_struct.hpp"
 #   include "SimpleJSON/parse/jsd_fusion_adapted_struct.hpp"
 #
+#	include "SimpleJSON/parse/jsd_enum.hpp"
+#	include "SimpleJSON/stringify/jss_enum.hpp"
 #   include "SimpleJSON/parse/jsd_string.hpp"
 #   include "SimpleJSON/stringify/jss_string.hpp"
 #   include "SimpleJSON/parse/jsd_container.hpp"
