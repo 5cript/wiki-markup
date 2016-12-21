@@ -7,18 +7,40 @@
 
 namespace WikiMarkup { namespace Components
 {
-    struct ExportableTable : public IExportableComponent
-                           , public JSON::Stringifiable <ExportableTable>
-                           , public JSON::Parsable <ExportableTable>
-    {
-        TableCaption caption;
-        std::map <std::string, std::string> attributes;
-        std::vector <TableRow> rows;
+	class TableAccessProxy;
 
-        std::string toJson() const override;
-        void fromJson(std::string const& str) override;
-        void fromJson(JSON::ObjectReader const& reader) override;
-    };
+	struct ExportableTable : public IExportableComponent
+						   , public JSON::Stringifiable <ExportableTable>
+						   , public JSON::Parsable <ExportableTable>
+	{
+		TableCaption caption;
+		std::map <std::string, std::string> attributes;
+		std::vector <TableRow> rows;
+
+		std::string toJson() const override;
+		void fromJson(std::string const& str) override;
+		void fromJson(JSON::ObjectReader const& reader) override;
+
+		/**
+		 *  bounds checking is performed (nullptr => no cell)
+		 **/
+		TableAccessProxy operator[](std::size_t x);
+	};
+
+	class TableAccessProxy
+	{
+	public:
+		TableAccessProxy(ExportableTable* table, std::size_t x);
+
+		/**
+		 *  bounds checking is performed (nullptr => no cell)
+		 **/
+		TableCell* operator[](std::size_t y);
+
+	private:
+		ExportableTable* table_;
+		std::size_t x_;
+	};
 }
 }
 
