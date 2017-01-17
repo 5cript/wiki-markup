@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/component.hpp"
+#include "components/exportable_components/exportable_components.hpp"
 #include "SimpleUtil/value_ptr/value_ptr.hpp"
 
 #include <vector>
@@ -10,14 +10,14 @@
 
 namespace WikiMarkup
 {
-    class Page
+    class ExportablePage
     {
     private:
-        std::vector <sutil::value_ptr <Components::IComponent>> components_;
+        std::vector <sutil::value_ptr <Components::IExportableComponent>> components_;
 
     public:
-        Page() = default;
-        virtual ~Page() = default;
+        ExportablePage() = default;
+        virtual ~ExportablePage() = default;
 
         /**
          *  Adds a component to the page.
@@ -31,27 +31,27 @@ namespace WikiMarkup
         /**
          *  Adds a component to the page.
          */
-        void appendComponent(Components::IComponent const& component);
+        void appendComponent(Components::IExportableComponent const& component);
 
         /**
          *  Adds a component to the page.
          */
-        void appendComponent(Components::IComponent* component);
+        void appendComponent(Components::IExportableComponent* component);
 
         /**
          *  Get all components of the page.
          */
-        std::add_lvalue_reference <decltype(components_)>::type getComponents();
+		std::add_lvalue_reference <decltype(components_)>::type getComponents();
+
+		/**
+		 *  Set all components of the page.
+		 */
+		void setComponents(decltype(components_) const& components);
 
         /**
          *  Wipe the page clear.
          */
         void clear();
-
-        /**
-         *  Write all component type names into the stream.
-         */
-        std::ostream& dumpComponentNames(std::ostream& stream);
 
         /**
          *  Generates a json string from the internal representation.
@@ -62,10 +62,5 @@ namespace WikiMarkup
          *  Generates the components from JSON.
          */
         void fromJson(std::string const& json);
-
-        /**
-         *  Generates markup from the internal representation.
-         */
-        std::string toMarkup() const;
     };
 }

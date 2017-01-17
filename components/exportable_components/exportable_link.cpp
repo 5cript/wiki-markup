@@ -7,7 +7,7 @@ namespace WikiMarkup { namespace Components
 //#####################################################################################################################
     std::string ExportableLink::toJson() const
     {
-        return WikiMarkup::toJson(*this, "ExportableLink");
+        return WikiMarkup::toJson(*this, "Link");
     }
 //---------------------------------------------------------------------------------------------------------------------
     void ExportableLink::fromJson(std::string const& str)
@@ -18,6 +18,11 @@ namespace WikiMarkup { namespace Components
     void ExportableLink::fromJson(JSON::ObjectReader const& reader)
     {
         reader.get("data", *this);
+    }
+//---------------------------------------------------------------------------------------------------------------------
+    ExportableLink* ExportableLink::clone() const
+    {
+        return new ExportableLink(*this);
     }
 //#####################################################################################################################
 }

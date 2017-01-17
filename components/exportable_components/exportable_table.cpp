@@ -24,6 +24,11 @@ namespace WikiMarkup { namespace Components
 	{
         return {this, x};
 	}
+//---------------------------------------------------------------------------------------------------------------------
+    ExportableTable* ExportableTable::clone() const
+    {
+        return new ExportableTable(*this);
+    }
 //#####################################################################################################################
 	TableAccessProxy::TableAccessProxy(ExportableTable* table, std::size_t x)
 		: table_{table}

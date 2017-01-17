@@ -1,5 +1,4 @@
-#ifndef COMPONENTS_LIST_HPP_INCLUDED
-#define COMPONENTS_LIST_HPP_INCLUDED
+#pragma once
 
 #include "exportable_components/exportable_list.hpp"
 
@@ -31,5 +30,3 @@ BOOST_FUSION_ADAPT_STRUCT
     WikiMarkup::Components::List,
     (WikiMarkup::Components::PrimalList, list)
 )
-
-#endif // COMPONENTS_LIST_HPP_INCLUDED

@@ -19,6 +19,11 @@ namespace WikiMarkup { namespace Components
     {
         reader.get("data", *this);
     }
+//---------------------------------------------------------------------------------------------------------------------
+    ExportableCommentText* ExportableCommentText::clone() const
+    {
+        return new ExportableCommentText(*this);
+    }
 //#####################################################################################################################
 }
 }

@@ -19,6 +19,11 @@ namespace WikiMarkup { namespace Components
     {
         reader.get("data", *this);
     }
+//---------------------------------------------------------------------------------------------------------------------
+    ExportableHorizontalLine* ExportableHorizontalLine::clone() const
+    {
+        return new ExportableHorizontalLine(*this);
+    }
 //#####################################################################################################################
 }
 }

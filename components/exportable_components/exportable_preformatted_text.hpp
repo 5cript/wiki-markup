@@ -20,6 +20,9 @@ namespace WikiMarkup { namespace Components
         std::string toJson() const override;
         void fromJson(std::string const& str) override;
         void fromJson(JSON::ObjectReader const& reader) override;
+        ExportablePreformattedText* clone() const override;
+
+        static MetaInfo getMetaInfoS() { return {"Preformatted_Text", true}; }
     };
 } // namespace Components
 } // namespace WikiMarkup

@@ -1,5 +1,4 @@
-#ifndef COMPONENTS_COMPONENTS_HPP_INCLUDED
-#define COMPONENTS_COMPONENTS_HPP_INCLUDED
+#pragma once
 
 #include "component.hpp"
 #include "comments.hpp"
@@ -11,5 +10,3 @@
 #include "text.hpp"
 #include "horizontal_line.hpp"
 #include "preformatted_text.hpp"
-
-#endif // COMPONENTS_COMPONENTS_HPP_INCLUDED

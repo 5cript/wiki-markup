@@ -19,6 +19,11 @@ namespace WikiMarkup { namespace Components
     {
         reader.get("data", *this);
     }
+//---------------------------------------------------------------------------------------------------------------------
+    ExportablePreformattedText* ExportablePreformattedText::clone() const
+    {
+        return new ExportablePreformattedText(*this);
+    }
 //#####################################################################################################################
 }
 }

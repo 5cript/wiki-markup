@@ -107,7 +107,7 @@ namespace WikiMarkup { namespace Components {
     {
         return {
             "Table",
-            false
+            true
         };
     }
 //-----------------------------------------------------------------------------------

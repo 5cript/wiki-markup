@@ -25,6 +25,9 @@ namespace WikiMarkup { namespace Components
         std::string toJson() const override;
         void fromJson(std::string const& str) override;
         void fromJson(JSON::ObjectReader const& reader) override;
+        ExportableLink* clone() const override;
+
+        static MetaInfo getMetaInfoS() { return {"Link", false}; }
     };
 } // Components
 } // WikiMarkup

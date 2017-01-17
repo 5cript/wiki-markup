@@ -1,5 +1,4 @@
-#ifndef COMPONENTS_META_INFO_HPP_INCLUDED
-#define COMPONENTS_META_INFO_HPP_INCLUDED
+#pragma once
 
 #include <string>
 
@@ -15,5 +14,3 @@ namespace WikiMarkup { namespace Components {
 
 } // namespace Components
 } // namespace WikiMarkup
-
-#endif // COMPONENTS_META_INFO_HPP_INCLUDED
