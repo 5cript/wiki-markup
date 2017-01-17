@@ -246,6 +246,7 @@
 		<Unit filename="components/exportable_components/exportable_comment.cpp" />
 		<Unit filename="components/exportable_components/exportable_comment.hpp" />
 		<Unit filename="components/exportable_components/exportable_component.hpp" />
+		<Unit filename="components/exportable_components/exportable_components.hpp" />
 		<Unit filename="components/exportable_components/exportable_header.cpp" />
 		<Unit filename="components/exportable_components/exportable_header.hpp" />
 		<Unit filename="components/exportable_components/exportable_horizontal_line.cpp" />
@@ -269,8 +270,15 @@
 		<Unit filename="components/link.hpp" />
 		<Unit filename="components/list.cpp" />
 		<Unit filename="components/list.hpp" />
+		<Unit filename="components/list/list_atomics.hpp" />
+		<Unit filename="components/list/list_element.hpp" />
+		<Unit filename="components/list/list_line.hpp" />
+		<Unit filename="components/list/list_text_line.cpp" />
+		<Unit filename="components/list/list_text_line.hpp" />
 		<Unit filename="components/list/list_type.cpp" />
 		<Unit filename="components/list/list_type.hpp" />
+		<Unit filename="components/list/primal_list.cpp" />
+		<Unit filename="components/list/primal_list.hpp" />
 		<Unit filename="components/meta_info.cpp" />
 		<Unit filename="components/meta_info.hpp" />
 		<Unit filename="components/parsers/comments.hpp" />
@@ -313,6 +321,10 @@
 		<Unit filename="dll.h" />
 		<Unit filename="dllmain.cpp" />
 		<Unit filename="dllmain.h" />
+		<Unit filename="exp_component_factory.cpp" />
+		<Unit filename="exp_component_factory.hpp" />
+		<Unit filename="exportable_page.cpp" />
+		<Unit filename="exportable_page.hpp" />
 		<Unit filename="json_introspection.hpp" />
 		<Unit filename="json_value_ptr.hpp" />
 		<Unit filename="main.cpp" />
