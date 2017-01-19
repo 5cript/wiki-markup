@@ -1,6 +1,7 @@
 #include "page.hpp"
 
 #include "component_factory.hpp"
+#include "constants.hpp"
 
 #include "SimpleJSON/utility/beauty_stream.hpp"
 #include "SimpleJSON/parse/jsd_generic_parser.hpp"
@@ -51,7 +52,7 @@ namespace WikiMarkup
         std::string result;
         for (auto const& i : components_)
         {
-            result += i->toMarkup();
+            result += i->toMarkup() + preferredNewline;
         }
         return result;
     }
