@@ -42,6 +42,12 @@ namespace WikiMarkup
 		components_ = components;
 	}
 //-----------------------------------------------------------------------------------
+	void ExportablePage::addComponents(decltype(components_) const& components)
+	{
+		for (auto const& i : components)
+			components_.push_back(i);
+    }
+//-----------------------------------------------------------------------------------
     std::string ExportablePage::toJson() const
     {
         std::stringstream json;

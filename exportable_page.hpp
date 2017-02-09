@@ -48,6 +48,11 @@ namespace WikiMarkup
 		 */
 		void setComponents(decltype(components_) const& components);
 
+		/**
+		 *  add components to the page
+		 */
+		void addComponents(decltype(components_) const& components);
+
         /**
          *  Wipe the page clear.
          */

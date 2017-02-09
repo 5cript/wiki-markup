@@ -36,6 +36,14 @@ namespace WikiMarkup
             page.appendComponent(std::move(section));
         }
     }
+//-----------------------------------------------------------------------------------
+    void forwardByParsingResult(ParserContext& ctx, TwistedSpirit::ParsingResult result)
+    {
+        if (result == TwistedSpirit::ParsingResult::FULL_SUCCESS)
+            ctx.setCursorToEnd();
+        else
+            ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+    }
 //###################################################################################
     /**
      *  Used internally. Extracted to reduce function length.
@@ -116,6 +124,11 @@ namespace WikiMarkup
                 else if (ctx.get(PEEK) == '[')
                     textAccum.push_back(ctx.get()); // to ignore erroneous links. we want them as text.
 
+                // Comments
+                auto comment = tryParseComment(ctx);
+                if (finalizeSpecialComponent(comment, textAccum, page_))
+                    continue;
+
                 // Otherwise (so it REALLY is text, huh?)
                 textAccum.push_back(ctx.get());
             }
@@ -137,10 +150,7 @@ namespace WikiMarkup
         if (result == ParsingResult::FAIL)
             return boost::none;
 
-        if (result == ParsingResult::FULL_SUCCESS)
-            ctx.setCursorToEnd();
-        else
-            ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+        forwardByParsingResult(ctx, result);
 
         return boost::optional <Table> {table};
     }
@@ -169,8 +179,25 @@ namespace WikiMarkup
         if (result == ParsingResult::FAIL)
             return boost::none;
 
-        ctx.forwardPosition(static_cast <ParserContext::position_type> (result));
+        forwardByParsingResult(ctx, result);
+
         return boost::optional <Link> {link};
+    }
+//-----------------------------------------------------------------------------------
+    boost::optional <Components::CommentText> PageParser::tryParseComment(ParserContext& ctx) const
+    {
+        ContextNavigator navi(&ctx);
+        if (!navi.verifyCharSequence("<!--"))
+            return boost::none;
+
+        CommentText comment;
+        auto result = comment.fromMarkup(ctx.getSlice());
+        if (result == ParsingResult::FAIL)
+            return boost::none;
+
+        forwardByParsingResult(ctx, result);
+
+        return boost::optional <CommentText> {comment};
     }
 //-----------------------------------------------------------------------------------
     void PageParser::parseSections()
@@ -237,7 +264,7 @@ namespace WikiMarkup
             prePush, ctx, positionBackup, page_, wasSection
 
         if (c == '=') {
-            // Headers
+            // headers
             parseSingleSection(ctx.getLine().get(), NO_CPP_14_LAMBDA_WORK_AROUND, Header{}, partialIsFail);
         } else if (c == '-') {
             // horizontal line

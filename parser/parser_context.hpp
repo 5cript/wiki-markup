@@ -23,6 +23,7 @@ namespace WikiMarkup
     {
     public:
         using position_type = std::size_t;
+        using size_type = std::size_t;
 
         /**
          *  Prepares the page and converts it into multiple different useful
