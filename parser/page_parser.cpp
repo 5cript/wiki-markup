@@ -139,6 +139,39 @@ namespace WikiMarkup
         page_.dumpComponentNames(std::cout) << "\n";
     }
 //-----------------------------------------------------------------------------------
+    void PageParser::collapse()
+    {
+        using namespace WikiMarkup::Components;
+
+        #define COMPONENT_CHECK(T) \
+            component->getMetaInfo().name == T::getMetaInfoS().name
+
+        // first: MWEdit specific approach using comments.
+        auto& components = page_.getComponents();
+        bool imageRegion = false;
+        for (auto const& component : components)
+        {
+            if (COMPONENT_CHECK(CommentText))
+            {
+                auto* ptr = static_cast <CommentText*> (component.get());
+                if (ptr->data == "WIKI_EDITOR_START_IMAGE_REGION")
+                {
+                    imageRegion = true;
+                }
+                else if (ptr->data == "WIKI_EDITOR_END_IMAGE_REGION")
+                {
+                    if (!imageRegion)
+                        throw std::runtime_error ("image region end marker without start");
+                }
+            }
+
+            else if (imageRegion)
+            {
+                //if (COMPONENT_CHECK(Text))
+            }
+        }
+    }
+//-----------------------------------------------------------------------------------
     boost::optional <Table> PageParser::tryParseTable(ParserContext& ctx) const
     {
         ContextNavigator navi(&ctx);

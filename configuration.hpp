@@ -71,6 +71,17 @@ namespace WikiMarkup
             "worldwind://",
             "xmpp:"
         };
+
+        std::vector <std::string> imageExtensions = {
+            ".jpg",
+            ".png",
+            ".jpeg",
+            ".gif",
+            ".svg",
+            ".tiff",
+            ".pdf",
+            ".djvu"
+        };
     };
 
     struct ConfigWriteable : public Config

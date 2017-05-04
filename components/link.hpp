@@ -16,7 +16,6 @@ namespace WikiMarkup { namespace Components
     struct Link : public IComponent
                 , public ExportableLink
     {
-
         std::string toMarkup() override;
         ParsingResult fromMarkup(std::string const& mu) override;
 
@@ -25,6 +24,8 @@ namespace WikiMarkup { namespace Components
         MetaInfo getMetaInfo() const override;
         static MetaInfo getMetaInfoS();
         Link* clone() const override;
+
+        bool isImage() const;
     };
 
 } // Components

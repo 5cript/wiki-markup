@@ -4,6 +4,7 @@
 #include "SimpleJSON/utility/object.hpp"
 #include "../adaption.hpp"
 #include "../../json_introspection.hpp"
+#include "SimpleJSON/utility/polymorphy.hpp"
 
 #include "../meta_info.hpp"
 
@@ -17,6 +18,13 @@ namespace WikiMarkup { namespace Components
         virtual void fromJson(JSON::ObjectReader const& reader) = 0;
 
         virtual IExportableComponent* clone() const = 0;
+
+        virtual ~IExportableComponent() = default;
     };
 }
 }
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+    WikiMarkup::Components::IExportableComponent
+)

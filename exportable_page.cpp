@@ -69,8 +69,6 @@ namespace WikiMarkup
         buf.push(JSON::BeautifiedStreamWrapper());
         buf.push(json);
 
-        std::stringstream result;
-
         return json.str();
     }
 //-----------------------------------------------------------------------------------

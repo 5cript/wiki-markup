@@ -24,8 +24,26 @@ namespace WikiMarkup
 
     private:
         bool parseSection(ParserContext& ctx, std::string const& prePush);
+
+        /**
+         *  Separate Markup into text sections.
+         */
         void parseSections();
+
+        /**
+         *  Parse each text section from "parseSections" and extract links, tables etc.
+         */
         void parseTexts();
+
+        /**
+         *  Recombine Texts with links to form an image section, if the link is an image
+         */
+        void collapse();
+
+        /**
+         *
+         */
+        void enrichText();
 
         boost::optional <Components::Table> tryParseTable(ParserContext& ctx) const;
         boost::optional <Components::Link> tryParseLink(ParserContext& ctx) const;

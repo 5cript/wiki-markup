@@ -5,6 +5,7 @@
 
 #include "post_processors/link.hpp"
 
+#include "../configuration.hpp"
 #include "../conversion.hpp"
 
 namespace WikiMarkup { namespace Components
@@ -99,6 +100,31 @@ namespace WikiMarkup { namespace Components
     Link* Link::clone() const
     {
         return new Link(*this);
+    }
+//-----------------------------------------------------------------------------------
+    bool Link::isImage() const
+    {
+        if (url.path.empty())
+            return false;
+
+        auto fileName = url.path.back();
+        auto fromBack = [&fileName](int len)
+        {
+            return fileName.substr(fileName.length() - len, len);
+        };
+
+        auto hasImageExtension = [&fileName, &fromBack]() -> bool
+        {
+            auto config = Configuration::getInstance().getReadOnly();
+            for (auto const& ext : config.imageExtensions)
+            {
+                if (ext == fromBack(ext.length()))
+                    return true;
+            }
+            return false;
+        };
+
+        return prefix == "File" && hasImageExtension();
     }
 //####################################################################################
 } // namespace Components

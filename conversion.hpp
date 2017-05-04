@@ -1,5 +1,6 @@
 #pragma once
 
+/*
 #ifndef Q_MOC_RUN // A Qt workaround, for those of you who use Qt
 #   include "SimpleJSON/parse/jsd_convenience.hpp"
 #   include "SimpleJSON/stringify/jss_fusion_adapted_struct.hpp"
@@ -17,7 +18,19 @@
 #   include "SimpleJSON/stringify/jss_fundamental.hpp"
 #   include "SimpleJSON/parse/jsd_map.hpp"
 #   include "SimpleJSON/stringify/jss_map.hpp"
+#   include "SimpleJSON/stringify/jss_smart_ptr.hpp"
+#   include "SimpleJSON/parse/jsd_smart_ptr.hpp"
 #endif
+*/
+
+#ifndef Q_MOC_RUN // A Qt workaround, for those of you who use Qt
+#   include "SimpleJSON/parse/jsd.hpp"
+#   include "SimpleJSON/parse/jsd_convenience.hpp"
+#   include "SimpleJSON/stringify/jss.hpp"
+#   include "SimpleJSON/stringify/jss_fusion_adapted_struct.hpp"
+#endif
+
+#include "SimpleJSON/utility/polymorphy.hpp"
 
 #include "SimpleJSON/utility/polymorphy.hpp"
 #include "SimpleJSON/utility/object.hpp"
