@@ -11,14 +11,14 @@
 namespace WikiMarkup
 {
 //#####################################################################################################################
-    Components::IComponent* promoteComponent(Components::IExportableComponent* exportable)
+    Components::IComponent* promoteComponent(Components::IExportableComponent const* exportable)
     {
         using namespace Components;
 
         auto json = exportable->toJson();
 
         #define CREATE_BY_NAME(Component) \
-            if(dynamic_cast <Exportable ## Component*> (exportable)) \
+            if(dynamic_cast <Exportable ## Component const*> (exportable)) \
             { \
                 component.reset(new Component); \
                 fromJson <Component> (*static_cast <Component*> (component.get()), json, true); \

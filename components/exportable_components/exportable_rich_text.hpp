@@ -4,6 +4,7 @@
 #include "exportable_text.hpp"
 #include "exportable_link.hpp"
 #include "exportable_html.hpp"
+#include "exportable_list.hpp"
 
 #include "SimpleUtil/value_ptr/value_ptr.hpp"
 

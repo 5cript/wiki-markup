@@ -4,6 +4,8 @@
 #include "text.hpp"
 #include "link.hpp"
 
+#include "../promote_component.hpp"
+
 namespace WikiMarkup { namespace Components
 {
 //#####################################################################################################################
@@ -22,18 +24,16 @@ namespace WikiMarkup { namespace Components
         result += comment(getRegionStartComment()).toMarkup();
         for (auto const& i : preImage)
         {
-            auto text = Text{};
-            text.data = i.data;
-            result += text.toMarkup();
+            std::unique_ptr <IComponent> promoted {promoteComponent(&i)};
+            result += promoted->toMarkup();
         }
         Link l;
         l.fromJson(link.toJson());
         result += l.toMarkup();
         for (auto const& i : postImage)
         {
-            auto text = Text{};
-            text.data = i.data;
-            result += text.toMarkup();
+            std::unique_ptr <IComponent> promoted {promoteComponent(&i)};
+            result += promoted->toMarkup();
         }
         result += comment(getRegionEndComment()).toMarkup();
 

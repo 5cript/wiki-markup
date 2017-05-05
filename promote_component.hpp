@@ -5,5 +5,5 @@
 
 namespace WikiMarkup
 {
-    Components::IComponent* promoteComponent(Components::IExportableComponent* exportable);
+    Components::IComponent* promoteComponent(Components::IExportableComponent const* exportable);
 }

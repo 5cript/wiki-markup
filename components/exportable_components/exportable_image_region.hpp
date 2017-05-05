@@ -2,6 +2,7 @@
 
 #include "exportable_component.hpp"
 #include "exportable_text.hpp"
+#include "exportable_rich_text.hpp"
 #include "exportable_link.hpp"
 
 namespace WikiMarkup { namespace Components {
@@ -10,9 +11,9 @@ namespace WikiMarkup { namespace Components {
                                  , public JSON::Stringifiable <ExportableText>
                                  , public JSON::Parsable <ExportableText>
     {
-        std::vector <ExportableText> preImage;
+        std::vector <ExportableRichText> preImage;
         ExportableLink link;
-        std::vector <ExportableText> postImage;
+        std::vector <ExportableRichText> postImage;
 
         std::string toJson() const override;
         void fromJson(std::string const& str) override;

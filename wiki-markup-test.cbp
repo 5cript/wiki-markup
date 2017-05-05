@@ -256,11 +256,14 @@
 		<Unit filename="components/exportable_components/exportable_table.hpp" />
 		<Unit filename="components/exportable_components/exportable_text.cpp" />
 		<Unit filename="components/exportable_components/exportable_text.hpp" />
+		<Unit filename="components/exportable_components_jspoly.hpp" />
 		<Unit filename="components/format.hpp" />
 		<Unit filename="components/header.cpp" />
 		<Unit filename="components/header.hpp" />
 		<Unit filename="components/horizontal_line.cpp" />
 		<Unit filename="components/horizontal_line.hpp" />
+		<Unit filename="components/html.cpp" />
+		<Unit filename="components/html.hpp" />
 		<Unit filename="components/image_region.cpp" />
 		<Unit filename="components/image_region.hpp" />
 		<Unit filename="components/link.cpp" />
@@ -286,6 +289,7 @@
 		<Unit filename="components/parsers/link.hpp" />
 		<Unit filename="components/parsers/list.hpp" />
 		<Unit filename="components/parsers/properties.hpp" />
+		<Unit filename="components/parsers/raw_html.hpp" />
 		<Unit filename="components/parsers/table.hpp" />
 		<Unit filename="components/parsers/uri/authority.hpp" />
 		<Unit filename="components/parsers/uri/domain.hpp" />
@@ -302,6 +306,8 @@
 		<Unit filename="components/post_processors/table.hpp" />
 		<Unit filename="components/preformatted_text.cpp" />
 		<Unit filename="components/preformatted_text.hpp" />
+		<Unit filename="components/rich_text.cpp" />
+		<Unit filename="components/rich_text.hpp" />
 		<Unit filename="components/table.cpp" />
 		<Unit filename="components/table.hpp" />
 		<Unit filename="components/table/table_caption.hpp" />
@@ -339,6 +345,8 @@
 		<Unit filename="parser/token.hpp" />
 		<Unit filename="parser/token_classification.cpp" />
 		<Unit filename="parser/token_classification.hpp" />
+		<Unit filename="promote_component.cpp" />
+		<Unit filename="promote_component.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

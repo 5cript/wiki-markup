@@ -4,6 +4,8 @@
 #include "context_navigation.hpp"
 #include "../configuration.hpp"
 
+#include "../components/exportable_components/exportable_image_region.hpp"
+
 #include <iostream>
 
 namespace WikiMarkup
@@ -188,16 +190,19 @@ namespace WikiMarkup
         // first: MWEdit specific approach using comments.
         auto& components = page_.getComponents();
         bool imageRegion = false;
+        bool linkPassed = false;
+        std::unique_ptr <ExportableImageRegion> region{};
         for (auto const& component : components)
         {
             if (COMPONENT_CHECK(CommentText))
             {
                 auto* ptr = static_cast <CommentText*> (component.get());
-                if (ptr->data == "WIKI_EDITOR_START_IMAGE_REGION")
+                if (ptr->data == ExportableImageRegion::getRegionStartComment())
                 {
                     imageRegion = true;
+                    region.reset(new ExportableImageRegion);
                 }
-                else if (ptr->data == "WIKI_EDITOR_END_IMAGE_REGION")
+                else if (ptr->data == ExportableImageRegion::getRegionEndComment())
                 {
                     if (!imageRegion)
                         throw std::runtime_error ("image region end marker without start");
@@ -206,7 +211,30 @@ namespace WikiMarkup
 
             else if (imageRegion)
             {
-                //if (COMPONENT_CHECK(Text))
+                if (COMPONENT_CHECK(RichText))
+                {
+                    if (!linkPassed)
+                        region->preImage.push_back(*dynamic_cast <ExportableRichText*> (component.get()));
+                    else
+                        region->postImage.push_back(*dynamic_cast <ExportableRichText*> (component.get()));
+                }
+                else if (COMPONENT_CHECK(Link))
+                {
+                    auto* link = static_cast <Link*> (component.get());
+                    if (link->isImage())
+                    {
+                        if (linkPassed)
+                            throw std::runtime_error ("This implementation does not allow multiple images within one region");
+                        linkPassed = true;
+                        region->link = *dynamic_cast <ExportableLink*> (link);
+                    }
+                }
+                else
+                {
+                    if (!linkPassed)
+                        throw std::runtime_error ("no image within image region");
+                    imageRegion = false;
+                }
             }
         }
     }
