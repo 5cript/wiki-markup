@@ -41,13 +41,14 @@ namespace WikiMarkup
         void collapse();
 
         /**
-         *
+         *  Joins links and html together to rich text.
          */
         void enrichText();
 
         boost::optional <Components::Table> tryParseTable(ParserContext& ctx) const;
         boost::optional <Components::Link> tryParseLink(ParserContext& ctx) const;
         boost::optional <Components::CommentText> tryParseComment(ParserContext& ctx) const;
+        boost::optional <Components::Html> tryParseHtml(ParserContext& ctx) const;
 
     private:
         Page page_;

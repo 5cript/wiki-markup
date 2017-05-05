@@ -112,6 +112,11 @@ namespace WikiMarkup
             // now parse each of the texts for other components.
             while(ctx.hasMoreToRead())
             {
+                // Html
+                auto html = tryParseHtml(ctx);
+                if (finalizeSpecialComponent(html, textAccum, page_))
+                    continue;
+
                 // Tables
                 auto table = tryParseTable(ctx);
                 if (finalizeSpecialComponent(table, textAccum, page_))
@@ -135,7 +140,41 @@ namespace WikiMarkup
             pushTextToPage(textAccum, page_);
         }
 
-        tempPage.dumpComponentNames(std::cout) << "\n";
+        // Reset
+        /*
+        tempPage = page_;
+        page_.clear();
+        auto const& components2 = tempPage.getComponents();
+
+        // LEVEL 2 -> HTML extraction
+        for (auto const& i : components2)
+        {
+            auto* component = i.get();
+            std::string raw;
+
+            if (dynamic_cast <Text*> (component) != nullptr)
+                raw = dynamic_cast <Text*> (component)->getRaw();
+            else {
+                page_.appendComponent(*i);
+                continue;
+            }
+
+            ParserContext ctx(raw);
+            std::string textAccum;
+
+            while(ctx.hasMoreToRead())
+            {
+                auto html = tryParseHtml(ctx);
+                if (finalizeSpecialComponent(html, textAccum, page_))
+                    continue;
+
+                textAccum.push_back(ctx.get());
+            }
+            pushTextToPage(textAccum, page_);
+        }
+        */
+
+        //tempPage.dumpComponentNames(std::cout) << "\n";
         page_.dumpComponentNames(std::cout) << "\n";
     }
 //-----------------------------------------------------------------------------------
@@ -170,6 +209,11 @@ namespace WikiMarkup
                 //if (COMPONENT_CHECK(Text))
             }
         }
+    }
+//-----------------------------------------------------------------------------------
+    void PageParser::enrichText()
+    {
+
     }
 //-----------------------------------------------------------------------------------
     boost::optional <Table> PageParser::tryParseTable(ParserContext& ctx) const
@@ -231,6 +275,22 @@ namespace WikiMarkup
         forwardByParsingResult(ctx, result);
 
         return boost::optional <CommentText> {comment};
+    }
+//-----------------------------------------------------------------------------------
+    boost::optional <Components::Html> PageParser::tryParseHtml(ParserContext& ctx) const
+    {
+        ContextNavigator navi(&ctx);
+        if (!navi.verifyCharSequence("<"))
+            return boost::none;
+
+        Html html;
+        auto result = html.fromMarkup(ctx.getSlice());
+        if (result == ParsingResult::FAIL)
+            return boost::none;
+
+        forwardByParsingResult(ctx, result);
+
+        return boost::optional <Html> {html};
     }
 //-----------------------------------------------------------------------------------
     void PageParser::parseSections()

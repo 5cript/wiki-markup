@@ -17,15 +17,22 @@ namespace WikiMarkup { namespace Components
     {
         std::stringstream sstr;
 
-        std::cout << url.scheme << "\n";
-        std::cout << url.authority.host << "\n";
+        //std::cout << url.scheme << "\n";
+        //std::cout << url.authority.host << "\n";
 
         auto appendAttributes = [&, this]() {
+            for (auto const& attr : attributes)
+            {
+                sstr << '|';
+                sstr << attr;
+            }
+            /*
             if (!attributes.empty())
             {
                 sstr << '|';
                 sstr << attributes.front();
             }
+            */
         };
 
         auto printRedirect = [&, this]() {

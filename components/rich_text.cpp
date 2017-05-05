@@ -1,35 +1,36 @@
-#include "exportable_html.hpp"
-
-#include "../exportable_components_jspoly.hpp"
-#include "../../conversion.hpp"
+#include "rich_text.hpp"
 
 namespace WikiMarkup { namespace Components
 {
 //#####################################################################################################################
-    ExportableHtml::ExportableHtml(HtmlTreeNode const& tree)
-        : tree{tree}
+    WMC_EXPORTABLE_DELEGATION_SOURCE(RichText)
+//---------------------------------------------------------------------------------------------------------------------
+    std::string RichText::toMarkup()
     {
-
+        throw std::runtime_error ("UNIMPLEMENTED");
     }
 //---------------------------------------------------------------------------------------------------------------------
-    std::string ExportableHtml::toJson() const
+    ParsingResult RichText::fromMarkup(std::string const& mu)
     {
-        return WikiMarkup::toJson(*this, "Html");
+        throw std::runtime_error ("UNIMPLEMENTED");
     }
 //---------------------------------------------------------------------------------------------------------------------
-    void ExportableHtml::fromJson(std::string const& str)
+    MetaInfo RichText::getMetaInfo() const
     {
-        WikiMarkup::fromJson(*this, str);
+        return RichText::getMetaInfoS();
     }
 //---------------------------------------------------------------------------------------------------------------------
-    void ExportableHtml::fromJson(JSON::ObjectReader const& reader)
+    MetaInfo RichText::getMetaInfoS()
     {
-        reader.get("data", *this);
+        return {
+            "RichText",
+            true
+        };
     }
 //---------------------------------------------------------------------------------------------------------------------
-    ExportableHtml* ExportableHtml::clone() const
+    RichText* RichText::clone() const
     {
-        return new ExportableHtml(*this);
+        return new RichText(*this);
     }
 //#####################################################################################################################
 }

@@ -4,7 +4,7 @@
 
 namespace WikiMarkup { namespace Components
 {
-    struct ExportableHorizontalLine : public IExportableComponent
+    struct ExportableHorizontalLine : public virtual IExportableComponent
                                     , public JSON::Stringifiable <ExportableHorizontalLine>
                                     , public JSON::Parsable <ExportableHorizontalLine>
     {

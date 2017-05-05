@@ -53,7 +53,7 @@ namespace WikiMarkup
     }
 
     template <typename T>
-    void fromJson(T& whereTo, std::string const& json)
+    void fromJson(T& whereTo, std::string const& json, bool dataEx = false)
     {
         JSON::ParsingOptions options;
         options.strings_are_binary = true;
@@ -61,7 +61,10 @@ namespace WikiMarkup
         auto tree = JSON::parse_json(json);
         JSON::ObjectReader reader(&tree, options);
 
-        reader.get("", whereTo);
+        if (!dataEx)
+            reader.get("", whereTo);
+        else
+            reader.get("data", whereTo);
 
         /*
         auto name = reader.get <std::string> ("name");

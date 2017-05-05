@@ -6,7 +6,7 @@
 
 namespace WikiMarkup { namespace Components {
 
-    struct ExportableImageRegion : public IExportableComponent
+    struct ExportableImageRegion : public virtual IExportableComponent
                                  , public JSON::Stringifiable <ExportableText>
                                  , public JSON::Parsable <ExportableText>
     {

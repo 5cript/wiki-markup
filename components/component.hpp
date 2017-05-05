@@ -13,7 +13,7 @@ namespace WikiMarkup { namespace Components {
     using namespace sutil;
     using namespace TwistedSpirit;
 
-    class IComponent : public IExportableComponent
+    class IComponent : public virtual IExportableComponent
     {
     public:
         virtual ~IComponent() = default;

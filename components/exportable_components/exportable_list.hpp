@@ -10,7 +10,7 @@
 
 namespace WikiMarkup { namespace Components
 {
-    struct ExportableList : public IExportableComponent
+    struct ExportableList : public virtual IExportableComponent
                           , public JSON::Stringifiable <ExportableList>
                           , public JSON::Parsable <ExportableList>
     {

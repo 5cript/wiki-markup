@@ -10,3 +10,5 @@
 #include "text.hpp"
 #include "horizontal_line.hpp"
 #include "preformatted_text.hpp"
+#include "html.hpp"
+#include "rich_text.hpp"

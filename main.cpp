@@ -27,7 +27,9 @@ int main()
 
     std::cout << parser.getPage().getComponents().size() << "\n";
 
-    std::cout << parser.getPage().toJson() << "\n";
+    std::cout << parser.getPage().toJson() << "\n\n";
+
+    std::cout << parser.getPage().toMarkup() << "\n\n";
 
     /*
     auto page = parser.getPage();

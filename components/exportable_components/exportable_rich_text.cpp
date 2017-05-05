@@ -7,6 +7,8 @@
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/copy.hpp>
 
+#include "../exportable_components_jspoly.hpp"
+
 namespace WikiMarkup { namespace Components
 {
 //#####################################################################################################################

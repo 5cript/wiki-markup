@@ -9,3 +9,6 @@
 #include "exportable_text.hpp"
 #include "exportable_horizontal_line.hpp"
 #include "exportable_preformatted_text.hpp"
+#include "exportable_html.hpp"
+#include "exportable_image_region.hpp"
+#include "exportable_rich_text.hpp"

@@ -47,6 +47,11 @@ namespace WikiMarkup
         return components_;
     }
 //-----------------------------------------------------------------------------------
+    std::add_lvalue_reference <decltype(Page::components_) const>::type Page::getComponents() const
+    {
+        return components_;
+    }
+//-----------------------------------------------------------------------------------
     std::string Page::toMarkup() const
     {
         std::string result;

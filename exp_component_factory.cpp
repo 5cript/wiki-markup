@@ -27,6 +27,9 @@ namespace WikiMarkup
         else CREATE_BY_NAME(ExportablePreformattedText)
         else CREATE_BY_NAME(ExportableTable)
         else CREATE_BY_NAME(ExportableText)
+        else CREATE_BY_NAME(ExportableHtml)
+        else CREATE_BY_NAME(ExportableRichText)
+        else CREATE_BY_NAME(ExportableImageRegion)
         else return nullptr;
 
         component->fromJson(jsonData);

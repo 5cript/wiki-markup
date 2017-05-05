@@ -29,6 +29,17 @@ namespace WikiMarkup
         }
 
         /**
+         *  Appends one page to another.
+         */
+        Page& operator+=(Page const& page)
+        {
+            auto const& components = page.getComponents();
+            for (auto const& i : components)
+                appendComponent(i->clone());
+            return *this;
+        }
+
+        /**
          *  Adds a component to the page.
          */
         void appendComponent(Components::IComponent const& component);
@@ -42,6 +53,11 @@ namespace WikiMarkup
          *  Get all components of the page.
          */
         std::add_lvalue_reference <decltype(components_)>::type getComponents();
+
+        /**
+         *  Get all (immutable) components of the page.
+         */
+        std::add_lvalue_reference <decltype(components_) const>::type getComponents() const;
 
         /**
          *  Wipe the page clear.

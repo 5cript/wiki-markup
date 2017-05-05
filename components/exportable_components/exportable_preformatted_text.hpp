@@ -11,9 +11,9 @@ namespace WikiMarkup { namespace Components
         std::string data;
     };
 
-    struct ExportablePreformattedText : public IExportableComponent
-                                      , public JSON::Stringifiable <PreformattedLine>
-                                      , public JSON::Parsable <PreformattedLine>
+    struct ExportablePreformattedText : public virtual IExportableComponent
+                                      , public JSON::Stringifiable <ExportablePreformattedText>
+                                      , public JSON::Parsable <ExportablePreformattedText>
     {
         std::vector <PreformattedLine> lines;
 

@@ -9,7 +9,7 @@ namespace WikiMarkup { namespace Components
 {
 	class TableAccessProxy;
 
-	struct ExportableTable : public IExportableComponent
+	struct ExportableTable : public virtual IExportableComponent
 						   , public JSON::Stringifiable <ExportableTable>
 						   , public JSON::Parsable <ExportableTable>
 	{

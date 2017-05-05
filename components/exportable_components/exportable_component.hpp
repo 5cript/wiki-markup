@@ -1,10 +1,13 @@
 #pragma once
 
 #include <string>
-#include "SimpleJSON/utility/object.hpp"
 #include "../adaption.hpp"
 #include "../../json_introspection.hpp"
+
+#include "SimpleJSON/utility/object.hpp"
 #include "SimpleJSON/utility/polymorphy.hpp"
+
+#include "SimpleUtil/value_ptr/value_ptr.hpp"
 
 #include "../meta_info.hpp"
 

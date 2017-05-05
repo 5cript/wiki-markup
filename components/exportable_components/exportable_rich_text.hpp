@@ -13,7 +13,7 @@
 
 namespace WikiMarkup { namespace Components
 {
-    struct ExportableRichText : public IExportableComponent
+    struct ExportableRichText : public virtual IExportableComponent
                               , public JSON::Stringifiable <ExportableRichText>
                               , public JSON::Parsable <ExportableRichText>
     {
@@ -28,14 +28,6 @@ namespace WikiMarkup { namespace Components
     };
 }
 }
-
-JSON_DECLARE_POLYMORPHIC
-(
-    WikiMarkup::Components::IExportableComponent,
-    (WikiMarkup::Components::ExportableText)
-    (WikiMarkup::Components::ExportableLink)
-    (WikiMarkup::Components::ExportableHtml)
-)
 
 BOOST_FUSION_ADAPT_STRUCT
 (
