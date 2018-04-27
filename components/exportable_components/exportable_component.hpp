@@ -27,7 +27,10 @@ namespace WikiMarkup { namespace Components
 }
 }
 
+/*
 BOOST_FUSION_ADAPT_STRUCT
 (
-    WikiMarkup::Components::IExportableComponent
+	WikiMarkup::Components::IExportableComponent,
+	()
 )
+*/
